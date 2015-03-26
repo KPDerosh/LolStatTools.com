@@ -1,0 +1,48 @@
+#LOLStatsForm{
+    border: 20px;
+}
+#recentGameStats{
+    position: relative;
+    background-color: aliceblue;
+    border-color: black;
+    border: 20px;
+    width: 350px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    left: 20px;
+    top: 20px;
+}
+#LOLStatsFormDiv{
+    height: 100px;
+}
+#summonerGameAveragesTitle{
+    text-align: center;
+    font-size: 40px;
+    font-family: sans-serif;
+}
+#averageGameStatsTable{
+    text-align: left;
+    font-size: 20px;
+    font-family: sans-serif;
+    position: relative;
+}
+#summonerGameAveragesTable{
+   
+}
+table#summonerGameAveragesTable th{
+    color: blue;
+    font-size: 20px;
+    position: relative;
+    left: 0px;
+    padding-right: 100px;
+}
+table#summonerGameAveragesTable tr{
+    color: green;
+    font-size: 20px;
+    position: relative;
+}
+#summonerStats{
+     position: relative;
+}
+
