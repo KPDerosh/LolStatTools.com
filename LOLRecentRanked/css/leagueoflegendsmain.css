@@ -27,6 +27,9 @@
     font-family: sans-serif;
     position: relative;
 }
+#summonerID{
+    
+}
 #summonerGameAveragesTable{
    
 }
@@ -45,4 +48,26 @@ table#summonerGameAveragesTable tr{
 #summonerStats{
      position: relative;
 }
+/* BASIC LINKS=======================================*/
+a:link {
+    text-decoration: none;
+    color:black;
+}
 
+/* visited link */
+a:visited {
+    color:white;
+}
+
+/* mouse over link */
+a:hover {
+    color:white;
+}
+
+/* selected link */
+a:active {
+    color:black;
+}
+/* End Basic LINKS==================================*/
+
+    

@@ -8,7 +8,6 @@
 
 <body>
 	<!-- The Main header of the index page. !-->
-    
 	<div id="wrapper">
 		<div id="header">
 			<h1>LOL Stat Tools</h1>
@@ -21,8 +20,6 @@
 				<a id="recentGameStatsLink" href="./LOLRecentRanked/LOLRecentRanked.php">Recent Ranked Averages</a>
 			</th>
 		</table>
-	</div>			
-			
-	<hr>
+	</div>	
 </body>
 </html>
