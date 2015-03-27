@@ -31,10 +31,9 @@
     </div>
     <div id="summonerStats">
         <div id="displayStats" style="display:none">
-            <div id="summonerID">Summoner ID: </div> <!-- TODO: MAKEOVER DIV TO MAKE LOOK NICE !-->
-            <div id="summonerGameAveragesTitle">Summoner Game Averages</div>
-            
-                <table id="summonerGameAveragesTable">
+            <div id="summonerGameAveragesTitle"></div>
+                
+                <table id="summonerGameAveragesTable" class="statstable">
                     <tr>
                         <th id="sumGameAvgTableGameType" class="sumGameAvgTableHeader"></th>
                         <th id="sumGameAvgTableWins"     class="sumGameAvgTableHeader"></th>
@@ -53,24 +52,33 @@
                         <td id="AVGQuadras"></td>
                         <td id="AVGPentas"></td>
                     </tr>
+                </table>    
+                <hr style="color:white">
+                <table id="summonerAVGDamageToChamps" class="statstable">
                     <tr>
-                        <td><h2>Damages Given (DTC - Damage To Champions)</h2></td>
+                        <th colspan="3">Damages Given (DTC - Damage To Champions)</th>
                     </tr>
                     <tr>
                         <td id="AVGPhysicalDTC"></td>
                         <td id="AVGMagicDTC"></td>
                         <td id="AVGTrueDTC"></td>
                     </tr>
+                </table>
+                <hr style="color:white">
+                <table id="summonerAVGDamageTFCChamps" class="statstable">
                     <tr>
-                        <td><h2>Damages Taken (TFC - Taken From Champs)</h2></td>
+                        <th colspan="3">Damages Taken (TFC - Taken From Champs)</th>
                     </tr>
                     <tr>
                         <td id="AVGPhysicalTFC"></td>
                         <td id="AVGMagicTFC"></td>
                         <td id="AVGTrueTFC"></td>
                     </tr>
+                </table>
+                <hr style="color:white">
+                <table id="summonerAVGDamageCS" class="statstable">
                     <tr>
-                        <td><h2>Creep SCORES!!</h2></td>
+                        <th colspan="5">Creep SCORES!!</th>
                     </tr>
                     <tr>
                         <td id="AVGTotalMinions"></td>
@@ -79,8 +87,11 @@
                         <td id="AVGEnemyMonsters"></td>
                         <td id="AVGGoldEarned"></td>
                     </tr>
+                </table>
+                <hr style="color:white">
+                <table id="summonerAVGWards" class="statstable">
                     <tr>
-                        <td><h2>WARDS!!</h2></td>
+                        <th colspan="4">WARDS!!</th>
                     </tr>
                     <tr>
                         <td id="AVGVWards"></td>
@@ -88,24 +99,24 @@
                         <td id="AVGWardsPlaced"></td>
                         <td id="AVGWardsKilled"></td>
                     </tr>
+                </table>
+                <hr style="color:white">
+                <table id="summonerAVGMisc" class="statstable">
                     <tr>
-                        <td><h2>MISC!!</h2></td>
+                        <th colspan="2">MISC!!</th>
                     </tr>
                     <tr>
                         <td id="AVGtowersDestroyed"></td>
                         <td id="AVGCCTime"></td>
-                        
                     </tr>    
                 </table>
         </div>
     </div>
     <script>
         function getStats(){
-            alert("Getting Stats");
             $(document).ready(function(){
                 var summonerName = document.getElementById('summonerName').value;
                 var sumIdNum;
-                alert(summonerName);
                 $.ajax({
                     type: 'GET',
                     url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9',
@@ -118,8 +129,6 @@
                             type: 'GET',
                             url: 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/'+data[sumIdNum].id+'?rankedQueues=RANKED_SOLO_5x5&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9',
                             success: function(data){
-                                //Add the summoners name to the Div ID: summonerID 
-                                $('#summonerID').append(summonerName);
                                 var gameType = data.matches[0].queueType;
                                 
                                 //matchDuration
@@ -202,34 +211,35 @@
                                     towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
                                     totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
                                 } 
+                                $('#summonerGameAveragesTitle').html("Summoner Game Averages: " + summonerName)
                                 $('#sumGameAvgTableWins').html("Wins : " + wins);
                                 $('#sumGameAvgTableLosses').html("Losses : " + losses);
                                 $('#sumGameAvgTableWinLoss').html("KDA: " + wins + "/" + losses + ":" + parseFloat((wins/15) * 100).toFixed(2) + "%");
-                                $('#AVGKills').html("AVG Kills " + parseFloat(kills/15).toFixed(2));
-                                $('#AVGDeaths').html("AVG Deaths " + parseFloat(deaths/15).toFixed(2));
-                                $('#AVGAssists').html("AVG Assists " + parseFloat(assists/15).toFixed(2));
-                                $('#AVGKDA').html("AVG KDA " + parseFloat((kills+assists)/deaths).toFixed(2) + "1");
-                                $('#AVGDoubles').html("AVG Doubles " + parseFloat(doubleKills/15).toFixed(2));
-                                $('#AVGTriples').html("AVG Triples " + parseFloat(tripKills/15).toFixed(2));
-                                $('#AVGQuadras').html("AVG Quadras " + parseFloat(quadraKills/15).toFixed(2));
-                                $('#AVGPentas').html("AVG Pentas " + parseFloat((pentaKills/15).toFixed(2)));
-                                $('#AVGPhysicalDTC').html("AVG Physical DTC " + parseFloat((physicalDamageToChamps/15).toFixed(2)));
-                                $('#AVGMagicDTC').html("AVG Magic DTC " + parseFloat((magicDamageToChamps/15).toFixed(2)));
-                                $('#AVGTrueDTC').html("AVG True DTC " + parseFloat((trueDamageToChamps/15).toFixed(2)));
-                                $('#AVGPhysicalTFC').html("AVG Physical TFC " + parseFloat((physicalDamageTaken/15).toFixed(2)));
-                                $('#AVGMagicTFC').html("AVG Magic TFC " + parseFloat((magicDamageTaken/15).toFixed(2)));
-                                $('#AVGTrueTFC').html("AVG True TFC " + parseFloat((trueDamageTaken/15).toFixed(2)));
-                                $('#AVGTotalMinions').html("AVG Total Minions " + parseFloat((totalMinionsKilled/15).toFixed(2)));
-                                $('#AVGTotalMonsters').html("AVG Total Monsters " + parseFloat((monstersKilled/15).toFixed(2)));
-                                $('#AVGTeamMonsters').html("AVG Team Jungle Monsters " + parseFloat((teamMonsters/15).toFixed(2)));
-                                $('#AVGEnemyMonsters').html("AVG Enemy Jungle Monsters " + parseFloat((enemyMonsters/15).toFixed(2)));
-                                $('#AVGGoldEarned').html("AVG Gold Earned " + parseFloat((goldEarned/15).toFixed(2)));
-                                $('#AVGVWards').html("AVG Vision Wards " + parseFloat((visionWards/15).toFixed(2)));
-                                $('#AVGSWards').html("AVG Sight Wards " + parseFloat((sightWards/15).toFixed(2)));
-                                $('#AVGWardsPlaced').html("AVG Wards Placed " + ((wardsPlaced/15).toFixed(2)));
-                                $('#AVGWardsKilled').html("AVG Wards Killed " + parseFloat((wardsKilled/15).toFixed(2)));
-                                $('#AVGtowersDestroyed').html("AVG Towers Destroyed " + parseFloat((towersDestroyed/15).toFixed(2)));
-                                $('#AVGCCTime').html("AVG CC Time Dealt " + parseFloat((totalTimeCCDealt/15).toFixed(2)));
+                                $('#AVGKills').html("AVG Kills: " + parseFloat(kills/15).toFixed(2));
+                                $('#AVGDeaths').html("AVG Deaths: " + parseFloat(deaths/15).toFixed(2));
+                                $('#AVGAssists').html("AVG Assists: " + parseFloat(assists/15).toFixed(2));
+                                $('#AVGKDA').html("AVG KDA: " + parseFloat((kills+assists)/deaths).toFixed(2) + "1");
+                                $('#AVGDoubles').html("AVG Doubles: " + parseFloat(doubleKills/15).toFixed(2));
+                                $('#AVGTriples').html("AVG Triples: " + parseFloat(tripKills/15).toFixed(2));
+                                $('#AVGQuadras').html("AVG Quadras: " + parseFloat(quadraKills/15).toFixed(2));
+                                $('#AVGPentas').html("AVG Pentas: " + parseFloat((pentaKills/15).toFixed(2)));
+                                $('#AVGPhysicalDTC').html("AVG Physical DTC: " + parseFloat((physicalDamageToChamps/15).toFixed(2)));
+                                $('#AVGMagicDTC').html("AVG Magic DTC: " + parseFloat((magicDamageToChamps/15).toFixed(2)));
+                                $('#AVGTrueDTC').html("AVG True DTC: " + parseFloat((trueDamageToChamps/15).toFixed(2)));
+                                $('#AVGPhysicalTFC').html("AVG Physical TFC: " + parseFloat((physicalDamageTaken/15).toFixed(2)));
+                                $('#AVGMagicTFC').html("AVG Magic TFC: " + parseFloat((magicDamageTaken/15).toFixed(2)));
+                                $('#AVGTrueTFC').html("AVG True TFC: " + parseFloat((trueDamageTaken/15).toFixed(2)));
+                                $('#AVGTotalMinions').html("AVG Total Minions: " + parseFloat((totalMinionsKilled/15).toFixed(2)));
+                                $('#AVGTotalMonsters').html("AVG Total Monsters: " + parseFloat((monstersKilled/15).toFixed(2)));
+                                $('#AVGTeamMonsters').html("AVG Team Jungle Monsters: " + parseFloat((teamMonsters/15).toFixed(2)));
+                                $('#AVGEnemyMonsters').html("AVG Enemy Jungle Monsters: " + parseFloat((enemyMonsters/15).toFixed(2)));
+                                $('#AVGGoldEarned').html("AVG Gold Earned: " + parseFloat((goldEarned/15).toFixed(2)));
+                                $('#AVGVWards').html("AVG Vision Wards: " + parseFloat((visionWards/15).toFixed(2)));
+                                $('#AVGSWards').html("AVG Sight Wards: " + parseFloat((sightWards/15).toFixed(2)));
+                                $('#AVGWardsPlaced').html("AVG Wards Placed: " + ((wardsPlaced/15).toFixed(2)));
+                                $('#AVGWardsKilled').html("AVG Wards Killed: " + parseFloat((wardsKilled/15).toFixed(2)));
+                                $('#AVGtowersDestroyed').html("AVG Towers Destroyed: " + parseFloat((towersDestroyed/15).toFixed(2)));
+                                $('#AVGCCTime').html("AVG CC Time Dealt: " + parseFloat((totalTimeCCDealt/15).toFixed(2)));
                                 $('displayStats').show();
                             }
                         });

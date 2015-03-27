@@ -37,7 +37,7 @@ hr {
 /* BASIC LINKS=======================================*/
 a:link {
     text-decoration: none;
-    color:black;
+    color:white;
 }
 
 /* visited link */
@@ -52,7 +52,7 @@ a:hover {
 
 /* selected link */
 a:active {
-    color:black;
+    color:white;
 }
 /* End Basic LINKS==================================*/
 
