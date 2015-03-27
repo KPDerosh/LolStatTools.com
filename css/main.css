@@ -1,0 +1,62 @@
+body {
+	
+}
+#wrapper{
+	width:100%;
+	height:115px;
+	background-color: #e5e5e5;
+}
+#header {
+	position: relative;
+	border-color:black;
+	width: 250px;
+	text-align: center;
+	float: left;
+}
+h1{
+	position : relative;
+	left: 15px;
+    color:#424242;
+    text-align: left;
+    font-family: sans-serif;
+}
+#navBar{
+	position: relative;
+	border: solid;
+	top: 37px;
+	float: left;
+}
+.navBar th{
+	width: 200px;
+	position: relative;
+	text-align: center;
+}
+hr {
+	border-radius: 5px;
+	border-width: 5px;
+	border-style: solid;
+	color: black;
+}
+/* BASIC LINKS=======================================*/
+a:link {
+    text-decoration: none;
+    color:black;
+}
+
+/* visited link */
+a:visited {
+    color:black;
+}
+
+/* mouse over link */
+a:hover {
+    color:white;
+}
+
+/* selected link */
+a:active {
+    color:black;
+}
+/* End Basic LINKS==================================*/
+
+	
