@@ -236,111 +236,107 @@
                                     
                                     matchDuration += 0;
 
-                                    var t = document.createTextNode(data.matches[i].participants[0].stats.kills);
+                                    var t = document.createTextNode("Kills: " + data.matches[i].participants[0].stats.kills + " ");
                                     div.appendChild(t);
                                     kills += data.matches[i].participants[0].stats.kills;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.deaths);
+                                    t = document.createTextNode("Deaths: " + data.matches[i].participants[0].stats.deaths + " ");
                                     div.appendChild(t);
                                     deaths += data.matches[i].participants[0].stats.deaths;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.assists);
+                                    t = document.createTextNode("Assists: " + data.matches[i].participants[0].stats.assists + " ");
                                     div.appendChild(t);
                                     assists += data.matches[i].participants[0].stats.assists;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.assists);
+                                    t = document.createTextNode("Double Kills: " + data.matches[i].participants[0].stats.doubleKills + " ");
                                     div.appendChild(t);
                                     doubleKills += data.matches[i].participants[0].stats.doubleKills;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.doubleKills);
+                                    t = document.createTextNode("Triple Kills: " + data.matches[i].participants[0].stats.tripleKills + " ");
                                     div.appendChild(t);
                                     tripKills += data.matches[i].participants[0].stats.tripleKills;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.tripleKills);
+                                    t = document.createTextNode("Quadra Kills: " + data.matches[i].participants[0].stats.quadraKills + " ");
                                     div.appendChild(t);
                                     quadraKills += data.matches[i].participants[0].stats.quadraKills;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.quadraKills);
+                                    t = document.createTextNode("Penta Kills: " + data.matches[i].participants[0].stats.pentaKills + " ");
                                     div.appendChild(t);
                                     pentaKills += data.matches[i].participants[0].stats.pentaKills;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.pentaKills);
-                                    div.appendChild(t);
-                                    totalDamageToChampions += data.matches[i].participants[0].stats.pentaKills;
-
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.physicalDamageDealtToChampions);
+                                    t = document.createTextNode("Physical DTC: " + data.matches[i].participants[0].stats.physicalDamageDealtToChampions + " ");
                                     div.appendChild(t);
                                     physicalDamageToChamps += data.matches[i].participants[0].stats.physicalDamageDealtToChampions;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.magicDamageDealtToChampions);
+                                    t = document.createTextNode("Magical DTC: " +data.matches[i].participants[0].stats.magicDamageDealtToChampions + " ");
                                     div.appendChild(t);
                                     magicDamageToChamps += data.matches[i].participants[0].stats.magicDamageDealtToChampions;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.trueDamageDealtToChampions);
+                                    t = document.createTextNode("True Damage: " + data.matches[i].participants[0].stats.trueDamageDealtToChampions + " ");
                                     div.appendChild(t);
                                     trueDamageToChamps += data.matches[i].participants[0].stats.trueDamageDealtToChampions;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.totalDamageDealtToChampions);
+                                    t = document.createTextNode("Total DTC" + data.matches[i].participants[0].stats.totalDamageDealtToChampions + " ");
                                     div.appendChild(t);
                                     totalDamageTaken += data.matches[i].participants[0].stats.totalDamageDealtToChampions;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.magicDamageTaken);
+                                    t = document.createTextNode("Magic Damage TFC: " + data.matches[i].participants[0].stats.magicDamageTaken + " ");
                                     div.appendChild(t);
                                     magicDamageTaken += data.matches[i].participants[0].stats.magicDamageTaken;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.physicalDamageTaken);
+                                    t = document.createTextNode("Physical Damage TFC: " + data.matches[i].participants[0].stats.physicalDamageTaken + " ");
                                     div.appendChild(t);
                                     physicalDamageTaken += data.matches[i].participants[0].stats.physicalDamageTaken;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.trueDamageTaken);
+                                    t = document.createTextNode("True Damage TFC: " + data.matches[i].participants[0].stats.trueDamageTaken + " ");
                                     div.appendChild(t);
                                     trueDamageTaken += data.matches[i].participants[0].stats.trueDamageTaken;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.minionsKilled);
+                                    t = document.createTextNode("CS: " + data.matches[i].participants[0].stats.minionsKilled + " ");
                                     div.appendChild(t);
                                     totalMinionsKilled += data.matches[i].participants[0].stats.minionsKilled;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.neutralMinionsKilled);
+                                    t = document.createTextNode("Neutral CS: " + data.matches[i].participants[0].stats.neutralMinionsKilled + " ");
                                     div.appendChild(t);
                                     monstersKilled += data.matches[i].participants[0].stats.neutralMinionsKilled;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle);
+                                    t = document.createTextNode("Neutral Team CS: " + data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle + " ");
                                     div.appendChild(t);
                                     teamMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.neutralMinionsKilledEnemyJungle);
+                                    t = document.createTextNode("Neutral Enemy CS: " + data.matches[i].participants[0].stats.neutralMinionsKilledEnemyJungle + " ");
                                     div.appendChild(t);
                                     enemyMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledEnemyJungle;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.goldEarned);
+                                    t = document.createTextNode("Gold Earned: " + data.matches[i].participants[0].stats.goldEarned + " ");
                                     div.appendChild(t);
                                     goldEarned  += data.matches[i].participants[0].stats.goldEarned;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.goldSpent);
+                                    t = document.createTextNode("Gold Spent: " + data.matches[i].participants[0].stats.goldSpent + " ");
                                     div.appendChild(t);
                                     goldSpent += data.matches[i].participants[0].stats.goldSpent;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.visionWardsBoughtInGame);
+                                    t = document.createTextNode("Vision Wards: " + data.matches[i].participants[0].stats.visionWardsBoughtInGame + " ");
                                     div.appendChild(t);
                                     visionWards += data.matches[i].participants[0].stats.visionWardsBoughtInGame;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.sightWardsBoughtInGame);
+                                    t = document.createTextNode("Sight Wards: " + data.matches[i].participants[0].stats.sightWardsBoughtInGame + " ");
                                     div.appendChild(t);
                                     sightWards += data.matches[i].participants[0].stats.sightWardsBoughtInGame;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.wardsPlaced);
+                                    t = document.createTextNode("Wards Placed: " + data.matches[i].participants[0].stats.wardsPlaced + " ");
                                     div.appendChild(t);
                                     wardsPlaced += data.matches[i].participants[0].stats.wardsPlaced;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.wardsKilled);
+                                    t = document.createTextNode("Wards Killed: " + data.matches[i].participants[0].stats.wardsKilled + " ");
                                     div.appendChild(t);
                                     wardsKilled += data.matches[i].participants[0].stats.wardsKilled;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.towerKills);
+                                    t = document.createTextNode("Tower Kills: " + data.matches[i].participants[0].stats.towerKills + " ");
                                     div.appendChild(t);
                                     towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
 
-                                    t = document.createTextNode(data.matches[i].participants[0].stats.totalTimeCrowdControlDealt);
+                                    t = document.createTextNode("Total CC Time Dealt: " + data.matches[i].participants[0].stats.totalTimeCrowdControlDealt + " ");
                                     div.appendChild(t);
                                     totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
 
