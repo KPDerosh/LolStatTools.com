@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Cuddly Assassin</title>
-<link rel="stylesheet" href="css/main.css">
+	<title>Cuddly Assassin</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -19,6 +19,9 @@
 			<th>
 				<a id="recentGameStatsLink" href="./LOLRecentRanked/LOLRecentRanked.php">Recent Ranked Averages</a>
 			</th>
+			<th>
+                <a id="currentGameLink" href="../CurrentGame/currentgamestats.php">Current Game</a>
+            </th>
 		</table>
 	</div>	
 </body>
