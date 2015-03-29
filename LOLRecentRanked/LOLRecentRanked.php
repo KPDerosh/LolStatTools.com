@@ -10,125 +10,122 @@
 
 <body>
     <div id="wrapper">
-        <div id="header">
-            <h1>LOL Stat Tools</h1>
-        </div>
-        <table id="navBar" class="navBar">
-            <th>
-                <a id="homeLink" href="../index.php">Home</a>
-            </th>
-            <th>
-                <a id="recentGameStatsLink" href="#">Recent Ranked Averages</a>
-            </th>
-            <th>
-                <a id="currentGameLink" href="../CurrentGame/currentgamestats.php">Current Game</a>
-            </th>
-        </table>
+        <div id="header">LOL Stat Tools</div>
     </div> 
 
-    <!-- Filter champs with this container! -->
-    <div id="champSelectContainer">
-        <table id="championFilters">
-            <tr>
-                <th style="font-size:40px">Champions</th>
-            </tr> 
-        </table>
-        <div>
-            <select style="position:relative" size="10" id="championSelectList" multiple="multiple"></select>
-        </div>
+    <div id="sideBarNav" class="sideBarNav">
+        <ul style="list-style-type:none">
+            <li><a id="homeLink" href="../index.php">Home</a></li>
+            <li><a id="recentGameStatsLink" href="#">Recent Ranked Avgs</a></li>
+            <li><a id="currentGameLink" href="../CurrentGame/currentgamestats.php">Current Game</a></li>
     </div>
 
-    <div id="LOLStatsFormDiv">
-        <legend id="recentGamesLegend">Summoner ID:</legend>
-        <input type=text id="summonerName">
-        <input id="summonerStatsButton" type="submit" name="Submit" value="Submit" onclick="getStats()">
+    <div id="statsContainer">
+        <!-- Filter champs with this container! -->
+        <div id="champSelectContainer">
+            <table id="championFilters">
+                <tr>
+                    <th style="font-size:40px">Champions</th>
+                </tr> 
+            </table>
+            <div>
+                <select style="position:relative" size="10" id="championSelectList" multiple="multiple"></select>
+            </div>
+        </div>
+
+        <div id="LOLStatsFormDiv" style="height: 50px;">
+            <legend id="recentGamesLegend">Summoner ID:</legend>
+            <input type=text id="summonerName">
+            <input id="summonerStatsButton" type="submit" name="Submit" value="Submit" onclick="getStats()">
+        </div>
+
+        <div id="summonerStats">
+            <div id="displayStats" style="display:none">
+                <div id="summonerGameAveragesTitle"></div>
+                    
+                    <table id="summonerGameAveragesTable" class="statstable">
+                        <tr>
+                            <th id="sumGameAvgTableGameType" class="sumGameAvgTableHeader"></th>
+                            <th id="sumGameAvgTableWins"     class="sumGameAvgTableHeader"></th>
+                            <th id="sumGameAvgTableLosses"   class="sumGameAvgTableHeader"></th>
+                            <th id="sumGameAvgTableWinLoss"  class="sumGameAvgTableHeader"></th>
+                        </tr> 
+                        <tr>
+                            <td id="AVGKills"></td>
+                            <td id="AVGDeaths"></td>
+                            <td id="AVGAssists"></td>
+                            <td id="AVGKDA"></td>
+                        </tr> 
+                        <tr>
+                            <td id="AVGDoubles"></td>
+                            <td id="AVGTriples"></td>
+                            <td id="AVGQuadras"></td>
+                            <td id="AVGPentas"></td>
+                        </tr>
+                    </table>
+                    <table id="summonerAVGDamageToChamps" class="statstable">
+                        <tr>
+                            <th colspan="3">Damages Given (DTC - Damage To Champions)</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGPhysicalDTC"></td>
+                            <td id="AVGMagicDTC"></td>
+                            <td id="AVGTrueDTC"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGDamageTFCChamps" class="statstable">
+                        <tr>
+                            <th colspan="3">Damages Taken (TFC - Taken From Champs)</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGPhysicalTFC"></td>
+                            <td id="AVGMagicTFC"></td>
+                            <td id="AVGTrueTFC"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGDamageCS" class="statstable">
+                        <tr>
+                            <th colspan="5">Creep SCORES!!</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGTotalMinions"></td>
+                            <td id="AVGTotalMonsters"></td>
+                            <td id="AVGTeamMonsters"></td>
+                            <td id="AVGEnemyMonsters"></td>
+                            <td id="AVGGoldEarned"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGWards" class="statstable">
+                        <tr>
+                            <th colspan="4">WARDS!!</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGVWards"></td>
+                            <td id="AVGSWards"></td>
+                            <td id="AVGWardsPlaced"></td>
+                            <td id="AVGWardsKilled"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGMisc" class="statstable">
+                        <tr>
+                            <th colspan="2">MISC!!</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGtowersDestroyed"></td>
+                            <td id="AVGCCTime"></td>
+                        </tr>    
+                    </table>
+            </div>
+        </div>
+        <hr style="color:white">
+        <div id="matchesContainer"></div>
     </div>
 
-    <div id="summonerStats">
-        <div id="displayStats" style="display:none">
-            <div id="summonerGameAveragesTitle"></div>
-                
-                <table id="summonerGameAveragesTable" class="statstable">
-                    <tr>
-                        <th id="sumGameAvgTableGameType" class="sumGameAvgTableHeader"></th>
-                        <th id="sumGameAvgTableWins"     class="sumGameAvgTableHeader"></th>
-                        <th id="sumGameAvgTableLosses"   class="sumGameAvgTableHeader"></th>
-                        <th id="sumGameAvgTableWinLoss"  class="sumGameAvgTableHeader"></th>
-                    </tr> 
-                    <tr>
-                        <td id="AVGKills"></td>
-                        <td id="AVGDeaths"></td>
-                        <td id="AVGAssists"></td>
-                        <td id="AVGKDA"></td>
-                    </tr> 
-                    <tr>
-                        <td id="AVGDoubles"></td>
-                        <td id="AVGTriples"></td>
-                        <td id="AVGQuadras"></td>
-                        <td id="AVGPentas"></td>
-                    </tr>
-                </table>    
-                <hr style="color:white">
-                <table id="summonerAVGDamageToChamps" class="statstable">
-                    <tr>
-                        <th colspan="3">Damages Given (DTC - Damage To Champions)</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGPhysicalDTC"></td>
-                        <td id="AVGMagicDTC"></td>
-                        <td id="AVGTrueDTC"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGDamageTFCChamps" class="statstable">
-                    <tr>
-                        <th colspan="3">Damages Taken (TFC - Taken From Champs)</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGPhysicalTFC"></td>
-                        <td id="AVGMagicTFC"></td>
-                        <td id="AVGTrueTFC"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGDamageCS" class="statstable">
-                    <tr>
-                        <th colspan="5">Creep SCORES!!</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGTotalMinions"></td>
-                        <td id="AVGTotalMonsters"></td>
-                        <td id="AVGTeamMonsters"></td>
-                        <td id="AVGEnemyMonsters"></td>
-                        <td id="AVGGoldEarned"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGWards" class="statstable">
-                    <tr>
-                        <th colspan="4">WARDS!!</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGVWards"></td>
-                        <td id="AVGSWards"></td>
-                        <td id="AVGWardsPlaced"></td>
-                        <td id="AVGWardsKilled"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGMisc" class="statstable">
-                    <tr>
-                        <th colspan="2">MISC!!</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGtowersDestroyed"></td>
-                        <td id="AVGCCTime"></td>
-                    </tr>    
-                </table>
-        </div>
-    </div>
-    <hr style="color:white">
-    <div id="matchesContainer"></div>
+
     <script>
         $(document).ready(function(){
             $.ajax({
@@ -166,6 +163,7 @@
                 var sumIdNum;
                 var CSVListOfChamps = $('select#championSelectList').val();
                 var CSVChampsNoSpace = CSVListOfChamps.toString().replace(/\s/g,"");
+
                 $.ajax({
                     type: 'GET',
                     url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9',
@@ -236,110 +234,129 @@
                                     
                                     matchDuration += 0;
 
-                                    var t = document.createTextNode("Kills: " + data.matches[i].participants[0].stats.kills + " ");
-                                    div.appendChild(t);
+                                    //Create a div to contain the kda for the match on the given summoner.
+                                    var matchTable = document.createElement("TABLE");
+                                    var header = matchTable.createTHead();
+                                    header.className="matchTableHeader";
+                                    var row = header.insertRow(0);
+                                    var cell = row.insertCell(0);
+                                    cell.innerHTML = "Game Type: Ranked Solo Queue";
+                                    matchTable.style.width = "100%";
+                                    /*newDiv.id="matchKDA"
+                                    newDiv.style.width = "120px";
+                                    var text = document.createTextNode("KDA " 
+                                        + data.matches[i].participants[0].stats.kills + " / "
+                                        + data.matches[i].participants[0].stats.deaths + " / "
+                                        + data.matches[i].participants[0].stats.assists
+                                    );
+                                    newDiv.appendChild(text)
+                                    div.appendChild(newDiv);
                                     kills += data.matches[i].participants[0].stats.kills;
-
-                                    t = document.createTextNode("Deaths: " + data.matches[i].participants[0].stats.deaths + " ");
-                                    div.appendChild(t);
                                     deaths += data.matches[i].participants[0].stats.deaths;
-
-                                    t = document.createTextNode("Assists: " + data.matches[i].participants[0].stats.assists + " ");
-                                    div.appendChild(t);
                                     assists += data.matches[i].participants[0].stats.assists;
 
-                                    t = document.createTextNode("Double Kills: " + data.matches[i].participants[0].stats.doubleKills + " ");
-                                    div.appendChild(t);
-                                    doubleKills += data.matches[i].participants[0].stats.doubleKills;
+                                    var multiKillsContainerDiv = document.createElement("div");
+                                    multiKillsContainerDiv.id="MultiKillsContainer";
+                                    div.appendChild(multiKillsContainerDiv);
+                                    
+                                    $('MultiKillsContainer').html('<div id="testDiv">Hello</div>');
+                                    
+                                    //newDiv.id="doubleKills";
+                                    //text = document.createTextNode("Double Kills: " + data.matches[i].participants[0].stats.doubleKills + " ");
+                                    //newDiv.appendChild(text);
+                                    
+                                    //doubleKills += data.matches[i].participants[0].stats.doubleKills;
+                                    
 
-                                    t = document.createTextNode("Triple Kills: " + data.matches[i].participants[0].stats.tripleKills + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Triple Kills: " + data.matches[i].participants[0].stats.tripleKills + " ");
+                                    div.appendChild(newDiv);
                                     tripKills += data.matches[i].participants[0].stats.tripleKills;
 
-                                    t = document.createTextNode("Quadra Kills: " + data.matches[i].participants[0].stats.quadraKills + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Quadra Kills: " + data.matches[i].participants[0].stats.quadraKills + " ");
+                                    div.appendChild(newDiv);
                                     quadraKills += data.matches[i].participants[0].stats.quadraKills;
 
-                                    t = document.createTextNode("Penta Kills: " + data.matches[i].participants[0].stats.pentaKills + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Penta Kills: " + data.matches[i].participants[0].stats.pentaKills + " ");
+                                    div.appendChild(newDiv);
                                     pentaKills += data.matches[i].participants[0].stats.pentaKills;
 
-                                    t = document.createTextNode("Physical DTC: " + data.matches[i].participants[0].stats.physicalDamageDealtToChampions + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Physical DTC: " + data.matches[i].participants[0].stats.physicalDamageDealtToChampions + " ");
+                                    div.appendChild(newDiv);
                                     physicalDamageToChamps += data.matches[i].participants[0].stats.physicalDamageDealtToChampions;
 
-                                    t = document.createTextNode("Magical DTC: " +data.matches[i].participants[0].stats.magicDamageDealtToChampions + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Magical DTC: " +data.matches[i].participants[0].stats.magicDamageDealtToChampions + " ");
+                                    div.appendChild(newDiv);
                                     magicDamageToChamps += data.matches[i].participants[0].stats.magicDamageDealtToChampions;
 
-                                    t = document.createTextNode("True Damage: " + data.matches[i].participants[0].stats.trueDamageDealtToChampions + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("True Damage: " + data.matches[i].participants[0].stats.trueDamageDealtToChampions + " ");
+                                    div.appendChild(newDiv);
                                     trueDamageToChamps += data.matches[i].participants[0].stats.trueDamageDealtToChampions;
 
-                                    t = document.createTextNode("Total DTC" + data.matches[i].participants[0].stats.totalDamageDealtToChampions + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Total DTC" + data.matches[i].participants[0].stats.totalDamageDealtToChampions + " ");
+                                    div.appendChild(newDiv);
                                     totalDamageTaken += data.matches[i].participants[0].stats.totalDamageDealtToChampions;
 
-                                    t = document.createTextNode("Magic Damage TFC: " + data.matches[i].participants[0].stats.magicDamageTaken + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Magic Damage TFC: " + data.matches[i].participants[0].stats.magicDamageTaken + " ");
+                                    div.appendChild(newDiv);
                                     magicDamageTaken += data.matches[i].participants[0].stats.magicDamageTaken;
 
-                                    t = document.createTextNode("Physical Damage TFC: " + data.matches[i].participants[0].stats.physicalDamageTaken + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Physical Damage TFC: " + data.matches[i].participants[0].stats.physicalDamageTaken + " ");
+                                    div.appendChild(newDiv);
                                     physicalDamageTaken += data.matches[i].participants[0].stats.physicalDamageTaken;
 
-                                    t = document.createTextNode("True Damage TFC: " + data.matches[i].participants[0].stats.trueDamageTaken + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("True Damage TFC: " + data.matches[i].participants[0].stats.trueDamageTaken + " ");
+                                    div.appendChild(newDiv);
                                     trueDamageTaken += data.matches[i].participants[0].stats.trueDamageTaken;
 
-                                    t = document.createTextNode("CS: " + data.matches[i].participants[0].stats.minionsKilled + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("CS: " + data.matches[i].participants[0].stats.minionsKilled + " ");
+                                    div.appendChild(newDiv);
                                     totalMinionsKilled += data.matches[i].participants[0].stats.minionsKilled;
 
-                                    t = document.createTextNode("Neutral CS: " + data.matches[i].participants[0].stats.neutralMinionsKilled + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Neutral CS: " + data.matches[i].participants[0].stats.neutralMinionsKilled + " ");
+                                    div.appendChild(newDiv);
                                     monstersKilled += data.matches[i].participants[0].stats.neutralMinionsKilled;
 
-                                    t = document.createTextNode("Neutral Team CS: " + data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle + " ");
-                                    div.appendChild(t);
+                                    text = document.createTextNode("Neutral Team CS: " + data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle + " ");
+                                    div.appendChild(newDiv);
                                     teamMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle;
 
                                     t = document.createTextNode("Neutral Enemy CS: " + data.matches[i].participants[0].stats.neutralMinionsKilledEnemyJungle + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     enemyMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledEnemyJungle;
 
                                     t = document.createTextNode("Gold Earned: " + data.matches[i].participants[0].stats.goldEarned + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     goldEarned  += data.matches[i].participants[0].stats.goldEarned;
 
                                     t = document.createTextNode("Gold Spent: " + data.matches[i].participants[0].stats.goldSpent + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     goldSpent += data.matches[i].participants[0].stats.goldSpent;
 
                                     t = document.createTextNode("Vision Wards: " + data.matches[i].participants[0].stats.visionWardsBoughtInGame + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     visionWards += data.matches[i].participants[0].stats.visionWardsBoughtInGame;
 
                                     t = document.createTextNode("Sight Wards: " + data.matches[i].participants[0].stats.sightWardsBoughtInGame + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     sightWards += data.matches[i].participants[0].stats.sightWardsBoughtInGame;
 
                                     t = document.createTextNode("Wards Placed: " + data.matches[i].participants[0].stats.wardsPlaced + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     wardsPlaced += data.matches[i].participants[0].stats.wardsPlaced;
 
                                     t = document.createTextNode("Wards Killed: " + data.matches[i].participants[0].stats.wardsKilled + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     wardsKilled += data.matches[i].participants[0].stats.wardsKilled;
 
                                     t = document.createTextNode("Tower Kills: " + data.matches[i].participants[0].stats.towerKills + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
 
                                     t = document.createTextNode("Total CC Time Dealt: " + data.matches[i].participants[0].stats.totalTimeCrowdControlDealt + " ");
-                                    div.appendChild(t);
+                                    div.appendChild(newDiv);
                                     totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
-
+                                    */
+                                    div.appendChild(matchTable);
                                     document.getElementById('matchesContainer').appendChild(div);
                                 } 
                                 $('#summonerGameAveragesTitle').html("Summoner Game Averages: " + summonerName);

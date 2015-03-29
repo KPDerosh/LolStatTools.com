@@ -1,11 +1,3 @@
-#LOLStatsForm{
-    border: 20px;
-}
-
-#LOLStatsFormDiv{
-    height: 50px;
-}
-
 #summonerGameAveragesTitle{
     color: #3B3B3B;
     text-align: center;
@@ -13,33 +5,46 @@
     font-family: sans-serif;
     border: 2px;
 }
-
-#summonerID{
-}
-
 .win{
     width: 100%;
     height: 150px;
-    background-color: green;
-    border: 5px solid black;
-    padding-bottom: 10px;
+    background: -moz-linear-gradient(left,  rgba(16,255,0,1) 0%, rgba(64,255,61,0) 11%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(16,255,0,1)), color-stop(11%,rgba(64,255,61,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 11%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 11%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 11%); /* IE10+ */
+    background: linear-gradient(to right,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 11%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#10ff00', endColorstr='#0040ff3d',GradientType=1 ); /* IE6-9 */
+    border: 5px groove #363636;
 }
 .loss{
     width: 100%;
     height: 150px;
-    background-color: red;
-    border: 5px solid black;
-    padding-bottom: 10px;
+    background: -moz-linear-gradient(left,  rgba(255,0,0,1) 0%, rgba(255,61,61,0) 11%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,0,0,1)), color-stop(11%,rgba(255,61,61,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 11%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 11%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 11%); /* IE10+ */
+    background: linear-gradient(to right,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 11%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#00ff3d3d',GradientType=1 ); /* IE6-9 */
+    border: 5px groove #363636;
 }
-
+#statsContainer{
+    position:absolute;
+    margin-left: 10px;
+    left:15%;
+}
 .statstable{
     border: 5px solid black;
     color: white;
     background-color: #3B3B3B;
     width: 100%;
-    padding-top: 5px;
 }
+.matchTableHeader{
+    border: 5px solid black;
+    color: black;
 
+}
 table.statstable th {
     color: white;
     text-shadow: 2px 2px black;
