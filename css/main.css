@@ -1,4 +1,7 @@
 
+html,body{
+	background-color: #e9eaed;
+}
 html, body, #wrapper, #header, p{
 	padding:0;
 	margin:0;
@@ -7,7 +10,7 @@ html, body, #wrapper, #header, p{
 	width:100%;
 	background-color: #3B3B3B;
 	text-align: center;
-    color:#D6D6D6;
+    color:white;
     font-family: sans-serif;
     font-size: 40px;
 }
@@ -24,15 +27,15 @@ html, body, #wrapper, #header, p{
 	border-top-style: none;
 }
 .sideBarNav{
-    position: fixed;
+	z-index: 10;
+	position:absolute;
     width:15%;
     min-height:100%;
     border: 2px solid;
     color:#D6D6D6;
     background-color: #3B3B3B;
-    margin-right: 10px;
+    float:left;
     font-size: 20px;
-    float: left;
 }
 ul{
 	position:relative;
