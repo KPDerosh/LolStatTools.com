@@ -15,11 +15,8 @@
             <div id="header">LOL Stat Tools</div>
         </div>
         <ul style="list-style-type:none">
-            <a id="homeLink" href="../index.php">
-                <li class="listItem">Home</li>
-            </a>
             <a id="recentGameStatsLink" href="#">
-                <li class="listItem">Recent Ranked Avgs</li>
+                <li class="listItem">Home</li>
             </a>
             <a id="currentGameLink" href="../CurrentGame/currentgamestats.php">
                 <li class="listItem">Current Game</li>
