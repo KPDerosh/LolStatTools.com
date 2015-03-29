@@ -15,21 +15,21 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <div id="header">
-            <h1>LOL Stat Tools</h1>
+    <div id="sideBarNav" class="sideBarNav">
+        <div id="wrapper">
+            <div id="header">LOL Stat Tools</div>
         </div>
-        <table id="navBar" class="navBar">
-            <th>
-                <a id="homeLink" href="../index.php">Home</a>
-            </th>
-            <th>
-                <a id="recentGameStatsLink" href="../LOLRecentRanked/LOLRecentRanked.php">Recent Ranked Averages</a>
-            </th>
-            <th>
-                <a id="currentGameLink" href="../CurrentGame/currentgamestats.php">Current Game</a>
-            </th>
-        </table>
-    </div>
+        <ul style="list-style-type:none">
+            <a id="homeLink" href="../index.php">
+                <li class="listItem">Home</li>
+            </a>
+            <a id="recentGameStatsLink" href="../LOLRecentRanked/LOLRecentRanked.php">
+                <li class="listItem">Recent Ranked Avgs</li>
+            </a>
+            <a id="currentGameLink" href="#">
+                <li class="listItem">Current Game</li>
+            </a>
+        </ul>
+    </div>  
 </body>
 </html>

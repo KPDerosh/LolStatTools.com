@@ -8,15 +8,21 @@
 
 <body>
 	<!-- The Main header of the index page. !-->
-	<div id="wrapper">
-		<div id="header">LOL Stat Tools</div>
-		
-	</div>
+	
 	<div id="sideBarNav" class="sideBarNav">
+		<div id="wrapper">
+			<div id="header">LOL Stat Tools</div>
+		</div>
         <ul style="list-style-type:none">
-            <li><a id="homeLink" href="../index.php">Home</a></li>
-            <li><a id="recentGameStatsLink" href="../LOLRecentRanked/LOLRecentRanked.php">Recent Ranked Avgs</a></li>
-            <li><a id="currentGameLink" href="../CurrentGame/currentgamestats.php">Current Game</a></li>
+            <a id="homeLink" href="../index.php">
+            	<li class="listItem">Home</li>
+            </a>
+            <a id="recentGameStatsLink" href="../LOLRecentRanked/LOLRecentRanked.php">
+            	<li class="listItem">Recent Ranked Avgs</li>
+            </a>
+            <a id="currentGameLink" href="../CurrentGame/currentgamestats.php">
+            	<li class="listItem">Current Game</li>
+            </a>
 		</ul>
 	</div>	
 </body>
