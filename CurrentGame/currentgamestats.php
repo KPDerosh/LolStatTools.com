@@ -2,15 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Navbar tutorial from BootstrapBay.com">
-    <meta name="author" content="BootstrapBay.com">
-    <script type="text/javascript" src="docs/js/bootstrap-3.3.2.min.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
     <title>Cuddly Assassin</title>
     <link rel="stylesheet" href="../css/main.css">
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
 </head>
 
 <body>
@@ -27,5 +21,12 @@
             </a>
         </ul>
     </div>  
+
+    
+    <div id="summonerNameInput" style="position:fixed; left:15%; top:0; bottom:0; right:0; margin:auto">
+        <input type=text id="summonerName" placeholder="Summoner Name" type="submit"  onKeyDown="if(event.keyCode==13) getStats();">
+
+    </div>
+    
 </body>
 </html>
