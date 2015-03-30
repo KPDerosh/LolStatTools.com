@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Cuddly Assassin</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/leagueoflegendsmain.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/leagueoflegendsmain.css">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
 </head>
 
@@ -31,14 +31,24 @@
                     <td style="font-size:20px"><div id="LOLStatsFormDiv" style="height: 50px;">
                 <legend id="recentGamesLegend">Summoner ID:</legend>
                 <input type=text id="summonerName" type="submit"  onKeyDown="if(event.keyCode==13) getStats();">
-                <!--<input id="summonerStatsButton" type="submit" name="Submit" value="Submit" onclick="getStats()" >!-->
             </div></td>
                 </tr> 
                 <tr>
-                    <th style="font-size:20px">Champions</th>
+                    
                     <th style="font-size:20px">Group Selection</th>
+                    <th style="font-size:20px">Champions</th>
                 </tr> 
-                <tr>
+                <tr> 
+                    <td>
+                        <select onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
+                            <option value="">Choose And Select More</option>
+                            <option value="22,51,42,119,81,104,222,429,96,236,133,15,18,29,110,67">Marksman</option>
+                            <option value="">Tank</option>
+                            <option value="">Support</option>
+                            <option value="">Mage</option>
+                            
+                        </select>
+                    </td>
                     <td><select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" style="position:relative" size="10" id="championSelectList" multiple="multiple"></select></td>
                 </tr> 
             </table>
@@ -168,6 +178,19 @@
             }
             return;
         }
+        //Method to set champions selected based on group selection box.
+        function setChampions(){
+            
+            console.log("working");
+            var championsSelected = $('select#groupSelectList').val();
+            console.log(championsSelected);
+            var splitListOfChampions = championsSelected.toString().split(",");
+            console.log(splitListOfChampions);
+            for(i = 0; i < splitListOfChampions.length; i++){
+                $('#championSelectList option[value="' + splitListOfChampions[i] + ' "').prop("selected", true);
+            }
+            getStats();
+        }
         function getStats(){
             $(document).ready(function(){
                 $('#matchesContainer').empty();
@@ -175,6 +198,7 @@
                 var sumIdNum;
                 var CSVListOfChamps = $('select#championSelectList').val();
                 var CSVChampsNoSpace = "";
+                
                 if(CSVListOfChamps != null){
                     CSVChampsNoSpace = CSVListOfChamps.toString().replace(/\s/g,"");
                 }
