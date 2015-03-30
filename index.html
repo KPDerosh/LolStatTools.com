@@ -28,17 +28,28 @@
         <div id="champSelectContainer" class="container">
             <table id="championFilters" style="text-align:left">
                 <tr>
-                    <td style="font-size:20px"><div id="LOLStatsFormDiv" style="height: 50px;">
-                <legend id="recentGamesLegend">Summoner ID:</legend>
-                <input type=text id="summonerName" type="submit"  onKeyDown="if(event.keyCode==13) getStats();">
-            </div></td>
+                    <td style="font-size:20px">
+                    	<div id="LOLStatsFormDiv" style="height: 50px;">
+		                	<legend id="recentGamesLegend">Summoner ID:</legend>
+		                	<input type=text id="summonerName" type="submit"  onKeyDown="if(event.keyCode==13) getStats();">
+            			</div>
+            		</td>
                 </tr> 
                 <tr>
-                    
+                	<th style="font-size:20px">Queue Type</th>
                     <th style="font-size:20px">Group Selection</th>
                     <th style="font-size:20px">Champions</th>
                 </tr> 
-                <tr> 
+                <tr>
+                	<td>
+                        <select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" style="position:relative" size="10" id="queueTypeSelect" multiple="multiple">
+                            <option value="">Choose Queue Type</option>
+                            <option value="RANKED_SOLO_5x5">Ranked Solo 5x5</option>
+                            <option value="RANKED_TEAM_5x5">Ranked Team 5x5</option>
+                            <option value="RANKED_TEAM_3x3">Ranked Team 3x3</option>
+                            <option value="CLASSIC">Normals</option>
+                        </select>
+                    </td> 
                     <td>
                         <select onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
                             <option value="">Choose And Select More</option>
@@ -46,10 +57,12 @@
                             <option value="412,78,14,111,2,86,27,57,12,122,77,89,150,254,39,106,20,102,36,113,8,154,421,120,19,72,54,75,58,31,33,83,98,201,5,44,32,48,59">Tank</option>
                             <option value="12,432,53,201,40,43,89,267,111,20,37,16,44,412,26,143">Support</option>
                             <option value="103, 84,34,1,268,63,69,131,3,79,74,30,38,55,10,85,7,127,99,90,25,76,61,68,13,50,134,4,45,161,112,8,101,115,26,143">Mage</option>
-                            
                         </select>
                     </td>
-                    <td><select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" style="position:relative" size="10" id="championSelectList" multiple="multiple"></select></td>
+                    <td>
+                    	<select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" style="position:relative" size="10" id="championSelectList" multiple="multiple">
+                    	</select>
+                    </td>
                 </tr> 
             </table>
         </div>
@@ -210,11 +223,18 @@
                             sumIdNum = key;
                         }
                         var urlFace = "";
-                        if(CSVChampsNoSpace === null){
-                            urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=RANKED_SOLO_5x5&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        } else {
-                            urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&rankedQueues=RANKED_SOLO_5x5&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
+                        var queueType = $('select#queueTypeSelect').val();
+                        console.log(queueType)
+                        if(CSVChampsNoSpace === null && (queueType === "RANKED_SOLO_5x5" || queueType === "RANKED_TEAM_5x5" || queueType === "RANKED_TEAM_3x3") ){
+                            urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
+                        } else if(CSVChampsNoSpace === null && queueType==="CLASSIC"){
+                        	urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
+                        } else if(queueType === (queueType === "RANKED_SOLO_5x5" || queueType === "RANKED_TEAM_5x5" || queueType === "RANKED_TEAM_3x3")){
+                        	urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
+                        } else if(queueType === "CLASSIC"){
+                        	urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         }
+                        console.log(urlFace);
                         //Stats for the last 15 Ranked Games Pretty solid if i do say so myself.
                         $.ajax({
                             type: 'GET',
