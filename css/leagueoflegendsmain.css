@@ -31,58 +31,21 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#00ff3d3d',GradientType=1 ); /* IE6-9 */
     border: 2px groove red;
 }
+#champSelectContainer{
+    position:relative;
+    width:30%;
+    float:none;
+    margin: auto;
+}
 #statsContainer{
     position:relative;
-    padding-left: 16%;
-    margin-right: 30px;
-    max-width:100%;
+    width: 75%;
+    float:none;
+    margin: auto;
 }
-.statstable{
-    border: 2px solid black;
-    color: white;
-    background-color: #3B3B3B;
-    width: 100%;
+#statsContainer th{
+    margin: 10px;
 }
-
-table.statstable th {
-    color: white;
-    text-shadow: 2px 2px black;
-}
-
-table.statstable td {
-    text-align: center;
-    text-shadow: 2px 2px black;
-}
-.container{
-    border: 2px solid black;
-    margin-top: 10px;
-    background-color: #fff;
-    padding: 8px;
-    border-radius: 3px;
-}
-.matchTableStyle{
-    width:100%;
-    font-size: 15px;
-}
-/*tables in matchboxes*/
-#KDATable{
-    width:300px;
-}
-#MultiKillsTable{
-    width:100px;
-}
-
-#champSelectContainer{
-    margin-top: 3px;
-    position:relative;
-    background-color: #fff;
-    border-radius: 4px;
-    padding-left: 7px;
-    position: relative;
-    border: 2px solid black;
-    width:100%;
-}
-
 /* BASIC LINKS=======================================*/
 a:link {
     text-decoration: none;
