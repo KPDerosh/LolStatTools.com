@@ -224,6 +224,7 @@
         }
         function getStats(){
             $(document).ready(function(){
+
                 $('#matchesContainer').empty();
                 var summonerName = document.getElementById('summonerName').value;
                 var sumIdNum;
