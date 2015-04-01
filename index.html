@@ -14,30 +14,34 @@
 
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">LOL Statistics Made Ez(real)</a>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">LOL Statistics Made Ez(real)</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Recent Game Stats</a></li>
+                </ul>
+                <form class="navbar-form navbar-right" action="javascript:displayFilters();" method="get" role="search">
+                    <div class="form-group">
+                        <input type="text" id="summonerName" onKeyDown="if(event.keyCode==13) displayFilters();" class="form-control" placeholder="Find Stats" name="name">
+                    </div>
+                    <button type="submit"  class="btn btn-default">Submit</button>
+                </form>
+                <div id="currentGameButton" class="navbar-form navbar-right" ></div>
+            </div><!--/.nav-collapse -->
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Recent Game Stats</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
     </nav>
+    
     <!-- Filter champs with this container!-->
-    <div id="champSelectContainer">
-        <div id="LOLStatsFormDiv" style="margin:10px;" >
-            <div id="recentGamesLegend">Summoner ID:</div>
-            <input type=text id="summonerName" type="submit"  onKeyDown="if(event.keyCode==13) getStats();">
-        </div>
-        <table id="championFilters" class="table">
+    <div id="champSelectContainer" style="display:none">
+        <table style="display:none" id="championFilters" class="table">
             <tr>
                 <th style="font-size:20px">Queue Type</th>
                 <th style="font-size:20px">Group Selection</th>
@@ -47,9 +51,9 @@
                 <td>
                     <select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" size="10" id="queueTypeSelect" multiple="multiple">
                         <option value="">Choose Queue Type</option>
-                        <option value="RANKED_SOLO_5x5">Ranked Solo 5x5</option>
-                        <option value="RANKED_TEAM_5x5">Ranked Team 5x5</option>
-                        <option value="RANKED_TEAM_3x3">Ranked Team 3x3</option>
+                        <option value="RANKED_SOLO_5x5">Ranked Solo 5v5</option>
+                        <option value="RANKED_TEAM_5x5">Ranked Team 5v5</option>
+                        <option value="RANKED_TEAM_3x3">Ranked Team 3v3</option>
                         <option value="CLASSIC">Normals</option>
                     </select>
                 </td> 
@@ -68,101 +72,103 @@
                 </td>
             </tr>
         </table>
+        
     </div>
-<div id="statsContainer">
-    <div id="summonerStats" style="display:none">
-        <div id="displayStats" style="display:none">
-            <div id="summonerGameAveragesTitle"></div>
-                
-                <table id="summonerGameAveragesTable" class="table">
-                    <tr>
-                        <th id="sumGameAvgTableGameType" ></th>
-                        <th id="sumGameAvgTableWins"     ></th>
-                        <th id="sumGameAvgTableLosses"   ></th>
-                        <th id="sumGameAvgTableWinLoss"  ></th>
-                    </tr> 
-                    <tr>
-                        <td id="AVGKills"></td>
-                        <td id="AVGDeaths"></td>
-                        <td id="AVGAssists"></td>
-                        <td id="AVGKDA"></td>
-                    </tr> 
-                    <tr>
-                        <td id="AVGDoubles"></td>
-                        <td id="AVGTriples"></td>
-                        <td id="AVGQuadras"></td>
-                        <td id="AVGPentas"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGDamageToChamps" class="table">
-                    <tr>
-                        <th class="col-lg-3">Damages Given (DTC - Damage To Champions)</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGPhysicalDTC" class="col-lg-2"></td>
-                        <td id="AVGMagicDTC"    class="col-lg-2"></td>
-                        <td id="AVGTrueDTC"     class="col-lg-2"></td>
-                        <td class="col-lg-6"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGDamageTFCChamps" class="table">
-                    <tr>
-                        <th class="col-lg-3">Damages Taken (TFC - Taken From Champs)</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGPhysicalTFC" class="col-lg-2"></td>
-                        <td id="AVGMagicTFC" class="col-lg-2"></td>
-                        <td id="AVGTrueTFC" class="col-lg-2"></td>
-                        <td class="col-lg-6"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGDamageCS" class="table">
-                    <tr>
-                        <th>Creep SCORES!!</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGTotalMinions" class="col-lg-2"></td>
-                        <td id="AVGGoldEarned" class="col-lg-2"></td>
-                        <td class="col-lg-8"></td>
-                    </tr>
-                    <tr>
-                        <td id="AVGTotalMonsters" class="col-lg-2"></td>
-                        <td id="AVGTeamMonsters" class="col-lg-2"></td>
-                        <td id="AVGEnemyMonsters" class="col-lg-2"></td>
-                        <td class="col-lg-6"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGWards" class="table">
-                    <tr>
-                        <th>WARDS!!</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGVWards" class="col-lg-2"></td>
-                        <td id="AVGSWards" class="col-lg-2"></td>
-                        <td id="AVGWardsPlaced" class="col-lg-2"></td>
-                        <td id="AVGWardsKilled" class="col-lg-2"></td>
-                        <td class="col-lg-4"></td>
-                    </tr>
-                </table>
-                <hr style="color:white">
-                <table id="summonerAVGMisc" class="table">
-                    <tr>
-                        <th>MISC!!</th>
-                    </tr>
-                    <tr>
-                        <td id="AVGtowersDestroyed" class="col-lg-2"></td>
-                        <td id="AVGCCTime" class="col-lg-2"></td>
-                        <td class="col-lg-8"></td>
-                    </tr>    
-                </table>
+    
+    <div id="statsContainer" class="container">
+        <div id="summonerStats" style="display:none">
+            <div id="displayStats" style="display:none">
+                <div id="summonerGameAveragesTitle"></div>
+                    
+                    <table id="summonerGameAveragesTable" class="table">
+                        <tr>
+                            <th id="sumGameAvgTableGameType" ></th>
+                            <th id="sumGameAvgTableWins"     ></th>
+                            <th id="sumGameAvgTableLosses"   ></th>
+                            <th id="sumGameAvgTableWinLoss"  ></th>
+                        </tr> 
+                        <tr>
+                            <td id="AVGKills"></td>
+                            <td id="AVGDeaths"></td>
+                            <td id="AVGAssists"></td>
+                            <td id="AVGKDA"></td>
+                        </tr> 
+                        <tr>
+                            <td id="AVGDoubles"></td>
+                            <td id="AVGTriples"></td>
+                            <td id="AVGQuadras"></td>
+                            <td id="AVGPentas"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGDamageToChamps" class="table">
+                        <tr>
+                            <th class="col-lg-3">Damages Given (DTC - Damage To Champions)</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGPhysicalDTC" class="col-lg-2"></td>
+                            <td id="AVGMagicDTC"    class="col-lg-2"></td>
+                            <td id="AVGTrueDTC"     class="col-lg-2"></td>
+                            <td class="col-lg-6"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGDamageTFCChamps" class="table">
+                        <tr>
+                            <th class="col-lg-3">Damages Taken (TFC - Taken From Champs)</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGPhysicalTFC" class="col-lg-2"></td>
+                            <td id="AVGMagicTFC" class="col-lg-2"></td>
+                            <td id="AVGTrueTFC" class="col-lg-2"></td>
+                            <td class="col-lg-6"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGDamageCS" class="table">
+                        <tr>
+                            <th>Creep SCORES!!</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGTotalMinions" class="col-lg-2"></td>
+                            <td id="AVGGoldEarned" class="col-lg-2"></td>
+                            <td class="col-lg-8"></td>
+                        </tr>
+                        <tr>
+                            <td id="AVGTotalMonsters" class="col-lg-2"></td>
+                            <td id="AVGTeamMonsters" class="col-lg-2"></td>
+                            <td id="AVGEnemyMonsters" class="col-lg-2"></td>
+                            <td class="col-lg-6"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGWards" class="table">
+                        <tr>
+                            <th>WARDS!!</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGVWards" class="col-lg-2"></td>
+                            <td id="AVGSWards" class="col-lg-2"></td>
+                            <td id="AVGWardsPlaced" class="col-lg-2"></td>
+                            <td id="AVGWardsKilled" class="col-lg-2"></td>
+                            <td class="col-lg-4"></td>
+                        </tr>
+                    </table>
+                    <hr style="color:white">
+                    <table id="summonerAVGMisc" class="table">
+                        <tr>
+                            <th>MISC!!</th>
+                        </tr>
+                        <tr>
+                            <td id="AVGtowersDestroyed" class="col-lg-2"></td>
+                            <td id="AVGCCTime" class="col-lg-2"></td>
+                            <td class="col-lg-8"></td>
+                        </tr>    
+                    </table>
+            </div>
         </div>
+        <div id="matchesContainer" ></div>
     </div>
-    <div id="matchesContainer" ></div>
-</div>
 
 
     <script>
@@ -180,6 +186,11 @@
                 }
             });
         });
+        //Function to display the filters to select champions based on summoner name
+        function displayFilters(){
+            $('#champSelectContainer').show();
+            $('#championFilters').show();
+        }
         function sortSelect(selElem) {
             var tmpAry = new Array();
             for (var i=0;i<selElem.options.length;i++) {
@@ -212,12 +223,18 @@
         }
         function getStats(){
             $(document).ready(function(){
+                
+                
+                
                 $('#matchesContainer').empty();
                 var summonerName = document.getElementById('summonerName').value;
                 var sumIdNum;
                 var CSVListOfChamps = $('select#championSelectList').val();
                 var CSVChampsNoSpace = "";
                 
+                var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
+                //First things first check for a current game to display.
+                $('#currentGameButton').html('<a href="https://kelnet.org/game.php?game=' + urlEncodeSumName + '"><button style="margin:auto" class="btn btn-default">See Current Game</button></a>').show();
                 if(CSVListOfChamps != null){
                     CSVChampsNoSpace = CSVListOfChamps.toString().replace(/\s/g,"");
                 }
@@ -504,7 +521,7 @@
         }
         
     </script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
