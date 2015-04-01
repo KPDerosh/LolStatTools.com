@@ -28,53 +28,75 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Recent Game Stats</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" action="javascript:displayFilters();" method="get" role="search">
-                    <div class="form-group">
-                        <input type="text" id="summonerName" onKeyDown="if(event.keyCode==13) displayFilters();" class="form-control" placeholder="Find Stats" name="name">
-                    </div>
-                    <button type="submit"  class="btn btn-default">Submit</button>
-                </form>
-                <div id="currentGameButton" class="navbar-form navbar-right" ></div>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
     
     <!-- Filter champs with this container!-->
-    <div id="champSelectContainer" style="display:none">
-        <table style="display:none" id="championFilters" class="table">
-            <tr>
-                <th style="font-size:20px">Queue Type</th>
-                <th style="font-size:20px">Group Selection</th>
-                <th style="font-size:20px">Champions</th>
-            </tr> 
-            <tr>
-                <td>
-                    <select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" size="10" id="queueTypeSelect" multiple="multiple">
-                        <option value="" selected="selected">Choose Queue Type</option>
-                        <option value="RANKED_SOLO_5x5">Ranked Solo 5v5</option>
-                        <option value="RANKED_TEAM_5x5">Ranked Team 5v5</option>
-                        <option value="RANKED_TEAM_3x3">Ranked Team 3v3</option>
-                        <option value="CLASSIC">Normals</option>
-                    </select>
-                </td> 
-                <td>
-                    <select onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
-                        <option value="" selected="selected">Choose And Select More</option>
-                        <option value="22,51,42,119,81,104,222,429,96,236,133,15,18,29,110,67">Marksman</option>
-                        <option value="412,78,14,111,2,86,27,57,12,122,77,89,150,254,39,106,20,102,36,113,8,154,421,120,19,72,54,75,58,31,33,83,98,201,5,44,32,48,59">Tank</option>
-                        <option value="12,432,53,201,40,43,89,267,111,20,37,16,44,412,26,143">Support</option>
-                        <option value="103, 84,34,1,268,63,69,131,3,79,74,30,38,55,10,85,7,127,99,90,25,76,61,68,13,50,134,4,45,161,112,8,101,115,26,143">Mage</option>
-                    </select>
-                </td>
-                <td>
-                    <select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" style="position:relative" size="10" id="championSelectList" multiple="multiple">
-                    </select>
-                </td>
-            </tr>
-        </table>
-        
+    <div id="champSelectContainer">
+        <form action="./index.php/" method="post" role="search">
+            <table id="championFilters" class="table">
+                <tr>
+                    <th style="font-size:20px">Queue Type</th>
+                    <th style="font-size:20px">Group Selection</th>
+                    <th style="font-size:20px">Champions</th>
+                </tr> 
+                <tr>
+                    <td>
+                        <select name="queueSelectBox" size="10" id="queueTypeSelect" multiple="multiple">
+                            <option value="" selected="selected">Choose Queue Type</option>
+                            <option value="RANKED_SOLO_5x5">Ranked Solo 5v5</option>
+                            <option value="RANKED_TEAM_5x5">Ranked Team 5v5</option>
+                            <option value="RANKED_TEAM_3x3">Ranked Team 3v3</option>
+                            <option value="CLASSIC">Normals</option>
+                        </select>
+                    </td> 
+                    <td>
+                        <select  name="groupSelectBox" onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
+                            <option value="" selected="selected">Choose And Select More</option>
+                            <option value="22,51,42,119,81,104,222,429,96,236,133,15,18,29,110,67">Marksman</option>
+                            <option value="412,78,14,111,2,86,27,57,12,122,77,89,150,254,39,106,20,102,36,113,8,154,421,120,19,72,54,75,58,31,33,83,98,201,5,44,32,48,59">Tank</option>
+                            <option value="12,432,53,201,40,43,89,267,111,20,37,16,44,412,26,143">Support</option>
+                            <option value="103, 84,34,1,268,63,69,131,3,79,74,30,38,55,10,85,7,127,99,90,25,76,61,68,13,50,134,4,45,161,112,8,101,115,26,143">Mage</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select style="position:relative" name="championSelectBox" size="10" id="championSelectList" multiple="multiple">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div class="form-group">
+                            <input type="text" id="summonerName" class="form-control" placeholder="Enter Summoner Name to find stats" name="name">
+                        </div>
+                        <button type="submit" name="Submit" class="btn btn-default">Get Stats</button>
+                    </td>
+                </tr> 
+            </table>
+        </form>
+        <div id="currentGameButton" class="navbar-form navbar-right" ></div>
     </div>
-    
+    <!--Start PHP Here!-->
+    <?php 
+        //Person is clicking the submit button.
+        if(isset($_POST["submit"])) { 
+            echo "string";
+
+
+        }
+
+
+
+    ?>
+
+
+
+
+
+
+
+
     <div id="statsContainer" class="container">
         <div id="summonerStats" style="display:none">
             <div id="displayStats" style="display:none">
@@ -211,7 +233,7 @@
         }
         //Method to set champions selected based on group selection box.
         function setChampions(){
-        	$("#championSelectList option:selected").prop("selected", false)
+            $("#championSelectList option:selected").prop("selected", false)
             console.log("working");
             var championsSelected = $('select#groupSelectList').val();
             console.log(championsSelected);
@@ -220,7 +242,6 @@
             for(i = 0; i < splitListOfChampions.length; i++){
                 $('#championSelectList option[value="' + splitListOfChampions[i] + ' "').prop("selected", true);
             }
-            getStats();
         }
         function getStats(){
             $(document).ready(function(){
@@ -256,13 +277,13 @@
                         }
                             //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         /*}else if(CSVChampsNoSpace === null && queueType ==="CLASSIC"){
-                        	console.log("second");
+                            console.log("second");
                             //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         } else if(queueType === (queueType === "RANKED_SOLO_5x5" || queueType === "RANKED_TEAM_5x5" || queueType === "RANKED_TEAM_3x3")){
-                        	console.log("third");
+                            console.log("third");
                             //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         } else if(queueType === "CLASSIC"){
-                        	console.log("second");
+                            console.log("second");
                             //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         }
                         console.log(urlFace);*/
@@ -525,3 +546,5 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
