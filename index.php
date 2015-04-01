@@ -50,7 +50,7 @@
             <tr>
                 <td>
                     <select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" size="10" id="queueTypeSelect" multiple="multiple">
-                        <option value="">Choose Queue Type</option>
+                        <option value="" selected="selected">Choose Queue Type</option>
                         <option value="RANKED_SOLO_5x5">Ranked Solo 5v5</option>
                         <option value="RANKED_TEAM_5x5">Ranked Team 5v5</option>
                         <option value="RANKED_TEAM_3x3">Ranked Team 3v3</option>
@@ -59,7 +59,7 @@
                 </td> 
                 <td>
                     <select onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
-                        <option value="">Choose And Select More</option>
+                        <option value="" selected="selected">Choose And Select More</option>
                         <option value="22,51,42,119,81,104,222,429,96,236,133,15,18,29,110,67">Marksman</option>
                         <option value="412,78,14,111,2,86,27,57,12,122,77,89,150,254,39,106,20,102,36,113,8,154,421,120,19,72,54,75,58,31,33,83,98,201,5,44,32,48,59">Tank</option>
                         <option value="12,432,53,201,40,43,89,267,111,20,37,16,44,412,26,143">Support</option>
@@ -190,6 +190,7 @@
         function displayFilters(){
             $('#champSelectContainer').show();
             $('#championFilters').show();
+
         }
         function sortSelect(selElem) {
             var tmpAry = new Array();
@@ -223,21 +224,20 @@
         }
         function getStats(){
             $(document).ready(function(){
-                
-                
-                
+
                 $('#matchesContainer').empty();
                 var summonerName = document.getElementById('summonerName').value;
                 var sumIdNum;
                 var CSVListOfChamps = $('select#championSelectList').val();
                 var CSVChampsNoSpace = "";
-                
-                var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
+
                 //First things first check for a current game to display.
+                var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
                 $('#currentGameButton').html('<a href="https://kelnet.org/game.php?game=' + urlEncodeSumName + '"><button style="margin:auto" class="btn btn-default">See Current Game</button></a>').show();
                 if(CSVListOfChamps != null){
                     CSVChampsNoSpace = CSVListOfChamps.toString().replace(/\s/g,"");
                 }
+
                 $.ajax({
                     type: 'GET',
                     url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9',
@@ -246,16 +246,17 @@
                             sumIdNum = key;
                         }
                         var urlFace = "";
-                        /*
+                        
                         var queueType = $('select#queueTypeSelect').val()[0];
                         console.log(queueType);
-                        if(queueType === "RANKED_SOLO_5x5"){
+                        console.log(CSVChampsNoSpace);
+                        if(CSVChampsNoSpace === "" && queueType.toString() === "" ){ 
+                            alert("WORKING");
                            console.log("ITS WORKING WTF");
+                           urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         }
-                        if(CSVChampsNoSpace === null && (queueType === "RANKED_SOLO_5x5")){ //|| queueType === "RANKED_TEAM_5x5" || queueType === "RANKED_TEAM_3x3") ){
-                            console.log("first");
                             //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        }else if(CSVChampsNoSpace === null && queueType ==="CLASSIC"){
+                        /*}else if(CSVChampsNoSpace === null && queueType ==="CLASSIC"){
                         	console.log("second");
                             //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         } else if(queueType === (queueType === "RANKED_SOLO_5x5" || queueType === "RANKED_TEAM_5x5" || queueType === "RANKED_TEAM_3x3")){
@@ -265,12 +266,8 @@
                         	console.log("second");
                             //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         }
-                        console.log(urlFace);/**/
-                        if(CSVChampsNoSpace === null){
-                            urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=RANKED_SOLO_5x5&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        } else {
-                            urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&rankedQueues=RANKED_SOLO_5x5&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        }
+                        console.log(urlFace);*/
+                        //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
                         //Stats for the last 15 Ranked Games Pretty solid if i do say so myself.
                         $.ajax({
                             type: 'GET',
@@ -318,6 +315,8 @@
 
                                 if(gameType === "RANKED_SOLO_5x5"){
                                     $('#sumGameAvgTableGameType').html("Game Type: Ranked Solo");
+                                } else if(gameType === "CLASSIC"){
+                                    $('#sumGameAvgTableGameType').html("Game Type: Normals");
                                 }
                                 var matchesLength = data.matches.length;
                                 for(i = matchesLength - 1; i >= 0; i--){
