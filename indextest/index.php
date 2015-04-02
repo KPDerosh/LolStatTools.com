@@ -90,13 +90,6 @@
 
     ?>
 
-
-
-
-
-
-
-
     <div id="statsContainer" class="container">
         <div id="summonerStats" style="display:none">
             <div id="displayStats" style="display:none">
