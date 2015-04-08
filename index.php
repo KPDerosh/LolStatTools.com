@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Cuddly Assassin</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/leagueoflegendsmain.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/leagueoflegendsmain.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
 </head>
 
@@ -29,53 +29,57 @@
                     <li class="active"><a href="#">Recent Game Stats</a></li>
                     <li><a href="./RiotApiChallenge/main_stats.php">Nurf Game Statistics</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" action="javascript:displayFilters();" method="get" role="search">
-                    <div class="form-group">
-                        <input type="text" id="summonerName" onKeyDown="if(event.keyCode==13) displayFilters();" class="form-control" placeholder="Find Stats" name="name">
-                    </div>
-                    <button type="submit"  class="btn btn-default">Submit</button>
-                </form>
-                <div id="currentGameButton" class="navbar-form navbar-right" ></div>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
     
     <!-- Filter champs with this container!-->
-    <div id="champSelectContainer" style="display:none">
-        <table style="display:none" id="championFilters" class="table">
-            <tr>
-                <th style="font-size:20px">Queue Type</th>
-                <th style="font-size:20px">Group Selection</th>
-                <th style="font-size:20px">Champions</th>
-            </tr> 
-            <tr>
-                <td>
-                    <select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" size="10" id="queueTypeSelect" multiple="multiple">
-                        <option value="" selected="selected">Choose Queue Type</option>
-                        <option value="RANKED_SOLO_5x5">Ranked Solo 5v5</option>
-                        <option value="RANKED_TEAM_5x5">Ranked Team 5v5</option>
-                        <option value="RANKED_TEAM_3x3">Ranked Team 3v3</option>
-                        <option value="CLASSIC">Normals</option>
-                    </select>
-                </td> 
-                <td>
-                    <select onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
-                        <option value="" selected="selected">Choose And Select More</option>
-                        <option value="22,51,42,119,81,104,222,429,96,236,133,15,18,29,110,67">Marksman</option>
-                        <option value="412,78,14,111,2,86,27,57,12,122,77,89,150,254,39,106,20,102,36,113,8,154,421,120,19,72,54,75,58,31,33,83,98,201,5,44,32,48,59">Tank</option>
-                        <option value="12,432,53,201,40,43,89,267,111,20,37,16,44,412,26,143">Support</option>
-                        <option value="103, 84,34,1,268,63,69,131,3,79,74,30,38,55,10,85,7,127,99,90,25,76,61,68,13,50,134,4,45,161,112,8,101,115,26,143">Mage</option>
-                    </select>
-                </td>
-                <td>
-                    <select onclick="getStats()" onKeyDown="if(event.keyCode==13) getStats();" style="position:relative" size="10" id="championSelectList" multiple="multiple">
-                    </select>
-                </td>
-            </tr>
-        </table>
+    <div id="champSelectContainer">
+            <table id="championFilters" class="table">
+                <tr>
+                    <th style="font-size:20px">Queue Type</th>
+                    <th style="font-size:20px">Group Selection</th>
+                    <th style="font-size:20px">Champions</th>
+                </tr> 
+                <tr>
+                    <td>
+                        <select name="queueSelectBox" size="10" id="queueTypeSelect" multiple="multiple">
+                            <option value="RANKED_SOLO_5x5" selected="selected">Ranked Solo 5v5</option>
+                        </select>
+                    </td> 
+                    <td>
+                        <select  name="groupSelectBox" onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
+                            <option value="" selected="selected">Choose And Select More</option>
+                            <option value="22,51,42,119,81,104,222,429,96,236,133,15,18,29,110,67">Marksman</option>
+                            <option value="412,78,14,111,2,86,27,57,12,122,77,89,150,254,39,106,20,102,36,113,8,154,421,120,19,72,54,75,58,31,33,83,98,201,5,44,32,48,59">Tank</option>
+                            <option value="12,432,53,201,40,43,89,267,111,20,37,16,44,412,26,143">Support</option>
+                            <option value="103, 84,34,1,268,63,69,131,3,79,74,30,38,55,10,85,7,127,99,90,25,76,61,68,13,50,134,4,45,161,112,8,101,115,26,143">Mage</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select style="position:relative" name="championSelectBox" size="10" id="championSelectList" multiple="multiple">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div>
+                            <input type="text" id="summonerName" class="form-control" placeholder="Enter Summoner Name to find stats" name="name">
+                        </div>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        <button onClick="getStats()" class="btn btn-default">Get Stats</button>
+                    </td>
+                    <td>
+                        <div id="currentGameButton"></div>
+                    </td>
+                </tr>
+            </table>
         
     </div>
-    
+
     <div id="statsContainer" class="container">
         <div id="summonerStats" style="display:none">
             <div id="displayStats" style="display:none">
@@ -175,24 +179,28 @@
     <script>
         $(document).ready(function(){
             $.ajax({
-                type: 'GET',
-                url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9',
-                success: function(json){
-                    var championArray = [];
-                    for(var champion in json.data){
-                        $('#championSelectList').append( $("<option></option>").attr("value", json.data[champion].id + " " ).text(champion) );
-                        $( '<div style="display:hidden" id="' + json.data[champion].id + '">'+ champion +'</div>' ).appendTo( "#championSelectList" );
+                type: "POST",
+                dataType: "json",
+                url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                data:  { action: 'getChampionID()' },
+                success: function(data) {
+                    var jsonObj = JSON.parse(data);
+                    for(var champion in jsonObj.data){
+                        $('#championSelectList').append( $("<option></option>").attr("value", jsonObj.data[champion].id + " " ).text(champion) );
+                        $( '<div style="display:hidden" id="' + jsonObj.data[champion].id + '">'+ champion +'</div>' ).appendTo( "#championSelectList" );
                     }
                     sortSelect(document.getElementById('championSelectList'));
+                    console.log(jsonObj.data);
                 }
             });
         });
+
         //Function to display the filters to select champions based on summoner name
         function displayFilters(){
             $('#champSelectContainer').show();
             $('#championFilters').show();
-
         }
+
         function sortSelect(selElem) {
             var tmpAry = new Array();
             for (var i=0;i<selElem.options.length;i++) {
@@ -210,9 +218,10 @@
             }
             return;
         }
+
         //Method to set champions selected based on group selection box.
         function setChampions(){
-        	$("#championSelectList option:selected").prop("selected", false)
+            $("#championSelectList option:selected").prop("selected", false)
             console.log("working");
             var championsSelected = $('select#groupSelectList').val();
             console.log(championsSelected);
@@ -221,16 +230,16 @@
             for(i = 0; i < splitListOfChampions.length; i++){
                 $('#championSelectList option[value="' + splitListOfChampions[i] + ' "').prop("selected", true);
             }
-            getStats();
         }
+
         function getStats(){
             $(document).ready(function(){
                 $('#matchesContainer').empty();
                 var summonerName = document.getElementById('summonerName').value;
-                var sumIdNum;
+                
                 var CSVListOfChamps = $('select#championSelectList').val();
                 var CSVChampsNoSpace = "";
-
+                console.log("please wtf");
                 //First things first check for a current game to display.
                 var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
                 $('#currentGameButton').html('<a href="https://kelnet.org/game.php?game=' + urlEncodeSumName + '"><button style="margin:auto" class="btn btn-default">See Current Game</button></a>').show();
@@ -239,40 +248,23 @@
                 }
 
                 $.ajax({
-                    type: 'GET',
-                    url: 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + summonerName + '?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9',
+                    type: "POST",
+                    dataType: "json",
+                    url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                    data:  { action: 'getSummonerID()', sumName: urlEncodeSumName},
                     success: function(data){
-                        for(var key in data){
-                            sumIdNum = key;
-                        }
-                        var urlFace = "";
-                        
+                        var jsonObj = JSON.parse(data);
+                        var sumIdNum = jsonObj[urlEncodeSumName].id;
                         var queueType = $('select#queueTypeSelect').val()[0];
-                        console.log(queueType);
-                        console.log(CSVChampsNoSpace);
-                        if(CSVChampsNoSpace === "" && queueType.toString() === "" ){ 
-                            alert("WORKING");
-                           console.log("ITS WORKING WTF");
-                           urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        }
-                            //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        /*}else if(CSVChampsNoSpace === null && queueType ==="CLASSIC"){
-                        	console.log("second");
-                            //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        } else if(queueType === (queueType === "RANKED_SOLO_5x5" || queueType === "RANKED_TEAM_5x5" || queueType === "RANKED_TEAM_3x3")){
-                        	console.log("third");
-                            //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        } else if(queueType === "CLASSIC"){
-                        	console.log("second");
-                            //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        }
-                        console.log(urlFace);*/
-                        //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?championIds=' + CSVChampsNoSpace + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                        //Stats for the last 15 Ranked Games Pretty solid if i do say so myself.
+                        //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
+                       
                         $.ajax({
-                            type: 'GET',
-                            url: urlFace,
-                            success: function(data){
+                            type: "POST",
+                            dataType: "json",
+                            url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                            data:  { action: 'getMatchHistoryStats()', sumID: sumIdNum, championList: CSVChampsNoSpace, queueType: queueType},
+                            success: function(dataObject){
+                                var data = JSON.parse(dataObject);
                                 var gameType = data.matches[0].queueType;
                                 var matchDuration = 0;
                                 
@@ -315,8 +307,6 @@
 
                                 if(gameType === "RANKED_SOLO_5x5"){
                                     $('#sumGameAvgTableGameType').html("Game Type: Ranked Solo");
-                                } else if(gameType === "CLASSIC"){
-                                    $('#sumGameAvgTableGameType').html("Game Type: Normals");
                                 }
                                 var matchesLength = data.matches.length;
                                 for(i = matchesLength - 1; i >= 0; i--){
@@ -523,6 +513,8 @@
     <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
