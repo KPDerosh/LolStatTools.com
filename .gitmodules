@@ -1,0 +1,3 @@
+[submodule "RiotApiChallenge"]
+	path = RiotApiChallenge
+	url = https://github.com/Kelwing/RiotAPIChallenge.git
