@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Cuddly Assassin</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/leagueoflegendsmain.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/leagueoflegendsmain.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
 </head>
 
@@ -27,7 +27,6 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Recent Game Stats</a></li>
-                    <li><a href="./RiotApiChallenge/main_stats.php">Nurf Game Statistics</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -105,72 +104,65 @@
             <hr style="color:white">
             <table id="summonerAVGDamageToChamps" class="table">
                 <tr>
-                    <th class="col-lg-3">Damages Given (DTC - Damage To Champions)</th>
+                    <div class="header" style="text-align:center"><b>Damages Given (DTC - Damage To Champions)</b></div>
                 </tr>
                 <tr>
-                    <td id="AVGPhysicalDTC" class="col-lg-2"></td>
-                    <td id="AVGMagicDTC"    class="col-lg-2"></td>
-                    <td id="AVGTrueDTC"     class="col-lg-2"></td>
-                    <td class="col-lg-6"></td>
+                    <td id="AVGPhysicalDTC" class="col-lg-4"></td>
+                    <td id="AVGMagicDTC"    class="col-lg-4"></td>
+                    <td id="AVGTrueDTC"     class="col-lg-4"></td>
                 </tr>
             </table>
             <hr style="color:white">
             <table id="summonerAVGDamageTFCChamps" class="table">
                 <tr>
-                    <th class="col-lg-3">Damages Taken (TFC - Taken From Champs)</th>
+                    <div class="header" style="text-align:center"><b>Damages Taken (TFC - Taken From Champs)</b></th>
                 </tr>
                 <tr>
-                    <td id="AVGPhysicalTFC" class="col-lg-2"></td>
-                    <td id="AVGMagicTFC" class="col-lg-2"></td>
-                    <td id="AVGTrueTFC" class="col-lg-2"></td>
-                    <td class="col-lg-6"></td>
+                    <td id="AVGPhysicalTFC" class="col-lg-4"></td>
+                    <td id="AVGMagicTFC" class="col-lg-4"></td>
+                    <td id="AVGTrueTFC" class="col-lg-4"></td>
                 </tr>
             </table>
             <hr style="color:white">
             <table id="summonerAVGDamageCS" class="table">
                 <tr>
-                    <th>Creep SCORES!!</th>
+                    <div class="header" style="text-align:center"><b>Creep SCORES!!</b></th>
                 </tr>
                 <tr>
-                    <td id="AVGTotalMinions" class="col-lg-2"></td>
-                    <td id="AVGGoldEarned" class="col-lg-2"></td>
-                    <td class="col-lg-8"></td>
+                    <td id="AVGTotalMinions" class="col-lg-6"></td>
+                    <td id="AVGGoldEarned" class="col-lg-6"></td>
                 </tr>
                 <tr>
-                    <td id="AVGTotalMonsters" class="col-lg-2"></td>
-                    <td id="AVGTeamMonsters" class="col-lg-2"></td>
-                    <td id="AVGEnemyMonsters" class="col-lg-2"></td>
-                    <td class="col-lg-6"></td>
+                    <td id="AVGTotalMonsters" class="col-lg-4"></td>
+                    <td id="AVGTeamMonsters" class="col-lg-4"></td>
+                    <td id="AVGEnemyMonsters" class="col-lg-4"></td>
                 </tr>
             </table>
             <hr style="color:white">
             <table id="summonerAVGWards" class="table">
                 <tr>
-                    <th>WARDS!!</th>
+                    <div class="header" style="text-align:center"><b>WARDS!!</b></th>
                 </tr>
                 <tr>
-                    <td id="AVGVWards" class="col-lg-2"></td>
-                    <td id="AVGSWards" class="col-lg-2"></td>
-                    <td id="AVGWardsPlaced" class="col-lg-2"></td>
-                    <td id="AVGWardsKilled" class="col-lg-2"></td>
-                    <td class="col-lg-4"></td>
+                    <td id="AVGVWards" class="col-lg-3"></td>
+                    <td id="AVGSWards" class="col-lg-3"></td>
+                    <td id="AVGWardsPlaced" class="col-lg-3"></td>
+                    <td id="AVGWardsKilled" class="col-lg-3"></td>
                 </tr>
             </table>
             <hr style="color:white">
             <table id="summonerAVGMisc" class="table">
                 <tr>
-                    <th>MISC!!</th>
+                    <div class="header" style="text-align:center"><b>MISC!!</b></th>
                 </tr>
                 <tr>
-                    <td id="AVGtowersDestroyed" class="col-lg-2"></td>
-                    <td id="AVGCCTime" class="col-lg-2"></td>
-                    <td class="col-lg-8"></td>
+                    <td id="AVGtowersDestroyed" class="col-lg-6"></td>
+                    <td id="AVGCCTime" class="col-lg-6"></td>
                 </tr>    
             </table>
         </div>
         <div id="matchesContainer" ></div>
     </div>
-
 
     <script>
         $(document).ready(function(){
@@ -217,12 +209,9 @@
 
         //Method to set champions selected based on group selection box.
         function setChampions(){
-            $("#championSelectList option:selected").prop("selected", false)
-            console.log("working");
+            $("#championSelectList option:selected").prop("selected", false);
             var championsSelected = $('select#groupSelectList').val();
-            console.log(championsSelected);
             var splitListOfChampions = championsSelected.toString().split(",");
-            console.log(splitListOfChampions);
             for(i = 0; i < splitListOfChampions.length; i++){
                 $('#championSelectList option[value="' + splitListOfChampions[i] + ' "').prop("selected", true);
             }
@@ -317,7 +306,6 @@
                                         losses++;
                                     }
                                     document.getElementById('matchesContainer').appendChild(div);
-                                    console.log($('#'+data.matches[i].participants[0].championId).html());
                                     $('#match' + i).html(
 '<table id="matchTable' + i + '" class="matchTableStyle table">' +
     '<tr>' +
@@ -503,9 +491,6 @@
         }
         
     </script>
-    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
-     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>
