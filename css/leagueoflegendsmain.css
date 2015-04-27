@@ -5,6 +5,16 @@
     font-family: sans-serif;
     border: 2px;
 }
+.winLossTable{
+	width:100%;
+	font-size:20px;
+	border-bottom: 3px solid #808080;
+}
+.borderedTable{
+    margin-bottom: 20px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
 .win{
     margin-top: 3px;
     width: 100%;

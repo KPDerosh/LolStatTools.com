@@ -81,7 +81,7 @@
     <div id="statsContainer" class="container">
         <div id="summonerStats" style="display:none">
             <div id="summonerGameAveragesTitle"></div>
-            <table id="summonerGameAveragesHeaderTable" class="table">
+            <table id="summonerGameAveragesHeaderTable" class="winLossTable">
                 <tr>
                     <th id="sumGameAvgTableGameType" ></th>
                     <th id="sumGameAvgTableWins"     ></th>
@@ -89,9 +89,9 @@
                     <th id="sumGameAvgTableWinLoss"  ></th>
                 </tr> 
 	    	</table>
-	    	<table id="summonerGameAveragesTable" class="table" style="width:25%">
+	    	<table id="summonerGameAveragesTable" class="borderedTable" style="width:25%">
                 <tr>
-					<th>Information</th>
+					<th>Average Per Game</th>
 					<th>Data</th>
 				</tr>
 				<tr id="AVGKills"></tr>
@@ -109,6 +109,7 @@
 							(DTC - Damage To Champions)</b>
 						</div>
                     </td>
+					<td></td>
 				</tr>
                 <tr id="AVGPhysicalDTC"></tr>
 				<tr id="AVGMagicDTC"></tr>
@@ -120,6 +121,7 @@
 							(TFC - Taken From Champs)</b>
 						</div>
                     </td>
+					<td></td>
 				</tr>
                 <tr id="AVGPhysicalTFC"></tr>
 				<tr id="AVGMagicTFC"></tr>
@@ -130,6 +132,7 @@
 							<b>Creep SCORES!!</b>
 						</div>
 					</td>
+					<td></td>
                 </tr>
                 <tr id="AVGTotalMinions"></tr>
 				<tr id="AVGGoldEarned"></tr>
@@ -142,6 +145,7 @@
 							<b>WARDS!!</b>
 						</div>
 					</td>
+					<td></td>
                 </tr>
                 <tr id="AVGVWards"></tr>
 				<tr id="AVGSWards"></tr>
@@ -153,6 +157,7 @@
 							<b>MISC!!</b>
 						</div>
 					</td>
+					<td></td>
                 </tr>
                 <tr id="AVGtowersDestroyed"></tr>
 				<tr id="AVGCCTime"></tr>    
@@ -288,7 +293,6 @@
                                 var totalTimeCCDealt = 0;
 
                                 if(gameType === "RANKED_SOLO_5x5"){
-									alert("correct");
                                     $('#sumGameAvgTableGameType').html("Game Type: Ranked Solo");
                                 }
                                 var matchesLength = data.matches.length;
@@ -449,7 +453,7 @@
                                     towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
                                     totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
                                 } 
-                                $('#summonerGameAveragesTitle').html("Summoner Game Averages: " + summonerName);
+                                $('#summonerGameAveragesTitle').html("Last " + matchesLength + " Game Averages: " + summonerName);
                                 $('#sumGameAvgTableWins').html("Wins : " + wins);
                                 $('#sumGameAvgTableLosses').html("Losses : " + losses);
                                 $('#sumGameAvgTableWinLoss').html("W/L: " + wins + "/" + losses + ":" + parseFloat((wins/matchesLength) * 100).toFixed(2) + "%");
