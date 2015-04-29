@@ -89,81 +89,114 @@
                     <th id="sumGameAvgTableWinLoss"  ></th>
                 </tr> 
 	    	</table>
-	    	<table id="summonerGameAveragesTable" class="borderedTable" style="width:25%">
-                <tr>
-					<th>Average Per Game</th>
-					<th>Data</th>
-				</tr>
-				<tr id="AVGKills"></tr>
-				<tr id="AVGDeaths"></tr>
-				<tr id="AVGAssists"></tr>
-				<tr id="AVGKDA"></tr> 
-                <tr id="AVGDoubles"></tr>
-                <tr id="AVGTriples"></tr>
-				<tr id="AVGQuadras"></tr>
-				<tr id="AVGPentas"></tr>
-                <tr>
-		    		<td>
-                    	<div class="header" style="text-align:left">
-							<b>Damages Given<br> 
-							(DTC - Damage To Champions)</b>
-						</div>
-                    </td>
-					<td></td>
-				</tr>
-                <tr id="AVGPhysicalDTC"></tr>
-				<tr id="AVGMagicDTC"></tr>
-				<tr id="AVGTrueDTC"></tr>
-                <tr>
-		    		<td>
-                    	<div class="header" style="text-align:left">
-							<b>Damages Taken<br> 
-							(TFC - Taken From Champs)</b>
-						</div>
-                    </td>
-					<td></td>
-				</tr>
-                <tr id="AVGPhysicalTFC"></tr>
-				<tr id="AVGMagicTFC"></tr>
-				<tr id="AVGTrueTFC"></tr>
-                <tr>
+			<div id="AveragesContainer">
+				<table style="width:100%">
+					<tr>
 					<td>
-                    	<div class="header" style="text-align:left">
-							<b>Creep SCORES!!</b>
-						</div>
+					<table id="summonerGameAveragesTable" class="borderedTable">
+						<tr>
+							<th>Average Per Game</th>
+							<th>Data</th>
+						</tr>
+						<tr id="AVGKills"></tr>
+						<tr id="AVGDeaths"></tr>
+						<tr id="AVGAssists"></tr>
+						<tr id="AVGKDA"></tr> 
+						<tr id="AVGDoubles"></tr>
+						<tr id="AVGTriples"></tr>
+						<tr id="AVGQuadras"></tr>
+						<tr id="AVGPentas"></tr>
+						<tr>
+							<td>
+								<div class="header" style="text-align:left">
+									<b>Damages Given<br> 
+									(DTC - Damage To Champions)</b>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr id="AVGPhysicalDTC"></tr>
+						<tr id="AVGMagicDTC"></tr>
+						<tr id="AVGTrueDTC"></tr>
+						<tr>
+							<td>
+								<div class="header" style="text-align:left">
+									<b>Damages Taken<br> 
+									(TFC - Taken From Champs)</b>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr id="AVGPhysicalTFC"></tr>
+						<tr id="AVGMagicTFC"></tr>
+						<tr id="AVGTrueTFC"></tr>
+						<tr>
+							<td>
+								<div class="header" style="text-align:left">
+									<b>Creep SCORES!!</b>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr id="AVGTotalMinions"></tr>
+						<tr id="AVGTotalMonsters"></tr>    
+						<tr id="AVGTeamMonsters"></tr>
+						<tr id="AVGEnemyMonsters"></tr>
+						<tr id="AVGGoldEarned"></tr>
+						<tr>
+							<td>
+								<div class="header" style="text-align:left">
+									<b>WARDS!!</b>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr id="AVGVWards"></tr>
+						<tr id="AVGSWards"></tr>
+						<tr id="AVGWardsPlaced"></tr>
+						<tr id="AVGWardsKilled"></tr>
+						<tr>
+							<td>
+								<div class="header" style="text-align:left">
+									<b>MISC!!</b>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr id="AVGtowersDestroyed"></tr>
+						<tr id="AVGCCTime"></tr>    
+					</table>
 					</td>
-					<td></td>
-                </tr>
-                <tr id="AVGTotalMinions"></tr>
-				<tr id="AVGGoldEarned"></tr>
-                <tr id="AVGTotalMonsters"></tr>    
-				<tr id="AVGTeamMonsters"></tr>
-				<tr id="AVGEnemyMonsters"></tr>
-                <tr>
 					<td>
-                    	<div class="header" style="text-align:left">
-							<b>WARDS!!</b>
-						</div>
+					<table class="table">
+						<tr>
+							<td>Champion picture</td>
+							<td>Champion Name</td>
+							<td>Champion kills</td>
+							<td>Champion deaths</td>
+							<td>Chapion assists.</td>
+							<td>champion avg cs</td>
+							<td>champion avg gold</td>
+							<td>champion avg gold/min</td>
+						</tr>
+						<tr>
+							<td>Champion picture</td>
+							<td>Champion Name</td>
+							<td>Champion kills</td>
+							<td>Champion deaths</td>
+							<td>Chapion assists.</td>
+							<td>champion avg cs</td>
+							<td>champion avg gold</td>
+							<td>champion avg gold/min</td>
+						</tr>
+
+					</table>
 					</td>
-					<td></td>
-                </tr>
-                <tr id="AVGVWards"></tr>
-				<tr id="AVGSWards"></tr>
-				<tr id="AVGWardsPlaced"></tr>
-				<tr id="AVGWardsKilled"></tr>
-                <tr>
-					<td>
-                    	<div class="header" style="text-align:left">
-							<b>MISC!!</b>
-						</div>
-					</td>
-					<td></td>
-                </tr>
-                <tr id="AVGtowersDestroyed"></tr>
-				<tr id="AVGCCTime"></tr>    
-            </table>
+				</tr>
+				</table>
+			</div>
         </div>
-        <div id="matchesContainer"></div>
+        <div id="matchesContainer" style="position:relative"></div>
     </div>
 
     <script>
@@ -475,7 +508,7 @@
                                 $('#AVGTotalMonsters').html("<td>Total Monsters: </td><td>" + parseFloat((monstersKilled/matchesLength).toFixed(2))+ "</td>");
                                 $('#AVGTeamMonsters').html("<td>Team Jungle Monsters: </td><td>" + parseFloat((teamMonsters/matchesLength).toFixed(2))+ "</td>");
                                 $('#AVGEnemyMonsters').html("<td>Enemy Jungle Monsters: </td><td>" + parseFloat((enemyMonsters/matchesLength).toFixed(2))+ "</td>");
-                                $('#AVGGoldEarned').html("<td>Gold Earned: </td><td>$" + parseFloat((goldEarned/matchesLength).toFixed(2))+ "</td>");
+                                $('#AVGGoldEarned').html("<td>Gold Earned: </td><td>" + parseFloat((goldEarned/matchesLength).toFixed(2))+ "</td>");
                                 $('#AVGVWards').html("<td>Vision Wards: </td><td>" + parseFloat((visionWards/matchesLength).toFixed(2))+ "</td>");
                                 $('#AVGSWards').html("<td>Sight Wards: </td><td>" + parseFloat((sightWards/matchesLength).toFixed(2))+ "</td>");
                                 $('#AVGWardsPlaced').html("<td>Wards Placed: </td><td>" + ((wardsPlaced/matchesLength).toFixed(2))+ "</td>");
