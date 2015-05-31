@@ -10,36 +10,72 @@
 	font-size:20px;
 	border-bottom: 3px solid #808080;
 }
+
+.averageTable{
+    width:100%;
+    border: 1px solid gray;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.averageTable th{
+    text-align: center;
+    background: #333;
+    color:white;
+    border: 1px solid gray;
+}
+.averageTable td{
+    border: 1px solid gray;
+    text-align: center;
+}
+.averageTable tr{
+    border: 1px solid gray;
+    text-align: center;
+}
+
 .borderedTable{
     margin-bottom: 20px;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
 }
-.win{
+.matchDivStyle{
     margin-top: 3px;
     width: 100%;
-    height: 200px;
-    background: -moz-linear-gradient(left,  rgba(16,255,0,1) 0%, rgba(64,255,61,0) 7%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(16,255,0,1)), color-stop(7%,rgba(64,255,61,0))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 7%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 7%); /* Opera 7.10+ */
-    background: -ms-linear-gradient(left,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 7%); /* IE10+ */
-    background: linear-gradient(to right,  rgba(16,255,0,1) 0%,rgba(64,255,61,0) 7%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#10ff00', endColorstr='#0040ff3d',GradientType=1 ); /* IE6-9 */
-    border: 2px groove green;
+    height: 215px;
+    border: 2px groove black;
 }
-.loss{
-    margin-top: 3px;
-    width: 100%;
-    height: 200px;
-    background: -moz-linear-gradient(left,  rgba(255,0,0,1) 0%, rgba(255,61,61,0) 7%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,0,0,1)), color-stop(7%,rgba(255,61,61,0))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 7%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 7%); /* Opera 7.10+ */
-    background: -ms-linear-gradient(left,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 7%); /* IE10+ */
-    background: linear-gradient(to right,  rgba(255,0,0,1) 0%,rgba(255,61,61,0) 7%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#00ff3d3d',GradientType=1 ); /* IE6-9 */
-    border: 2px groove red;
+#ChampionData{
+    width:100%;
+    border-color: white;
+}
+.matchTable{
+    width:100%;
+    border: 1px solid gray;
+    text-align:center;
+}
+.matchTable tr{
+    border: 1px solid gray;
+    text-align:center;
+}
+.matchTable td{
+    border: 1px solid gray;
+    text-align:center;
+}
+.win th{
+    background: #00CC00;
+    border: 1px solid gray;
+    text-align:center;
+}
+.loss th{
+    background: #990000;
+    color:white;
+    border: 1px solid gray;
+    text-align:center;
+}
+.headerRow{
+    background: #333;
+    border: 1px solid gray;
+    color:white;
+    text-align:center;
 }
 #champSelectContainer{
     position:relative;
