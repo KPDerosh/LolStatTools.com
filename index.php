@@ -182,7 +182,7 @@
                 </table>
 			</div>
         </div>
-        <div id="matchesContainer" style="position:relative"></div>
+        <ul id="matchesContainer"></ul>
     </div>
 
     <script>
@@ -317,10 +317,10 @@
                                 var matchesLength = data.matches.length;
                                 for(i = matchesLength - 1; i >= 0; i--){
                                     //Call method to get Champion Name
-                                    var div = document.createElement('div');
-                                    div.id = "match" + i;
+                                    var li = document.createElement('li');
+                                    li.id = "match" + i;
                                     var winloss;
-                                    div.className = 'matchDivStyle'
+                                    li.className = 'matchliStyle'
                                     if(data.matches[i].participants[0].stats.winner === true) {
                                         winloss = "win"
                                         wins++;
@@ -328,19 +328,40 @@
                                         winloss="loss";
                                         losses++;
                                     }
-                                    document.getElementById('matchesContainer').appendChild(div);
-                                    $('#match' + i).html(
+                                    document.getElementById('matchesContainer').appendChild(li);
+$('#match' + i).html(
+    '<div class="matchHeader ' + winloss + '">Champion: ' + $('#' + data.matches[i].participants[0].championId).html() + 
+        '<span id="match' + i + 'duration" class="matchDuration">Match Duration: ' + parseFloat(data.matches[i].matchDuration/60).toFixed(0) + ':'+ data.matches[i].matchDuration%60 + '<span style="color:white"> | </span>' + winloss + '</span>'+
+    '</div>' + 
+    '<div class="championData">' +
+        '<div class="championImage"><img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">' + ' </div>' +
+        
+        '<span class="kdaInfo">KDA: ' +
+            data.matches[i].participants[0].stats.kills + " / " +
+            data.matches[i].participants[0].stats.deaths + " / " +
+            data.matches[i].participants[0].stats.assists + 
+        '</span>' +
+        
+    '</div>'+
+    '<div class="itemBuild">' +
+            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+        '</div>' 
+);
+                                    /*$('#match' + i).html(
 '<table id="matchTable' + i + '" class="matchTable ' + winloss + '">' +
-    '<tr>' +
-        '<thead>' +
-            '<th style="width:7%">Champion: ' + $('#' + data.matches[i].participants[0].championId).html() + '</th>'+
-            '<th>Creep Score</th>' +
-            '<th>Jungle Creeps</th>' +
-            '<th>Team Jungle Creeps</th>' +
-            '<th>Enemy Jungle Creeps</th>' +
-            '<th>Gold Earned</th>' +
-        '</thead>' +
-    '</tr>' +
+    '<thead>' +
+        '<th style="width:17%">Champion: ' + $('#' + data.matches[i].participants[0].championId).html() + '</th>'+
+        '<th>Creep Score</th>' +
+        '<th>Jungle Creeps</th>' +
+        '<th>Team Jungle Creeps</th>' +
+        '<th>Enemy Jungle Creeps</th>' +
+        '<th>Gold Earned</th>' +
+    '</thead>' +
     '<tr>' +
         '<td rowspan="9" style="width:17%">'+
             '<table id="ChampionData" style="width:100%; border:none;" >'+
@@ -438,10 +459,10 @@
                 '</tr>' + 
             '</table>'+
         '</td>'+
-        */
+        
     '</tr>'+
 '</table>'
-);
+);*/
 
                                     kills += data.matches[i].participants[0].stats.kills;
                                     deaths += data.matches[i].participants[0].stats.deaths;
@@ -474,8 +495,9 @@
                                     wardsKilled += data.matches[i].participants[0].stats.wardsKilled;
                                     towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
                                     totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
-                                } 
-                                $('#summonerGameAveragesTitle').html("Last " + matchesLength + " Game Averages: " + summonerName);
+                                }
+                                $('#summonerGameAveragesTitle').html(summonerName); 
+                                //$('#summonerGameAveragesTitle').html("Last " + matchesLength + " Game Averages: " + summonerName);
                                 $('#sumGameAvgTableWins').html("Wins : " + wins);
                                 $('#sumGameAvgTableLosses').html("Losses : " + losses);
                                 $('#sumGameAvgTableWinLoss').html("W/L: " + wins + "/" + losses + ":" + parseFloat((wins/matchesLength) * 100).toFixed(2) + "%");
