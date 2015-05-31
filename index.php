@@ -238,6 +238,15 @@
             }
         }
 
+        function showDropDown(i){
+            $('#dropDownMatchStats' + i).show();
+            $('#dropDown' + i).html('<a onclick="hideDropDown(' + i + ')"><img src="./images/drop-up-button.png" height="25" width="25"></a>');
+        }
+
+        function hideDropDown(i){
+            $('#dropDownMatchStats' + i).hide();
+            $('#dropDown' + i).html('<a onclick="showDropDown(' + i + ')"><img src="./images/drop-down-button.png" height="25" width="25"></a>');
+        }
         function getStats(){
             $(document).ready(function(){
                 $('#matchesContainer').empty();
@@ -335,7 +344,6 @@ $('#match' + i).html(
     '</div>' + 
     '<div class="championData">' +
         '<div class="championImage"><img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">' + ' </div>' +
-        
         '<span class="kdaInfo">KDA: ' +
             data.matches[i].participants[0].stats.kills + " / " +
             data.matches[i].participants[0].stats.deaths + " / " +
@@ -344,14 +352,43 @@ $('#match' + i).html(
         
     '</div>'+
     '<div class="itemBuild">' +
-            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
-            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
-            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
-            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
-            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
-            '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
-        '</div>' 
-);
+        '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+        '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+        '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+        '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+        '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+        '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
+    '</div>' +  
+    '<div id="dropDown' + i + '" class="dropDownButton">' +
+        '<a onclick="showDropDown(' + i + ')"><img src="./images/drop-down-button.png" height="25" width="25"></a>'+
+    '</div>'
+
+);  
+                                    var li = document.createElement('li');
+                                    li.id = "dropDownMatchStats" + i;
+                                    li.className = 'dropDownStats';
+                                    document.getElementById('matchesContainer').appendChild(li);
+$('#dropDownMatchStats' + i).html(
+    '<div class="summoners">'+
+        '<table>' +
+            '<tr><td colspan="2">Summoners</td></tr>' +
+            '<tr>' + 
+                '<td><img style="margin-right:4px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="30" width="30"></td>'+
+                '<td><img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="30" width="30"></td>'+
+            '</tr>'+
+        '</table>' + 
+    '</div>' +
+    '<div class="wards">'+
+        '<table>' +
+            '<tr><td colspan="2">Wards</td></tr>' +
+            '<tr>' + 
+                '<td>Vision Wards</td>'+
+                '<td>' + data.matches[i].participants[0].stats.visionWardsBoughtInGame + '</td>'+
+            '</tr>'+
+        '</table>'+
+    '</div>'
+);  
+
                                     /*$('#match' + i).html(
 '<table id="matchTable' + i + '" class="matchTable ' + winloss + '">' +
     '<thead>' +

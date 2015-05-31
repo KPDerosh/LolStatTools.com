@@ -14,8 +14,9 @@
 .matchliStyle{
     width:100%;
     background: #EFEFEF;
-    padding-bottom: 15px;
-    margin-bottom: 10px;
+    padding-bottom: 25px;
+    border:2px solid black;
+    margin-top: 10px;
 }
 .matchHeader{
     padding-left: 10px;
@@ -50,9 +51,25 @@
 .itemBuild{
     padding: 3px;
 }
+.dropDownButton{
+    float:right;
+}
 
-
-
+/*drop down stuff*/
+.dropDownStats{
+    display:none;
+    padding:10px;
+    border:2px solid black;
+    background: #EFEFEF;
+    width:100%;
+}
+.summoners{
+    width:20%;
+    float: left;
+}
+.wards{
+    float:left;
+}
 
 
 .averageTable{
@@ -82,24 +99,6 @@
     border-bottom: 1px solid black;
 }
 
-.matchTable{
-    background: #F0F0F0;
-    width:100%;
-    text-align:center;
-}
-.matchTable th{
-    text-align:center;
-}
-.matchTable td{
-    text-align:center;
-}
-
-.headerRow{
-    text-align:center;
-}
-
-
-
 #champSelectContainer{
     position:relative;
     width:493px;
@@ -109,7 +108,7 @@
 }
 #statsContainer{ 
     position:relative;
-    width: 95%;
+    width: 850px;
     float:none;
     margin: auto;
 }
