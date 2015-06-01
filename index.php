@@ -35,17 +35,16 @@
     <!-- Filter champs with this container!-->
     <div id="champSelectContainer">
         <table id="championFilters" class="table">
-            <tr>
-                <th style="font-size:20px">Queue Type</th>
+            <tr>  
                 <th style="font-size:20px">Group Selection</th>
                 <th style="font-size:20px">Champions</th>
             </tr> 
-            <tr>
+            <tr><!--
                 <td>
-                    <select name="queueSelectBox" size="10" id="queueTypeSelect" multiple="multiple">
+                   <select name="queueSelectBox" size="10" id="queueTypeSelect" multiple="multiple">
                         <option value="RANKED_SOLO_5x5" selected="selected">Ranked Solo 5v5</option>
                     </select>
-                </td> 
+                </td>!--> 
                 <td>
                     <select  name="groupSelectBox" onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
                         <option value="" selected="selected">Choose And Select More</option>
@@ -59,13 +58,34 @@
                     <select style="position:relative" name="championSelectBox" size="10" id="championSelectList" multiple="multiple">
                     </select>
                 </td>
+				<td>
+				<div id='hierHier'>
+					---
+				</div>
+				</td>
             </tr>
             <tr>
-                <td colspan="4">
+                <td>
                     <div>
                         <input type="text" id="summonerName" class="form-control" placeholder="Enter Summoner Name to find stats" name="name">
                     </div>
                 </td>
+				<td>
+						<div class="btn-group arrActiviteit arrUpdate" data-toggle="buttons">
+							<label class="btn btn-primary active" data-wat='1'>
+								Item 1
+							</label>
+							<label class="btn btn-primary" data-wat='2'>
+								Item 2
+							</label>
+							<label class="btn btn-primary" data-wat='3'>
+								Item 3
+							</label>
+							<label class="btn btn-primary" data-wat='4'>
+								Item 4
+							</label>
+						</div>
+				</td>
             </tr> 
             <tr>
                 <td>
@@ -77,7 +97,10 @@
             </tr>
         </table>
     </div>
-
+	<div id="currentGameContainer>
+		<table id="currentGameInfoTable" class="table">
+		</table>
+	</div>
     <div id="statsContainer" class="container">
         <div id="summonerStats" style="display:none">
             <div id="summonerGameAveragesTitle"></div>
@@ -186,7 +209,20 @@
     </div>
 
     <script>
-        $(document).ready(function(){
+		$('.btn').on('click',function(e){
+	 	   setTimeout(count);
+		})
+		var count =  function(){
+    	var val = '';
+    	$('.btn').each(function(i, btn){
+        	if($(btn).hasClass('active') ){
+            	val += '' + $(btn).data('wat');
+        	}
+    	});
+    	$('#hierHier').html(val); 
+		}
+        
+		$(document).ready(function(){
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -270,14 +306,11 @@
                     success: function(data){
                         var jsonObj = JSON.parse(data);
                         var sumIdNum = jsonObj[urlEncodeSumName].id;
-                        var queueType = $('select#queueTypeSelect').val()[0];
-                        //urlFace = 'https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + data[sumIdNum].id + '?&rankedQueues=' + queueType + '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9';
-                       
                         $.ajax({
                             type: "POST",
                             dataType: "json",
                             url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                            data:  { action: 'getMatchHistoryStats()', sumID: sumIdNum, championList: CSVChampsNoSpace, queueType: queueType},
+                            data:  { action: 'getRanked5v5Solo()', sumID: sumIdNum, championList: CSVChampsNoSpace},
                             success: function(dataObject){
                                 var data = JSON.parse(dataObject);
                                 var gameType = data.matches[0].queueType;
