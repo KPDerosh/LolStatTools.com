@@ -57,6 +57,7 @@
 
 /*drop down stuff*/
 .dropDownStats{
+    overflow:hidden;
     display:none;
     padding:10px;
     border:2px solid black;
