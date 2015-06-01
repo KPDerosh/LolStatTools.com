@@ -26,7 +26,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Recent Game Stats</a></li>
+                    <li class="active"><a href="#">Summoner Stats</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -46,7 +46,7 @@
                     </select>
                 </td>!--> 
                 <td>
-                    <select  name="groupSelectBox" onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
+                    <select class="form-control" name="groupSelectBox" onclick="setChampions()" onKeyDown="if(event.keyCode==13) setChampions();" style="position:relative" size="10" id="groupSelectList" multiple="multiple">
                         <option value="" selected="selected">Choose And Select More</option>
                         <option value="22,51,42,119,81,104,222,429,96,236,133,15,18,29,110,67">Marksman</option>
                         <option value="412,78,14,111,2,86,27,57,12,122,77,89,150,254,39,106,20,102,36,113,8,154,421,120,19,72,54,75,58,31,33,83,98,201,5,44,32,48,59">Tank</option>
@@ -55,13 +55,8 @@
                     </select>
                 </td>
                 <td>
-                    <select style="position:relative" name="championSelectBox" size="10" id="championSelectList" multiple="multiple">
+                    <select class="form-control" name="championSelectBox" size="10" id="championSelectList" multiple="multiple">
                     </select>
-                </td>
-				<td>
-				<div id='hierHier'>
-					---
-				</div>
 				</td>
             </tr>
             <tr>
@@ -71,22 +66,21 @@
                     </div>
                 </td>
 				<td>
-						<div class="btn-group arrActiviteit arrUpdate" data-toggle="buttons">
-							<label class="btn btn-primary active" data-wat='1'>
-								Item 1
-							</label>
-							<label class="btn btn-primary" data-wat='2'>
-								Item 2
-							</label>
-							<label class="btn btn-primary" data-wat='3'>
-								Item 3
-							</label>
-							<label class="btn btn-primary" data-wat='4'>
-								Item 4
-							</label>
-						</div>
+					<select class="form-control">
+						<option value="-1">Please select a region</option>
+						<option value="na">NA - North America</option>
+						<option value="eu">EU - Europe</option>
+						<option value="eune">EU - Europe Nordic & East</option>
+                        <option value="br">BR - Brazil</option>
+						<option value="kr">KR - Korea</option>
+                        <option value="lan">LAN - Latin America North</option>
+						<option value="las">LAS - Latin America South</option>
+                        <option value="oce">OCE - Oceania</option>
+						<option value="ru">RU - Russia</option>
+                        <option value="tr">TR - Turkey</option>
+					</select>
 				</td>
-            </tr> 
+			</tr>
             <tr>
                 <td>
                     <button onClick="getStats()" class="btn btn-default">Get Stats</button>
@@ -103,7 +97,7 @@
 	</div>
     <div id="statsContainer" class="container">
         <div id="summonerStats" style="display:none">
-            <div id="summonerGameAveragesTitle"></div>
+            <div id="summonerTitle"></div>
             <table id="summonerGameAveragesHeaderTable" class="winLossTable">
                 <tr>
                     <th id="sumGameAvgTableGameType" ></th>
@@ -566,7 +560,7 @@ $('#dropDownMatchStats' + i).html(
                                     towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
                                     totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
                                 }
-                                $('#summonerGameAveragesTitle').html(summonerName); 
+                                $('#summonerTitle').html(summonerName); 
                                 //$('#summonerGameAveragesTitle').html("Last " + matchesLength + " Game Averages: " + summonerName);
                                 $('#sumGameAvgTableWins').html("Wins : " + wins);
                                 $('#sumGameAvgTableLosses').html("Losses : " + losses);
