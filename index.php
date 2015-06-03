@@ -93,7 +93,9 @@
     </div>
     <div id="statsContainer" class="container">
         <div id="summonerStats">
-            <div id="summoner1" style="display:none" class="summonerDisplay"></div>
+            <div id="summoner1" style="display:none" class="summonerDisplay">
+                
+            </div>
             <div id="summoner1AverageStats" style="display:none"></div>
                 <ul id="summoner1Matches" style="display:none" class="matchliStyle"><ul>
             <ul id="summonersList" style="display:none">
@@ -298,111 +300,157 @@
                                             '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + data.matches[i].participants[0].championId).html() + '.png" height="70" width="70">'+
                                         '</div>'
                                     );                   
-                                            kills += data.matches[i].participants[0].stats.kills;
-                                            deaths += data.matches[i].participants[0].stats.deaths;
-                                            assists += data.matches[i].participants[0].stats.assists;
+                                    kills += data.matches[i].participants[0].stats.kills;
+                                    deaths += data.matches[i].participants[0].stats.deaths;
+                                    assists += data.matches[i].participants[0].stats.assists;
 
-                                            doubleKills += data.matches[i].participants[0].stats.doubleKills;
-                                            tripKills += data.matches[i].participants[0].stats.tripleKills;
-                                            quadraKills += data.matches[i].participants[0].stats.quadraKills;
-                                            pentaKills += data.matches[i].participants[0].stats.pentaKills;
+                                    doubleKills += data.matches[i].participants[0].stats.doubleKills;
+                                    tripKills += data.matches[i].participants[0].stats.tripleKills;
+                                    quadraKills += data.matches[i].participants[0].stats.quadraKills;
+                                    pentaKills += data.matches[i].participants[0].stats.pentaKills;
 
-                                            physicalDamageToChamps += data.matches[i].participants[0].stats.physicalDamageDealtToChampions;
-                                            magicDamageToChamps += data.matches[i].participants[0].stats.magicDamageDealtToChampions;
-                                            trueDamageToChamps += data.matches[i].participants[0].stats.trueDamageDealtToChampions;
-                                            totalDamageToChampions += data.matches[i].participants[0].stats.totalDamageDealtToChampions;
+                                    physicalDamageToChamps += data.matches[i].participants[0].stats.physicalDamageDealtToChampions;
+                                    magicDamageToChamps += data.matches[i].participants[0].stats.magicDamageDealtToChampions;
+                                    trueDamageToChamps += data.matches[i].participants[0].stats.trueDamageDealtToChampions;
+                                    totalDamageToChampions += data.matches[i].participants[0].stats.totalDamageDealtToChampions;
 
-                                            magicDamageTaken += data.matches[i].participants[0].stats.magicDamageTaken;
-                                            physicalDamageTaken += data.matches[i].participants[0].stats.physicalDamageTaken;
-                                            trueDamageTaken += data.matches[i].participants[0].stats.trueDamageTaken;
-                                            totalDamageTaken += data.matches[i].participants[0].stats.totalDamageTaken;
+                                    magicDamageTaken += data.matches[i].participants[0].stats.magicDamageTaken;
+                                    physicalDamageTaken += data.matches[i].participants[0].stats.physicalDamageTaken;
+                                    trueDamageTaken += data.matches[i].participants[0].stats.trueDamageTaken;
+                                    totalDamageTaken += data.matches[i].participants[0].stats.totalDamageTaken;
 
-                                            totalMinionsKilled += data.matches[i].participants[0].stats.minionsKilled;
-                                            monstersKilled += data.matches[i].participants[0].stats.neutralMinionsKilled;
-                                            teamMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle;
-                                            enemyMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledEnemyJungle;
-                                            goldEarned  += data.matches[i].participants[0].stats.goldEarned;
-                                            goldSpent += data.matches[i].participants[0].stats.goldSpent;
-                                            visionWards += data.matches[i].participants[0].stats.visionWardsBoughtInGame;
-                                            sightWards += data.matches[i].participants[0].stats.sightWardsBoughtInGame;
-                                            wardsPlaced += data.matches[i].participants[0].stats.wardsPlaced;
-                                            wardsKilled += data.matches[i].participants[0].stats.wardsKilled;
-                                            towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
-                                            totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
+                                    totalMinionsKilled += data.matches[i].participants[0].stats.minionsKilled;
+                                    monstersKilled += data.matches[i].participants[0].stats.neutralMinionsKilled;
+                                    teamMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledTeamJungle;
+                                    enemyMonsters += data.matches[i].participants[0].stats.neutralMinionsKilledEnemyJungle;
+                                    goldEarned  += data.matches[i].participants[0].stats.goldEarned;
+                                    goldSpent += data.matches[i].participants[0].stats.goldSpent;
+                                    visionWards += data.matches[i].participants[0].stats.visionWardsBoughtInGame;
+                                    sightWards += data.matches[i].participants[0].stats.sightWardsBoughtInGame;
+                                    wardsPlaced += data.matches[i].participants[0].stats.wardsPlaced;
+                                    wardsKilled += data.matches[i].participants[0].stats.wardsKilled;
+                                    towersDestroyed  += data.matches[i].participants[0].stats.towerKills;
+                                    totalTimeCCDealt += data.matches[i].participants[0].stats.totalTimeCrowdControlDealt;
+                                }
+                                $('#summoner1AverageStats').html(
+                                    '<table class="averageTable">' + 
+                                        '<tr>'+
+                                            '<td colspan="9" class="averageTableTitle">Average Game Stats</td>'+
+                                        '</tr>'+
+                                        '<tr>' +
+                                            '<th>Win/Loss</th>'+
+                                            '<th>KDA</th>'+
+                                            '<th>Kills</th>'+
+                                            '<th>Deaths</th>'+
+                                            '<th>Assists</th>'+
+                                            '<th>2x Kills</th>'+
+                                            '<th>3x Kills</th>'+
+                                            '<th>4x Kills</th>'+
+                                            '<th>Penta Kills</th>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>' + wins + '/' + losses + ': ' + parseFloat((wins/matchesLength) * 100).toFixed(2) + '%</td>'+
+                                            '<td>' + kills + '/' + deaths + '/' + assists + ': ' + parseFloat((kills + assists)/deaths).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(kills/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(deaths/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(assists/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(doubleKills/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(tripKills/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(quadraKills/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(pentaKills/matchesLength).toFixed(2) + '</td>'+
+                                    '</table>'+
+                                    '<table class="averageTable">' + 
+                                        '<tr>'+
+                                            '<td colspan="4" class="averageTableTitle">Average Damage To Champions</td>'+
+                                        '</tr>'+
+                                        '<tr>' +
+                                            '<th>Physical</th>'+
+                                            '<th>Magical</th>'+
+                                            '<th>True</th>'+
+                                            '<th>Total</th>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>' + parseFloat(physicalDamageToChamps/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(magicDamageToChamps/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(trueDamageToChamps/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(totalDamageToChampions/matchesLength).toFixed(2) + '</td>'+
+                                        '</tr>'+
+                                    '</table>'+
+                                    '<table class="averageTable">' + 
+                                        '<tr>'+
+                                            '<td colspan="4" class="averageTableTitle">Average Damage From Champions</td>'+
+                                        '</tr>'+
+                                        '<tr>' +
+                                            '<th>Physical</th>'+
+                                            '<th>Magical</th>'+
+                                            '<th>True</th>'+
+                                            '<th>Total</th>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>' + parseFloat(physicalDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(magicDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(trueDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(totalDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                        '</tr>'+
+                                    '</table>'+
+                                    '<table class="averageTable">' + 
+                                        '<tr>'+
+                                            '<td colspan="4" class="averageTableTitle">Average Minion Counts</td>'+
+                                        '</tr>'+
+                                        '<tr>' +
+                                            '<th>Creep Score</th>'+
+                                            '<th colspan="2">Jungle Monsters</th>'+
+                                            '<th>Gold Earned</th>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td rowspan="2">' +parseFloat(totalMinionsKilled/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>Team: ' + parseFloat(teamMonsters/matchesLength).toFixed(2)+'</td>'+
+                                            '<td>Enemy: ' + parseFloat(enemyMonsters/matchesLength).toFixed(2) + '</td>'+
+                                            '<td rowspan="2">' + parseFloat(goldEarned/matchesLength).toFixed(2) + '</td>'+
+                                        '</tr>'+
+                                        '<tr>' + 
+                                            '<td colspan="2">Total: ' + parseFloat(monstersKilled/matchesLength).toFixed(2) + '</td>' + 
+                                        '</tr>'+
+                                    '</table>' + 
+                                    '<table class="averageTable">' + 
+                                        '<tr>'+
+                                            '<td colspan="4" class="averageTableTitle">Average Warding Stats</td>'+
+                                        '</tr>'+
+                                        '<tr>' +
+                                            '<th>Vision Wards</th>'+
+                                            '<th>Sight Wards</th>'+
+                                            '<th>Wards Placed</th>'+
+                                            '<th>Wards Killed</th>'+
+                                        '</tr>'+
+                                        '<tr>'+
+                                            '<td>' + parseFloat(visionWards/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(sightWards/matchesLength).toFixed(2)+'</td>'+
+                                            '<td>' + parseFloat(wardsPlaced/matchesLength).toFixed(2) + '</td>'+
+                                            '<td>' + parseFloat(wardsKilled/matchesLength).toFixed(2) + '</td>'+
+                                        '</tr>'+
+                                    '</table>'
+                                    );
+                                $('#summoner1').show();
+                                $.ajax({
+                                    type: "POST",
+                                    dataType: "json",
+                                    url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                                    data:  { action: 'getCurrentGame()', sumID: $('#summoner1ID').text(), region: "NA1"},
+                                    success: function(json){
+                                        var data = JSON.parse(dataObject);
+                                        for(var i = 0; i < 9; i++){
+                                            
                                         }
-                                        $('#summoner1AverageStats').html(
-                                            '<table class="averageTable">' + 
-                                                '<tr>'+
-                                                    '<td colspan="9">Average Game Stats</td>'+
-                                                '</tr>'+
-                                                '<tr>' +
-                                                    '<th>Win/Loss</th>'+
-                                                    '<th>KDA</th>'+
-                                                    '<th>Kills</th>'+
-                                                    '<th>Deaths</th>'+
-                                                    '<th>Assists</th>'+
-                                                    '<th>2x Kills</th>'+
-                                                    '<th>3x Kills</th>'+
-                                                    '<th>4x Kills</th>'+
-                                                    '<th>Penta Kills</th>'+
-                                                '</tr>'+
-                                                '<tr>'+
-                                                    '<td>' + wins + '/' + losses + ' : ' + parseFloat((wins/matchesLength) * 100).toFixed(2) + '%</td>'+
-                                                    '<td>' + kills + '/' + deaths + '/' + assists + ':' + parseFloat((kills + assists)/deaths).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(kills/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(deaths/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(assists/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(doubleKills/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(tripKills/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(quadraKills/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(pentaKills/matchesLength).toFixed(2) + '</td>'+
-                                            '</table>'+
-                                            '<table class="averageTable">' + 
-                                                '<tr>'+
-                                                    '<td colspan="4">Average Damage To Champions</td>'+
-                                                '</tr>'+
-                                                '<tr>' +
-                                                    '<th>Physical</th>'+
-                                                    '<th>Magical</th>'+
-                                                    '<th>True</th>'+
-                                                    '<th>Total</th>'+
-                                                '</tr>'+
-                                                '<tr>'+
-                                                    '<td>' + parseFloat(physicalDamageToChamps/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(magicDamageToChamps/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(trueDamageToChamps/matchesLength).toFixed(2) + '</td>'+
-                                                    '<td>' + parseFloat(totalDamageToChampions/matchesLength).toFixed(2) + '</td>'+
-                                                '</tr>'+
-                                            '</table>'
-                                            );
-                                        /*
-                                        $('#AVGPhysicalDTC').html(parseFloat((physicalDamageToChamps/matchesLength).toFixed(2)));
-                                        $('#AVGMagicDTC').html(parseFloat((magicDamageToChamps/matchesLength).toFixed(2)));
-                                        $('#AVGTrueDTC').html(parseFloat((trueDamageToChamps/matchesLength).toFixed(2)));
-                                        $('#AVGPhysicalTFC').html(parseFloat((physicalDamageTaken/matchesLength).toFixed(2)));
-                                        $('#AVGMagicTFC').html(parseFloat((magicDamageTaken/matchesLength).toFixed(2)));
-                                        $('#AVGTrueTFC').html(parseFloat((trueDamageTaken/matchesLength).toFixed(2)));
-                                        $('#AVGTotalMinions').html(parseFloat((totalMinionsKilled/matchesLength).toFixed(2)));
-                                        $('#AVGTotalMonsters').html(parseFloat((monstersKilled/matchesLength).toFixed(2)));
-                                        $('#AVGTeamMonsters').html(parseFloat((teamMonsters/matchesLength).toFixed(2)));
-                                        $('#AVGEnemyMonsters').html(parseFloat((enemyMonsters/matchesLength).toFixed(2)));
-                                        $('#AVGGoldEarned').html(parseFloat((goldEarned/matchesLength).toFixed(2)));
-                                        $('#AVGVWards').html(parseFloat((visionWards/matchesLength).toFixed(2)));
-                                        $('#AVGSWards').html(parseFloat((sightWards/matchesLength).toFixed(2)));
-                                        $('#AVGWardsPlaced').html(parseFloat((wardsPlaced/matchesLength).toFixed(2)));
-                                        $('#AVGWardsKilled').html(parseFloat((wardsKilled/matchesLength).toFixed(2)));
-                                        $('#AVGtowersDestroyed').html(parseFloat((towersDestroyed/matchesLength).toFixed(2)));
-                                        $('#AVGCCTime').html(parseFloat(((totalTimeCCDealt/60)/matchesLength).toFixed(0)) + ' mins ' + parseFloat(((totalTimeCCDealt%60)/matchesLength).toFixed(0)) + ' secs');
-                                        $('AVGTotalTFC').html(parseFloat((totalDamageTaken/matchesLength).toFixed(2)));
-                                        $('AVGTotalDTC').html(parseFloat((totalDamageToChampions/matchesLength).toFixed(2)));
-                                        */$('#summoner1').show();
                                     }
                                 });
                             }
-                        });
+                        }); 
+                    }
+                });
             });
         }
-                
+
+              
         
     </script>
     <script src="./js/bootstrap.min.js"></script>

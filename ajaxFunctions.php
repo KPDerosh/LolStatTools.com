@@ -17,11 +17,10 @@
 
   function getCurrentGame(){
     header("Content-type: application/json");
-      $sumName = $_POST["sumId"];
+      $sumID = $_POST["sumID"];
       $region = $_POST["region"];
-      $currentGameStats = file_get_contents('https://na.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/' . $region . '/' . $sumName . '?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+      $currentGameStats = file_get_contents('https://na.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/' . $region . '/' . $sumID . '?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
       $data = json_encode($currentGameStats);
-
       echo $data;
   }
 	//Function to get list of champions and their id's.
