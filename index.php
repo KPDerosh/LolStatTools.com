@@ -93,11 +93,10 @@
     </div>
     <div id="statsContainer" class="container">
         <div id="summonerStats">
-            <div id="summoner1" style="display:none" class="summonerDisplay">
-                
-            </div>
+            <div id="summoner1" style="display:none" class="summonerDisplay"></div>
+            <div id="summoner1currentGameStatus" style="display:none" class="currentGameInfo">Current game: <span id="summoner1currentGameIndicator"></span> Current Champion: <span id="summoner1currentChampion"></span></div>
             <div id="summoner1AverageStats" style="display:none"></div>
-                <ul id="summoner1Matches" style="display:none" class="matchliStyle"><ul>
+            <ul id="summoner1Matches" style="display:none" class="matchliStyle"><ul>
             <ul id="summonersList" style="display:none">
                 <li id="summoner2" class="summonerDisplay"></li>
                 <li id="summoner2AverageStats" class="summonerDisplay"></li>
@@ -437,10 +436,19 @@
                                     url: "ajaxFunctions.php", //Relative or absolute path to response.php file
                                     data:  { action: 'getCurrentGame()', sumID: $('#summoner1ID').text(), region: "NA1"},
                                     success: function(json){
-                                        var data = JSON.parse(dataObject);
+                                        var data = JSON.parse(json);
+                                        if(json == false){
+                                            console.log("summoner is not in game");
+                                            $('#currentGameIndicator').html('<img src="./images/notingame.png">');
+                                        } else {
+                                            console.log("summoner is in game");
+                                            $('#summoner1currentGameIndicator').html('<img src="./images/ingame.png">');
+                                            $('#summoner1currentChampion').html('<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + participants[0].championId + '.png" height="20" width="20">' + $('#' + participants[0].championId).text());
+                                        }
                                         for(var i = 0; i < 9; i++){
                                             
                                         }
+                                        $('#currentGameStatus').show();
                                     }
                                 });
                             }

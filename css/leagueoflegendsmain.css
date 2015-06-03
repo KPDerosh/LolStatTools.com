@@ -55,11 +55,16 @@
     width:100%;
     border: 1px solid black;
 }
+.currentGameInfo{
+    width:100%;
+    margin:auto;
+    height:25px;
+    border:1px solid gray;
+}
 .sumNameDiv{
     font-size: 40px;
     width:100%;
     margin: auto;
-
 }
 
 .averageTable{
