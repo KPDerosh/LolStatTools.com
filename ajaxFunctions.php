@@ -6,6 +6,7 @@
 	      		case "getChampionID()": getChampionID(); break;
 	      		case "getSummonerID()": getSummonerID(); break;
 	      		case "getRanked5v5Solo()": getRanked5v5Solo(); break;
+            case "getCurrentGame()": getCurrentGame();break;
 	    	}
   		}
 	}
@@ -14,6 +15,15 @@
   		return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 	}
 
+  function getCurrentGame(){
+    header("Content-type: application/json");
+      $sumName = $_POST["sumId"];
+      $region = $_POST["region"];
+      $currentGameStats = file_get_contents('https://na.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/' . $region . '/' . $sumName . '?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+      $data = json_encode($currentGameStats);
+
+      echo $data;
+  }
 	//Function to get list of champions and their id's.
 	function getChampionID(){
 		header("Content-type: application/json");
@@ -27,7 +37,8 @@
 	function getSummonerID(){
 		header("Content-type: application/json");
   		$sumName = $_POST["sumName"];
-  		$summonerID = file_get_contents('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/'. $sumName .'?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+      $region = $_POST["region"];
+  		$summonerID = file_get_contents('https://na.api.pvp.net/api/lol/'. $region .'/v1.4/summoner/by-name/'. $sumName .'?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
   		$data = json_encode($summonerID);
   		echo $data;
 	}

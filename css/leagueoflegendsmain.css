@@ -1,22 +1,20 @@
-#summonerTitle{
-    color: black;
-    font-size: 40px;
-    font-family: sans-serif;
-    border: 2px solid black;
-}
-.winLossTable{
-	width:100%;
-	font-size:20px;
-	border-bottom: 3px solid #808080;
+.summonerStats{
+    display:none;
 }
 
 /*match div styles*/
 .matchliStyle{
     width:100%;
     background: #EFEFEF;
-    padding-bottom: 25px;
+    margin-top: 10px;
+}
+.match{
+    width:100%;
+    background: #EFEFEF;
     border:2px solid black;
     margin-top: 10px;
+    overflow:hidden;
+    padding-bottom: 25px;
 }
 .matchHeader{
     padding-left: 10px;
@@ -51,27 +49,18 @@
 .itemBuild{
     padding: 3px;
 }
-.dropDownButton{
-    float:right;
-}
 
-/*drop down stuff*/
-.dropDownStats{
-    overflow:hidden;
-    display:none;
-    padding:10px;
-    border:2px solid black;
-    background: #EFEFEF;
+.summonerDisplay{
+    height:60px;
     width:100%;
+    border: 1px solid black;
 }
-.summoners{
-    width:20%;
-    float: left;
-}
-.wards{
-    float:left;
-}
+.sumNameDiv{
+    font-size: 40px;
+    width:100%;
+    margin: auto;
 
+}
 
 .averageTable{
     width:100%;
@@ -83,21 +72,17 @@
     text-align: center;
     background: #333;
     color:white;
+    padding:5px;
     border: 1px solid gray;
 }
 .averageTable td{
+    padding:5px;
     border: 1px solid gray;
     text-align: center;
 }
 .averageTable tr{
     border: 1px solid gray;
     text-align: center;
-}
-
-.borderedTable{
-    margin-bottom: 20px;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
 }
 
 #champSelectContainer{
@@ -121,23 +106,6 @@ ul{
 th{
     text-align: center;
 }
-/* BASIC LINKS=======================================*/
-a:link {
-    text-decoration: none;
-    color:white;
-}
 
-a:visited {
-    color:white;
-}
-
-a:hover {
-    color:white;
-}
-
-a:active {
-    color:white;
-}
-/* End Basic LINKS==================================*/
 
     

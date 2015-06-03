@@ -1,26 +1,3 @@
 html,body{
 	background-color: #e9eaed;
 }
-/* BASIC LINKS=======================================*/
-a:link {
-    text-decoration: none;
-    color:white;
-}
-
-/* visited link */
-a:visited {
-    color:white;
-}
-
-/* mouse over link */
-a:hover {
-    color:white;
-}
-
-/* selected link */
-a:active {
-    color:white;
-}
-/* End Basic LINKS==================================*/
-
-	
