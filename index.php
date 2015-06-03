@@ -93,7 +93,9 @@
     </div>
     <div id="statsContainer" class="container">
         <div id="summonerStats">
-            <div id="summoner1" style="display:none" class="summonerDisplay"></div>
+            <div id="summoner1" style="display:none" class="summonerDisplay">
+                
+            </div>
             <div id="summoner1AverageStats" style="display:none"></div>
                 <ul id="summoner1Matches" style="display:none" class="matchliStyle"><ul>
             <ul id="summonersList" style="display:none">
@@ -333,7 +335,7 @@
                                         $('#summoner1AverageStats').html(
                                             '<table class="averageTable">' + 
                                                 '<tr>'+
-                                                    '<td colspan="9">Average Game Stats</td>'+
+                                                    '<td colspan="9" class="averageTableTitle">Average Game Stats</td>'+
                                                 '</tr>'+
                                                 '<tr>' +
                                                     '<th>Win/Loss</th>'+
@@ -359,7 +361,7 @@
                                             '</table>'+
                                             '<table class="averageTable">' + 
                                                 '<tr>'+
-                                                    '<td colspan="4">Average Damage To Champions</td>'+
+                                                    '<td colspan="4" class="averageTableTitle">Average Damage To Champions</td>'+
                                                 '</tr>'+
                                                 '<tr>' +
                                                     '<th>Physical</th>'+
@@ -373,16 +375,45 @@
                                                     '<td>' + parseFloat(trueDamageToChamps/matchesLength).toFixed(2) + '</td>'+
                                                     '<td>' + parseFloat(totalDamageToChampions/matchesLength).toFixed(2) + '</td>'+
                                                 '</tr>'+
+                                            '</table>'+
+                                            '<table class="averageTable">' + 
+                                                '<tr>'+
+                                                    '<td colspan="4" class="averageTableTitle">Average Damage From Champions</td>'+
+                                                '</tr>'+
+                                                '<tr>' +
+                                                    '<th>Physical</th>'+
+                                                    '<th>Magical</th>'+
+                                                    '<th>True</th>'+
+                                                    '<th>Total</th>'+
+                                                '</tr>'+
+                                                '<tr>'+
+                                                    '<td>' + parseFloat(physicalDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                                    '<td>' + parseFloat(magicDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                                    '<td>' + parseFloat(trueDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                                    '<td>' + parseFloat(totalDamageTaken/matchesLength).toFixed(2) + '</td>'+
+                                                '</tr>'+
+                                            '</table>'+
+                                            '<table class="averageTable">' + 
+                                                '<tr>'+
+                                                    '<td colspan="4" class="averageTableTitle">Average Minion Counts</td>'+
+                                                '</tr>'+
+                                                '<tr>' +
+                                                    '<th>Creep Score</th>'+
+                                                    '<th colspan="2">Jungle Monsters</th>'+
+                                                    '<th>Gold Earned</th>'+
+                                                '</tr>'+
+                                                '<tr>'+
+                                                    '<td rowspan="2">' +parseFloat(totalMinionsKilled/matchesLength).toFixed(2) + '</td>'+
+                                                    '<td>Team: ' + parseFloat(teamMonsters/matchesLength).toFixed(2)+'</td>'+
+                                                    '<td>Enemy: ' + parseFloat(enemyMonsters/matchesLength).toFixed(2) + '</td>'+
+                                                    '<td rowspan="2">' + parseFloat(goldEarned/matchesLength).toFixed(2) + '</td>'+
+                                                '</tr>'+
+                                                '<tr>' + 
+                                                    '<td colspan="2">Total: ' + parseFloat(monstersKilled/matchesLength).toFixed(2) + '</td>' + 
+                                                '</tr>'+
                                             '</table>'
                                             );
-                                        /*
-                                        $('#AVGPhysicalDTC').html(parseFloat((physicalDamageToChamps/matchesLength).toFixed(2)));
-                                        $('#AVGMagicDTC').html(parseFloat((magicDamageToChamps/matchesLength).toFixed(2)));
-                                        $('#AVGTrueDTC').html(parseFloat((trueDamageToChamps/matchesLength).toFixed(2)));
-                                        $('#AVGPhysicalTFC').html(parseFloat((physicalDamageTaken/matchesLength).toFixed(2)));
-                                        $('#AVGMagicTFC').html(parseFloat((magicDamageTaken/matchesLength).toFixed(2)));
-                                        $('#AVGTrueTFC').html(parseFloat((trueDamageTaken/matchesLength).toFixed(2)));
-                                        $('#AVGTotalMinions').html(parseFloat((totalMinionsKilled/matchesLength).toFixed(2)));
+                                        /*$('#AVGTotalMinions').html(parseFloat((totalMinionsKilled/matchesLength).toFixed(2)));
                                         $('#AVGTotalMonsters').html(parseFloat((monstersKilled/matchesLength).toFixed(2)));
                                         $('#AVGTeamMonsters').html(parseFloat((teamMonsters/matchesLength).toFixed(2)));
                                         $('#AVGEnemyMonsters').html(parseFloat((enemyMonsters/matchesLength).toFixed(2)));

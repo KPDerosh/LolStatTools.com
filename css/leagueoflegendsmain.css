@@ -84,7 +84,12 @@
     border: 1px solid gray;
     text-align: center;
 }
-
+.averageTableTitle{
+    width:100%;
+    font-size:20px;
+    background:black;
+    color: white;
+}
 #champSelectContainer{
     position:relative;
     width:493px;
