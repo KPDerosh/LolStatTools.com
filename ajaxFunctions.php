@@ -7,6 +7,7 @@
 	      		case "getSummonerID()": getSummonerID(); break;
 	      		case "getRanked5v5Solo()": getRanked5v5Solo(); break;
             case "getCurrentGame()": getCurrentGame();break;
+            case "getStats()": getStats();break;
 	    	}
   		}
 	}
@@ -37,19 +38,34 @@
 		header("Content-type: application/json");
   		$sumName = $_POST["sumName"];
       $region = $_POST["region"];
+      switch($region) { //Switch case for value of action
+            case "NA1": $region = "na"; break;
+      }
   		$summonerID = file_get_contents('https://na.api.pvp.net/api/lol/'. $region .'/v1.4/summoner/by-name/'. $sumName .'?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
   		$data = json_encode($summonerID);
   		echo $data;
 	}
 
+  function getStats(){
+    header("Content-type: application/json");
+      $sumID = $_POST["sumID"];
+      $region = $_POST["region"];
+      switch($region) { //Switch case for value of action
+            case "NA1": $region = "na"; break;
+      }
+      $currentGameStats = file_get_contents('https://'.$region.'.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/'.$sumID.'/ranked?season=SEASON2015&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+      $data = json_encode($currentGameStats);
+      echo $data;
+  }
+
 	function getRanked5v5Solo(){
 		header("Content-type: application/json");
   		$sumID = $_POST["sumID"];
-  		$championList = $_POST["championList"];
   		$queueType = "RANKED_SOLO_5x5";
+      $champion = $_POST["championList"];
   		//echo $sumID . ', ' . $championList . ', ' . $queueType;
   		if($queueType === "RANKED_SOLO_5x5"){
-  			$matchHistoryData = file_get_contents('https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' . $sumID . '?championIds=' . $championList . '&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+  			$matchHistoryData = file_get_contents('https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' . $sumID . '?championIds='.$champion.'&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
   			$data = json_encode($matchHistoryData);
   			echo $data;
   		} else {
