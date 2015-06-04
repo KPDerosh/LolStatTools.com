@@ -22,6 +22,16 @@
 .teamTable th{
     text-align: center;
 }
+.even{
+    background:#c7c7c7;
+}
+.odd{
+    background: white;
+}
+.summonerRow{
+    height:30px;
+    text-align: center;
+}
 .team1Banner{
     height:5px;
     background: blue;
@@ -29,6 +39,15 @@
 .team2Banner{
     height:5px;
     background: red;
+}
+.vs{
+    width: 85%;
+    height: 75px;
+    background: #ebebeb;
+    margin: auto;
+    font-size: 40px;
+    text-align: center;
+    padding-top: 12px
 }
 .headers{
     background: black;

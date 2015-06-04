@@ -59,10 +59,10 @@
     <div id="summonersTable">
         <table id="Team1" class="teamTable">
             <tr class="headers">
-                <th>Name</th>
-                <th>Champion</th>
-                <th>KDA</th>
-                <th>Rank</th>
+                <th style="width:25%">Name</th>
+                <th style="width:25%">Champion</th>
+                <th style="width:25%">KDA</th>
+                <th style="width:25%">Rank</th>
             </tr>
             <tr>
                 <td colspan="4">
@@ -70,12 +70,13 @@
                 </td>
             </tr>
         </table>
+        <div id="vs" class="vs">VS.</div>
         <table id="Team2" class="teamTable">
             <tr class="headers">
-                <th>Name</th>
-                <th>Champion</th>
-                <th>KDA</th>
-                <th>Rank</th>
+                <th style="width:25%">Name</th>
+                <th style="width:25%">Champion</th>
+                <th style="width:25%">KDA</th>
+                <th style="width:25%">Rank</th>
             </tr>
             <tr>
                 <td colspan="4">
@@ -95,7 +96,7 @@
                 success: function(data) {
                     var jsonObj = JSON.parse(data);
                     for(var champion in jsonObj.data){
-                        $( '<div style="display:hidden" id="' + jsonObj.data[champion].id + '">'+ champion +'</div>' ).appendTo( "#championList" );
+                        $( '<div style="display:hidden" id="' + jsonObj.data[champion].id + '">'+ champion +'</div>' ).appendTo("#championList");
                     }
                 }
             });
@@ -132,7 +133,7 @@
 
                 console.log(summonerInfoJSON.summonerInfo.summonerName);
                 console.log(summonerInfoJSONString);
-
+               
 
                 var currentGameJSON;
                 //CurrentGame information and store it in json
@@ -146,18 +147,58 @@
                     },
                     async:false
                 });
+
                 console.log(currentGameJSON.gameId);
-                var championStatsJSON;
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                    data:  { action: 'getStats()', sumID: summonerInfoJSON.summonerInfo.summonerID, region: $('select#regionSelect').val()},
-                    success: function(json){
-                        championStatsJSON = JSON.parse(json);
-                    }, async:false
-                });
-                console.log(championStatsJSON.summonerId);
+                if(currentGameJSON != false){
+                    for(var index = 0; index < 10; index++){
+                        var championStatsJSON;
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                            data:  { action: 'getStats()', sumID: currentGameJSON.participants[index].summonerId, region: $('select#regionSelect').val()},
+                            success: function(json){
+                                championStatsJSON = JSON.parse(json);
+                            }, async:false
+                        });
+                        var numberOfGames = 0;
+                        var kills = 0;
+                        var deaths = 0;
+                        var assists = 0;
+
+                        if(championStatsJSON != false){
+                            for(var champion = 0; champion < championStatsJSON.champions.length; champion++){
+                                if(championStatsJSON.champions[champion].id == currentGameJSON.participants[index].championId){
+                                    numberOfGames = championStatsJSON.champions[champion].stats.totalSessionsPlayed;
+                                    kills = championStatsJSON.champions[champion].stats.totalChampionKills/numberOfGames;
+                                    deaths = championStatsJSON.champions[champion].stats.totalDeathsPerSession/numberOfGames;
+                                    assists = championStatsJSON.champions[champion].stats.totalAssists/numberOfGames;
+                                }
+                            }
+                        }
+                        
+                        console.log(index);
+                        var evenOdd = "odd";
+                        if(index % 2 === 0){
+                            evenOdd = "even";
+                        }
+                        var team = "Team1";
+                        if(currentGameJSON.participants[index].teamId ==200){
+                            team ="Team2"
+                        }
+                        $('#'+team).append('<tr id="' + currentGameJSON.participants[index].summonerName + '" class="' + evenOdd + ' summonerRow">' + 
+                                '<td>' + currentGameJSON.participants[index].summonerName + '</td>' +
+                                '<td style="text-align:left">' +
+                                    '<div><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.participants[index].championId).text()+ '.png" height="25" width="25">' + $('#' + currentGameJSON.participants[index].championId).text() + '<b>('+ numberOfGames + ')</b></div>'+
+                                '</td>' +
+                                '<td>' +
+                                    '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
+                                '</td>' +
+                            '</tr>'
+                            );
+                    }   
+                }
+                
                 var matchHistoryData;
                 //get MatchHistory data
                 /*
