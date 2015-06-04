@@ -177,6 +177,19 @@
                             }
                         }
                         
+                        //League Data
+                         var leagueJSON;
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                            data:  { action: 'getLeague()', sumID: currentGameJSON.participants[index].summonerId, region: $('select#regionSelect').val()},
+                            success: function(json){
+                                leagueJSON = JSON.parse(json);
+                            }, async:false
+                        });
+                        var tier = leagueJSON[currentGameJSON.participants[index].summonerId].tier;
+
                         console.log(index);
                         var evenOdd = "odd";
                         if(index % 2 === 0){
@@ -193,6 +206,9 @@
                                 '</td>' +
                                 '<td>' +
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
+                                '</td>' +
+                                '<td>' +
+                                    '<div>' + tier + '</div>'+
                                 '</td>' +
                             '</tr>'
                             );

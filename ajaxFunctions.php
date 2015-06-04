@@ -8,6 +8,7 @@
 	      		case "getRanked5v5Solo()": getRanked5v5Solo(); break;
             case "getCurrentGame()": getCurrentGame();break;
             case "getStats()": getStats();break;
+            case "getLeague()": getLeague(); break;
 	    	}
   		}
 	}
@@ -16,6 +17,14 @@
   		return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 	}
 
+  function getLeague(){
+    header("Content-type: application/json");
+      $sumID = $_POST["sumID"];
+      $region = $_POST["region"];
+      $currentGameStats = file_get_contents('https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/'.$sumID.'/entry?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+      $data = json_encode($currentGameStats);
+      echo $data;
+  }
   function getCurrentGame(){
     header("Content-type: application/json");
       $sumID = $_POST["sumID"];
