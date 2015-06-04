@@ -188,8 +188,23 @@
                                 leagueJSON = JSON.parse(json);
                             }, async:false
                         });
-                        var tier = leagueJSON[currentGameJSON.participants[index].summonerId].tier;
-
+                        var tier;
+                        var division;
+                        var points;
+                        var wins;
+                        var losses;
+                        if(leagueJSON != false){
+                            for(var summoner in leagueJSON){
+                                tier = leagueJSON[summoner][0].tier;
+                                division = leagueJSON[summoner][0].entries[0].division;
+                                points = leagueJSON[summoner][0].entries[0].leaguePoints;
+                                wins = leagueJSON[summoner][0].entries[0].wins;
+                                losses = leagueJSON[summoner][0].entries[0].losses;
+                            }
+                        } else {
+                            tier = "Unranked";
+                        }
+  
                         console.log(index);
                         var evenOdd = "odd";
                         if(index % 2 === 0){
@@ -208,10 +223,10 @@
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div>' + tier + '</div>'+
+                                    '<div>' + tier + ' ' + division + '(' + points + ') ' + wins + '/' + losses + '</div>'+
                                 '</td>' +
                             '</tr>'
-                            );
+                        );
                     }   
                 }
                 
