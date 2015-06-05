@@ -71,10 +71,9 @@
 		header("Content-type: application/json");
   		$sumID = $_POST["sumID"];
   		$queueType = "RANKED_SOLO_5x5";
-      $champion = $_POST["championList"];
   		//echo $sumID . ', ' . $championList . ', ' . $queueType;
   		if($queueType === "RANKED_SOLO_5x5"){
-  			$matchHistoryData = file_get_contents('https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' . $sumID . '?championIds='.$champion.'&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+  			$matchHistoryData = file_get_contents('https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' . $sumID . '?&beginIndex=0&endIndex=15&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
   			$data = json_encode($matchHistoryData);
   			echo $data;
   		} else {
