@@ -56,16 +56,17 @@
         </div>
    
     </div>
-    <div id="summonersTable">
+    <div id="summonersTable" style="display:none">
         <table id="Team1" class="teamTable">
             <tr class="headers">
                 <th style="width:25%">Name</th>
-                <th style="width:25%">Champion</th>
+                <th style="width:20%">Champion</th>
                 <th style="width:25%">KDA</th>
-                <th style="width:25%">Rank</th>
+                <th style="width:18%">Rank</th>
+                <th style="width:12%">Rank W/L</th>
             </tr>
             <tr>
-                <td colspan="4">
+                <td colspan="5">
                     <div id="team1Banner" class="team1Banner"></div>
                 </td>
             </tr>
@@ -74,12 +75,13 @@
         <table id="Team2" class="teamTable">
             <tr class="headers">
                 <th style="width:25%">Name</th>
-                <th style="width:25%">Champion</th>
+                <th style="width:20%">Champion</th>
                 <th style="width:25%">KDA</th>
-                <th style="width:25%">Rank</th>
+                <th style="width:18%">Rank</th>
+                <th style="width:12%">Rank W/L</th>
             </tr>
             <tr>
-                <td colspan="4">
+                <td colspan="5">
                     <div id="team2Banner" class="team2Banner"></div>
                 </td>
             </tr>
@@ -111,6 +113,7 @@
 
         function getStats(){
             $(document).ready(function(){
+                $('#loadingData').show();
                 var summonerInfoJSONString = "";
                 var summonerName = $('#summonerName').val();
                 var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
@@ -147,27 +150,27 @@
                     },
                     async:false
                 });
-
-                //Make csv
-                var csvSummonerIds = "";
-                csvSummonerIds = csvSummonerIds.concat(currentGameJSON.participants[0].summonerId);
-                for(var summoner = 1; summoner < 10; summoner++){
-                    csvSummonerIds = csvSummonerIds.concat( "," + currentGameJSON.participants[summoner].summonerId);
-                }
-                //League Data
-                var leagueJSON;
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                    data:  { action: 'getLeague()', sumID: csvSummonerIds, region: $('select#regionSelect').val()},
-                    success: function(json){
-                        leagueJSON = JSON.parse(json);
-                    }, async:false
-                });
-                console.log(csvSummonerIds);
-                console.log(currentGameJSON.gameId);
                 if(currentGameJSON != false){
+                    //Make csv
+                    var csvSummonerIds = "";
+                    csvSummonerIds = csvSummonerIds.concat(currentGameJSON.participants[0].summonerId);
+                    for(var summoner = 1; summoner < 10; summoner++){
+                        csvSummonerIds = csvSummonerIds.concat( "," + currentGameJSON.participants[summoner].summonerId);
+                    }
+                    //League Data
+                    var leagueJSON;
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                        data:  { action: 'getLeague()', sumID: csvSummonerIds, region: $('select#regionSelect').val()},
+                        success: function(json){
+                            leagueJSON = JSON.parse(json);
+                        }, async:false
+                    });
+                    console.log(csvSummonerIds);
+                    console.log(currentGameJSON.gameId);
+                    //For loop building the tr for each summoner
                     for(var index = 0; index < 10; index++){
                         var summonerID = currentGameJSON.participants[index].summonerId;
                         var championStatsJSON;
@@ -228,13 +231,17 @@
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div>' + tier + ' ' + division + '(' + points + ') ' + wins + '/' + losses + '</div>'+
+                                    '<div>' + tier + ' ' + division + ' (' + points + ')</div>'+
                                 '</td>' +
+                                '<td>' +
+                                    '<div>' + wins + '/' + losses + '</div>'+
+                                '</td>' +
+
                             '</tr>'
                         );
                     }   
                 }
-                
+                $('#summonersTable').show();
                 var matchHistoryData;
                 //get MatchHistory data
                 /*
