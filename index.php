@@ -148,9 +148,28 @@
                     async:false
                 });
 
+                //Make csv
+                var csvSummonerIds = "";
+                csvSummonerIds = csvSummonerIds.concat(currentGameJSON.participants[0].summonerId);
+                for(var summoner = 1; summoner < 10; summoner++){
+                    csvSummonerIds = csvSummonerIds.concat( "," + currentGameJSON.participants[summoner].summonerId);
+                }
+                //League Data
+                var leagueJSON;
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                    data:  { action: 'getLeague()', sumID: csvSummonerIds, region: $('select#regionSelect').val()},
+                    success: function(json){
+                        leagueJSON = JSON.parse(json);
+                    }, async:false
+                });
+                console.log(csvSummonerIds);
                 console.log(currentGameJSON.gameId);
                 if(currentGameJSON != false){
                     for(var index = 0; index < 10; index++){
+                        var summonerID = currentGameJSON.participants[index].summonerId;
                         var championStatsJSON;
                         $.ajax({
                             type: "POST",
@@ -176,31 +195,17 @@
                                 }
                             }
                         }
-                        
-                        //League Data
-                         var leagueJSON;
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                            data:  { action: 'getLeague()', sumID: currentGameJSON.participants[index].summonerId, region: $('select#regionSelect').val()},
-                            success: function(json){
-                                leagueJSON = JSON.parse(json);
-                            }, async:false
-                        });
                         var tier;
                         var division;
                         var points;
                         var wins;
                         var losses;
                         if(leagueJSON != false){
-                            for(var summoner in leagueJSON){
-                                tier = leagueJSON[summoner][0].tier;
-                                division = leagueJSON[summoner][0].entries[0].division;
-                                points = leagueJSON[summoner][0].entries[0].leaguePoints;
-                                wins = leagueJSON[summoner][0].entries[0].wins;
-                                losses = leagueJSON[summoner][0].entries[0].losses;
-                            }
+                                tier = leagueJSON[summonerID][0].tier;
+                                division = leagueJSON[summonerID][0].entries[0].division;
+                                points = leagueJSON[summonerID][0].entries[0].leaguePoints;
+                                wins = leagueJSON[summonerID][0].entries[0].wins;
+                                losses = leagueJSON[summonerID][0].entries[0].losses;
                         } else {
                             tier = "Unranked";
                         }
