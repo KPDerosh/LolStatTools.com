@@ -22,10 +22,10 @@
 .teamTable th{
     text-align: center;
 }
-.even{
+.evenTeam{
     background:#c7c7c7;
 }
-.odd{
+.oddTeam{
     background: white;
 }
 .summonerRow{
@@ -66,16 +66,35 @@
     color:white;
     text-align: center;
 }
-
+ #allChampionStats{
+    width:85%;
+    margin:auto;
+    margin-top:20px;
+    background:#333333;
+    overflow:hidden;
+    border-radius: 5px;
+ }
 .championStat{
     width:80%;
     margin:auto;
 }
+.highlighted{
+    background: #909090;
+}
+.odd{
+    background:#222222;
+}
+.even{
+    background: #292929;
+}
 .championStatTable{
-    width:100%;
+    width:97%;
     margin:auto;
-    margin-top:10px;
+    margin-top:20px;
+    margin-bottom: 20px;
     text-align: center;
+    color:#337ab7;
+    
 }
 .championStatTable th{
     width:15%;
@@ -152,6 +171,7 @@
     background:black;
     color:white;
     text-align: center;
+    font-size: 20px;
     border:2px solid gray;
 }
 #champSelectContainer{
