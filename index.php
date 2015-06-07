@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <!--Navigation bar !-->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,15 +29,19 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Summoner Stats</a></li>
                 </ul>
-            </div><!--/.nav-collapse -->
+            </div>
         </div>
     </nav>
     
-    <!-- Filter champs with this container!-->
+    <!-- Have the user enter in summoner stats. !-->
     <div id="userSelectContainer">
+
+        <!-- Summoner name input !-->
         <div id="summonerInput" class="summonerInputBox">
             <input type="text" id="summonerName" class="form-control" placeholder="Enter Summoner Name to find stats" name="name">
-        </div>  
+        </div> 
+
+        <!-- Select the region !--> 
         <div id="regionSelectContainer" class="regionSelectContainer"> 
     		<select id="regionSelect" class="form-control">
     			<option value="-1">Please select a region</option>
@@ -54,15 +59,17 @@
             <div id="championList" style="display:hidden"></div>
             <button onClick="getStats()" class="btn btn-default" style="margin:auto; margin-top:5px">Get Game</button>
         </div>
-   
     </div>
+
+    <!-- Current game stats from summoners !-->
     <div id="summonersTable" style="display:none">
+        <!-- Team 1 Summoners !-->
         <table id="Team1" class="teamTable">
             <tr class="headers">
                 <th style="width:25%">Name</th>
                 <th style="width:20%">Champion(games)</th>
-                <th style="width:25%">KDA</th>
-                <th style="width:18%">Rank</th>
+                <th style="width:22%">KDA</th>
+                <th style="width:21%">Rank</th>
                 <th style="width:12%">Rank W/L</th>
             </tr>
             <tr>
@@ -71,13 +78,16 @@
                 </td>
             </tr>
         </table>
-        <div id="vs" class="vs">VS.</div>
+
+        <div id="vs" class="vs"><div id="team1Bans" class="team1Bans">Bans:</div>VS.<div id="team2Bans" class="team2Bans">Bans:</div></div>
+
+        <!-- Team 2 Summoners !-->
         <table id="Team2" class="teamTable">
             <tr class="headers">
                 <th style="width:25%">Name</th>
                 <th style="width:20%">Champion(games)</th>
-                <th style="width:25%">KDA</th>
-                <th style="width:18%">Rank</th>
+                <th style="width:22%">KDA</th>
+                <th style="width:21%">Rank</th>
                 <th style="width:12%">Rank W/L</th>
             </tr>
             <tr>
@@ -87,23 +97,36 @@
             </tr>
         </table>
     </div>
-    <div id="showAllChampionStats" style="width:50%; margin:auto; display:none"><button class="btn btn-default" style="width:100%;" onclick="showAllRankChampions();">Show All Ranked Champions Stats</button></div>
-    <div id="allChampionStats" style="display:none">
-            <table id="championStatTable" class="championStatTable">
-                <tr>
-                    <th>Champion</th>
-                    <th>Kills</th>
-                    <th>Deaths</th>
-                    <th>Assists</th> 
-                    <th>Wins</th>
-                    <th>Lost</th>
-                    <th>Minions</th>
-                </tr> 
-            </table>
+
+    <div id="summonerNotInGame" class="errorDiv"> Summoner is not in game</div>
+
+    <!-- button to show all average tables/average stats!-->
+    <div id="showAverageStats" style="width:50%; margin:auto; margin-top:20px; display:none"><button class="btn btn-default" style="width:100%;" onclick="showAllAverageStats();">Show Overall Average Statistics</button></div>
+
+    <!-- Div for summoner stats like average tables and stuffs!-->
+    <div id="summonerStats" style="display:none">
+            <div id="summonerStatsDiv"></div>
+            <!--Div for all the summoners ranked champions !-->
+            <div id="allChampionStats">
+                <table id="championStatTable" class="championStatTable">
+                    <tr>
+                        <th>Champion</th>
+                        <th>Kills</th>
+                        <th>Deaths</th>
+                        <th>Assists</th> 
+                        <th>Wins</th>
+                        <th>Lost</th>
+                        <th>Minions</th>
+                    </tr> 
+                </table>
+            </div>
+        </ul>
     </div>
-    <div id="summonerStats" style="display:none"></div>
+    
+    <!-- Last 15 ranked matches !-->
     <ul id="matches"><ul>
     <script>        
+        //Start when the document loads
 		$(document).ready(function(){
             $.ajax({
                 type: "POST",
@@ -127,6 +150,7 @@
         function getStats(){
             $(document).ready(function(){
                 
+                $('#summonerNotInGame').hide();
                 var summonerInfoJSONString = "";
                 var summonerName = $('#summonerName').val();
                 var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
@@ -145,17 +169,15 @@
                     },
                     async:false
                 });
+
+                //Summmoners Name
                 var summonerInfoJSON = JSON.parse(summonerInfoJSONString);
 
-                console.log(summonerInfoJSON.summonerInfo.summonerName);
-                console.log(summonerInfoJSONString);
-               
-
-                var currentGameJSON;
                 //CurrentGame information and store it in json
+                var currentGameJSON;
                 $.ajax({
                     type: "POST",
-                    dataType: "json",
+                    dataType: "json", 
                     url: "ajaxFunctions.php", //Relative or absolute path to response.php file
                     data:  { action: 'getCurrentGame()', sumID: summonerInfoJSON.summonerInfo.summonerID, region: $('select#regionSelect').val()},
                     success: function(json){
@@ -163,14 +185,17 @@
                     },
                     async:false
                 });
+
+                //If there is current game do things
                 if(currentGameJSON != false){
-                    $('#showAllChampionStats').show();
-                    //Make csv
+                    //Make csv of summoner names for league data.
+                    //This prevents you from making several calls and combining them all at once.
                     var csvSummonerIds = "";
                     csvSummonerIds = csvSummonerIds.concat(currentGameJSON.participants[0].summonerId);
                     for(var summoner = 1; summoner < 10; summoner++){
                         csvSummonerIds = csvSummonerIds.concat( "," + currentGameJSON.participants[summoner].summonerId);
                     }
+
                     //League Data
                     var leagueJSON;
                     $.ajax({
@@ -182,10 +207,11 @@
                             leagueJSON = JSON.parse(json);
                         }, async:false
                     });
-                    console.log(csvSummonerIds);
-                    console.log(currentGameJSON.gameId);
+
                     //For loop building the tr for each summoner
                     for(var index = 0; index < 10; index++){
+
+                        //Getting this summoner id.
                         var summonerID = currentGameJSON.participants[index].summonerId;
                         var championStatsJSON;
                         $.ajax({
@@ -197,6 +223,9 @@
                                 championStatsJSON = JSON.parse(json);
                             }, async:false
                         });
+
+                        //Finding the stats for the current champion being played.
+                        //TODO: try to find somethign that uses not a for loop.
                         var numberOfGames = 0;
                         var kills = 0;
                         var deaths = 0;
@@ -213,6 +242,8 @@
                                 }
                             }
                         }
+
+                        //Get league infor from the leagueJSON data for this summoner
                         var tier;
                         var division;
                         var points;
@@ -227,8 +258,7 @@
                         } else {
                             tier = "Unranked";
                         }
-  
-                        console.log(index);
+
                         var evenOdd = "oddTeam";
                         if(index % 2 === 0){
                             evenOdd = "evenTeam";
@@ -238,6 +268,7 @@
                             team ="Team2"
                         }
                         
+                        //Build the row with the data. 
                         $('#'+team).append('<tr id="' + currentGameJSON.participants[index].summonerName + '" class="' + evenOdd + ' summonerRow">' + 
                                 '<td><a onclick=javascript:loadSummonersStats(' + currentGameJSON.participants[index].championId + ',' + currentGameJSON.participants[index].summonerId + ',' + index + ',' + championIndex + ')>' + currentGameJSON.participants[index].summonerName + '</a></td>' +
                                 '<td style="text-align:left">' +
@@ -256,30 +287,35 @@
                             '</tr>'
                         );
                     }   
+                    $('#summonersTable').show();
+                } else {    //Show div that displays summoners not in game
+                    $('#summonerNotInGame').toggle();
                 }
-                $('#summonersTable').show();
-                
             });
         }
 
+        /*function to load most of the extra averages stats and gives a match history.*/
         function loadSummonersStats(championId, summonerId, partIndex, championIndex){
-           
-            console.log(summonerId);
-            $('#summonerStats').empty();
+            //Empty all the divs (reloads them)
+            $('#showAllChampionStats').show();
+            $('#showAverageStats').show();
+            $('#summonerStatDiv').empty();
             $('#championStatTable').empty();
             $('#matches').empty();
 
+            //This bit of code Reloads the table headers so the ranked champion stats can reload
             $('#championStatTable').append(
                 '<tr>'+
                     '<th>Champion</th>'+
                     '<th>Kills</th>'+
                     '<th>Deaths</th>'+
                     '<th>Assists</th>'+
-                    '<th>Wins</th>'+
-                    '<th>Lost</th>'+
+                    '<th>Win %</th>'+
                     '<th>Minions</th>'+
                 '</tr>' 
             );
+
+            //Get the ranked champion stats data.
             var championStatsJSON;
             $.ajax({
                 type: "POST",
@@ -290,6 +326,31 @@
                     championStatsJSON = JSON.parse(json);
                 }, async:false
             });
+
+            var divClass = "";
+            var rowColor = "even";
+            for(var index = 0; index < championStatsJSON.champions.length; index++){
+                
+                if(championId === championStatsJSON.champions[index].id){
+                    rowColor="highlighted";
+                } else if(index % 2==0){
+                    rowColor = "even";
+                } else {
+                    rowColor = "odd";
+                }
+                var numberOfGames = championStatsJSON.champions[index].stats.totalSessionsPlayed;
+                $('#championStatTable').append(
+                    '<tr class="' + rowColor + '">' + 
+                        '<td style="text-align:left; width:15%"><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + championStatsJSON.champions[index].id).text()+ '.png" height="25" width="25">' + $('#' + championStatsJSON.champions[index].id).text() + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon/numberOfGames*100).toFixed(2) + '%</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalMinionKills/numberOfGames).toFixed(2) + '</td>' +
+                    '</tr>' 
+                    );
+            }
+
             var numOfChampionGames = 0;
             var championWins = 0;
             var championLoss = 0;
@@ -304,34 +365,7 @@
                 championDeaths = championStatsJSON.champions[championIndex].stats.totalDeathsPerSession/numOfChampionGames;
                 championAssists = championStatsJSON.champions[championIndex].stats.totalAssists/numOfChampionGames;
             }
-            var divClass = "";
-            var rowColor = "even";
-            for(var index = 0; index < championStatsJSON.champions.length; index++){
-                if(championId === championStatsJSON.champions[index].id){
-                    divClass="highlighted"
-                } else {
-                    divClass="";
-                }
-                
-                if(index % 2==0){
-                    rowColor = "even";
-                } else {
-                    rowColor = "odd"
-                }
-                var numberOfGames = championStatsJSON.champions[index].stats.totalSessionsPlayed;
-                $('#championStatTable').append(
-                            '<tr class="' + rowColor + '">' + 
-                                '<td style="text-align:left; width:15%"><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + championStatsJSON.champions[index].id).text()+ '.png" height="25" width="25">' + $('#' + championStatsJSON.champions[index].id).text() + '</td>' +
-                                '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills/numberOfGames).toFixed(2) + '</td>' +
-                                '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession/numberOfGames).toFixed(2) + '</td>' +
-                                '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists/numberOfGames).toFixed(2) + '</td>' +
-                                '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon/numberOfGames).toFixed(2) + '</td>' +
-                                '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsLost/numberOfGames).toFixed(2) + '</td>' +
-                                '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalMinionKills/numberOfGames).toFixed(2) + '</td>' +
-                            '</tr>' 
-                    );
-            }
-            $('#summonerStats').append(
+            $('#summonerStatsDiv').append(
                 '<table class="championStats">' + 
                     '<tr>'+
                         '<td colspan="6" class="averageTableTitle">Champion Stats - ' + $('#' + championId).text() +'</td>'+
@@ -353,13 +387,12 @@
                         '<td>' + parseFloat(championKills).toFixed(2) + '/' + parseFloat(championDeaths).toFixed(2) + '/' + parseFloat(championAssists).toFixed(2) + ': ' + parseFloat((championKills + championAssists)/championDeaths).toFixed(2) + '</td>'+
                     '</tr>'+
                 '</table>');
-            $('#summonerStats').show(); 
             var matchHistoryData;
             $.ajax({
                 type: "POST",
                 dataType: "json",
                 url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                data:  { action: 'getRanked5v5Solo()', sumID: summonerId},
+                data:  { action: 'getRanked5v5Solo()', sumID: summonerId },
                 success: function(dataObject){
                     var data = JSON.parse(dataObject);
                     var gameType = data.matches[0].queueType;
@@ -478,100 +511,50 @@
                     $('#summonerStats').append(
                         '<table class="averageTable">' + 
                             '<tr>'+
-                                '<td colspan="9" class="averageTableTitle">Average Game Stats</td>'+
+                                '<td colspan="2" class="averageTableTitle">Average Game Stats</td>'+
+                            '</tr>'+
+                            '<tr><td>Win/Loss</td><td>' + wins + '/' + losses + ': ' + parseFloat((wins/matchesLength) * 100).toFixed(2) + '%</td></tr>'+
+                            '<tr><td>KDA</td><td>' + kills + '/' + deaths + '/' + assists + ': ' + parseFloat((kills + assists)/deaths).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Kills</td><td>' + parseFloat(kills/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Deaths</td><td>' + parseFloat(deaths/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Assists</td><td>' + parseFloat(assists/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>2x Kills</td><td>' + parseFloat(doubleKills/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>3x Kills</td><td>' + parseFloat(tripKills/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>4x Kills</td><td>' + parseFloat(quadraKills/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Penta Kills</td><td>' + parseFloat(pentaKills/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr>'+
+                                '<td colspan="2" class="averageTableTitle">Average Damage To Champions</td>'+
+                            '</tr>'+
+                            '<tr><td>Physical</td><td>' + parseFloat(physicalDamageToChamps/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Magical</td><td>' + parseFloat(magicDamageToChamps/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>True</td><td>' + parseFloat(trueDamageToChamps/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Total</td><td>' + parseFloat(totalDamageToChampions/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr>'+
+                                '<td colspan="2" class="averageTableTitle">Average Damage From Champions</td>'+
                             '</tr>'+
                             '<tr>' +
-                                '<th>Win/Loss</th>'+
-                                '<th>KDA</th>'+
-                                '<th>Kills</th>'+
-                                '<th>Deaths</th>'+
-                                '<th>Assists</th>'+
-                                '<th>2x Kills</th>'+
-                                '<th>3x Kills</th>'+
-                                '<th>4x Kills</th>'+
-                                '<th>Penta Kills</th>'+
-                            '</tr>'+
+                            '<tr><td>Physical</td><td>' + parseFloat(physicalDamageTaken/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Magical</td><td>' + parseFloat(magicDamageTaken/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>True</td><td>' + parseFloat(trueDamageTaken/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Total</td><td>' + parseFloat(totalDamageTaken/matchesLength).toFixed(2) + '</td></tr>'+
                             '<tr>'+
-                                '<td>' + wins + '/' + losses + ': ' + parseFloat((wins/matchesLength) * 100).toFixed(2) + '%</td>'+
-                                '<td>' + kills + '/' + deaths + '/' + assists + ': ' + parseFloat((kills + assists)/deaths).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(kills/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(deaths/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(assists/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(doubleKills/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(tripKills/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(quadraKills/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(pentaKills/matchesLength).toFixed(2) + '</td>'+
+                                '<td colspan="2" class="averageTableTitle">Average Minion Counts</td>'+
                             '</tr>'+
-                        '</table>'+
-                        '<table class="averageTable">' + 
-                            '<tr>'+
-                                '<td colspan="4" class="averageTableTitle">Average Damage To Champions</td>'+
-                            '</tr>'+
-                            '<tr>' +
-                                '<th>Physical</th>'+
-                                '<th>Magical</th>'+
-                                '<th>True</th>'+
-                                '<th>Total</th>'+
-                            '</tr>'+
-                            '<tr>'+
-                                '<td>' + parseFloat(physicalDamageToChamps/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(magicDamageToChamps/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(trueDamageToChamps/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(totalDamageToChampions/matchesLength).toFixed(2) + '</td>'+
-                            '</tr>'+
-                        '</table>'+
-                        '<table class="averageTable">' + 
-                            '<tr>'+
-                                '<td colspan="4" class="averageTableTitle">Average Damage From Champions</td>'+
-                            '</tr>'+
-                            '<tr>' +
-                                '<th>Physical</th>'+
-                                '<th>Magical</th>'+
-                                '<th>True</th>'+
-                                '<th>Total</th>'+
-                            '</tr>'+
-                            '<tr>'+
-                                '<td>' + parseFloat(physicalDamageTaken/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(magicDamageTaken/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(trueDamageTaken/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(totalDamageTaken/matchesLength).toFixed(2) + '</td>'+
-                            '</tr>'+
-                        '</table>'+
-                        '<table class="averageTable">' + 
-                            '<tr>'+
-                                '<td colspan="4" class="averageTableTitle">Average Minion Counts</td>'+
-                            '</tr>'+
-                            '<tr>' +
-                                '<th>Creep Score</th>'+
-                                '<th colspan="2">Jungle Monsters</th>'+
-                                '<th>Gold Earned</th>'+
-                            '</tr>'+
-                            '<tr>'+
-                                '<td rowspan="2">' +parseFloat(totalMinionsKilled/matchesLength).toFixed(2) + '</td>'+
-                                '<td>Team: ' + parseFloat(teamMonsters/matchesLength).toFixed(2)+'</td>'+
-                                '<td>Enemy: ' + parseFloat(enemyMonsters/matchesLength).toFixed(2) + '</td>'+
-                                '<td rowspan="2">' + parseFloat(goldEarned/matchesLength).toFixed(2) + '</td>'+
-                            '</tr>'+
+                            '<tr><td>Creep Score</td><td rowspan="2">' +parseFloat(totalMinionsKilled/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr colspan="2"><td>Jungle Monsters</td></tr>'+
+                            '<tr><td>Team:</td><td> ' + parseFloat(teamMonsters/matchesLength).toFixed(2)+'</td></tr>'+
+                            '<tr><td>Enemy:</td><td> ' + parseFloat(enemyMonsters/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Gold Earned</td><td>' + parseFloat(goldEarned/matchesLength).toFixed(2) + '</td></tr>'+
                             '<tr>' + 
-                                '<td colspan="2">Total: ' + parseFloat(monstersKilled/matchesLength).toFixed(2) + '</td>' + 
-                            '</tr>'+
-                        '</table>' + 
-                        '<table class="averageTable">' + 
-                            '<tr>'+
-                                '<td colspan="4" class="averageTableTitle">Average Warding Stats</td>'+
-                            '</tr>'+
-                            '<tr>' +
-                                '<th>Vision Wards</th>'+
-                                '<th>Sight Wards</th>'+
-                                '<th>Wards Placed</th>'+
-                                '<th>Wards Killed</th>'+
+                                '<td >Total: ' + parseFloat(monstersKilled/matchesLength).toFixed(2) + '</td>' + 
                             '</tr>'+
                             '<tr>'+
-                                '<td>' + parseFloat(visionWards/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(sightWards/matchesLength).toFixed(2)+'</td>'+
-                                '<td>' + parseFloat(wardsPlaced/matchesLength).toFixed(2) + '</td>'+
-                                '<td>' + parseFloat(wardsKilled/matchesLength).toFixed(2) + '</td>'+
+                                '<td colspan="2" class="averageTableTitle">Average Warding Stats</td>'+
                             '</tr>'+
+                            '<tr><td>Vision Wards</td><td>' + parseFloat(visionWards/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Sight Wards</td><td>' + parseFloat(sightWards/matchesLength).toFixed(2)+'</td></tr>'+
+                            '<tr><td>Wards Placed</td><td>' + parseFloat(wardsPlaced/matchesLength).toFixed(2) + '</td></tr>'+
+                            '<tr><td>Wards Killed</td><td>' + parseFloat(wardsKilled/matchesLength).toFixed(2) + '</td></tr>'+
                         '</table>'
                         );                                      
                 },
@@ -585,6 +568,9 @@
         //When current game is loaded so is all of the ranked champions for the summoner selected.
         function showAllRankChampions(){
             $('#allChampionStats').toggle();
+        }
+        function showAllAverageStats(){
+            $('#summonerStats').toggle();
         }
     </script>
     <script src="./js/bootstrap.min.js"></script>
