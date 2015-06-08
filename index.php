@@ -188,6 +188,15 @@
 
                 //If there is current game do things
                 if(currentGameJSON != false){
+                    //Get banned champions
+                    for(var ban = 0; ban < 6; ban++){
+                        if(ban % 2 == 0){
+                            $('#team1Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
+                        } else {
+                            $('#team2Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
+                        }
+                    }
+
                     //Make csv of summoner names for league data.
                     //This prevents you from making several calls and combining them all at once.
                     var csvSummonerIds = "";
