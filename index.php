@@ -302,7 +302,7 @@
             $('#championStatTable').empty();
             $('#matches').empty();
 
-            var championStatsJSON = loadRankedChampionStats(summonerId, championId);
+            var championStatsJSON = loadRankedChampionStats(summonerId, championId, "SEASON2015");
 
             var numOfChampionGames = 0;
             var championWins = 0;
