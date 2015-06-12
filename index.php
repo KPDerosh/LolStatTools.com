@@ -217,7 +217,7 @@
                             type: "POST",
                             dataType: "json",
                             url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                            data:  { action: 'getStats()', sumID: currentGameJSON.participants[index].summonerId, region: $('select#regionSelect').val()},
+                            data:  { action: 'getStats()', sumID: currentGameJSON.participants[index].summonerId, region: $('select#regionSelect').val(), seasonString: "SEASON2015"},
                             success: function(json){
                                 championStatsJSON = JSON.parse(json);
                             }, async:false
