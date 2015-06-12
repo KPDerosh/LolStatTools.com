@@ -108,17 +108,7 @@
             <div id="summonerStatsDiv"></div>
             <!--Div for all the summoners ranked champions !-->
             <div id="allChampionStats">
-                <table id="championStatTable" class="championStatTable">
-                    <tr>
-                        <th>Champion</th>
-                        <th>Kills</th>
-                        <th>Deaths</th>
-                        <th>Assists</th> 
-                        <th>Wins</th>
-                        <th>Lost</th>
-                        <th>Minions</th>
-                    </tr> 
-                </table>
+                
             </div>
         </ul>
     </div>
@@ -308,57 +298,11 @@
             //Empty all the divs (reloads them)
             $('#showAllChampionStats').show();
             $('#showAverageStats').show();
-            $('#summonerStatDiv').empty();
+            $('#summonerStatsDiv').empty();
             $('#championStatTable').empty();
             $('#matches').empty();
 
-            //This bit of code Reloads the table headers so the ranked champion stats can reload
-            $('#championStatTable').append(
-                '<tr>'+
-                    '<th>Champion</th>'+
-                    '<th>Kills</th>'+
-                    '<th>Deaths</th>'+
-                    '<th>Assists</th>'+
-                    '<th>Win %</th>'+
-                    '<th>Minions</th>'+
-                '</tr>' 
-            );
-
-            //Get the ranked champion stats data.
-            var championStatsJSON;
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                data:  { action: 'getStats()', sumID: summonerId, region: $('select#regionSelect').val()},
-                success: function(json){
-                    championStatsJSON = JSON.parse(json);
-                }, async:false
-            });
-
-            var divClass = "";
-            var rowColor = "even";
-            for(var index = 0; index < championStatsJSON.champions.length; index++){
-                
-                if(championId === championStatsJSON.champions[index].id){
-                    rowColor="highlighted";
-                } else if(index % 2==0){
-                    rowColor = "even";
-                } else {
-                    rowColor = "odd";
-                }
-                var numberOfGames = championStatsJSON.champions[index].stats.totalSessionsPlayed;
-                $('#championStatTable').append(
-                    '<tr class="' + rowColor + '">' + 
-                        '<td style="text-align:left; width:15%"><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + championStatsJSON.champions[index].id).text()+ '.png" height="25" width="25">' + $('#' + championStatsJSON.champions[index].id).text() + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills/numberOfGames).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession/numberOfGames).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists/numberOfGames).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon/numberOfGames*100).toFixed(2) + '%</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalMinionKills/numberOfGames).toFixed(2) + '</td>' +
-                    '</tr>' 
-                    );
-            }
+            var championStatsJSON = loadRankedChampionStats(summonerId, championId);
 
             var numOfChampionGames = 0;
             var championWins = 0;
@@ -401,7 +345,7 @@
                 type: "POST",
                 dataType: "json",
                 url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                data:  { action: 'getRanked5v5Solo()', sumID: summonerId },
+                data:  { action: 'getRanked5v5Solo()', sumID: summonerId, region: $('select#regionSelect').val()},
                 success: function(dataObject){
                     var data = JSON.parse(dataObject);
                     var gameType = data.matches[0].queueType;
@@ -570,6 +514,68 @@
                 async:false
             });
         }
+
+        function loadRankedChampionStats(summonerId, championId, season){
+            $('#allChampionStats').empty();
+            $('#allChampionStats').append(
+            '<div id="buttonContainer" style="margin:auto; margin-top:15px; width:468px; ">'+
+                '<ul>'+
+                    '<li style="display:inline; margin-right:10px;"><button class="btn btn-mini" onclick="loadRankedChampionStats(' + summonerId +', ' + championId + ', \'SEASON1\')">Season 1</button></li>'+
+                    '<li style="display:inline; margin-right:10px;"><button class="btn btn-mini" onclick="loadRankedChampionStats(' + summonerId +', ' + championId + ', \'SEASON2\')">Season 2</button></li>'+
+                    '<li style="display:inline; margin-right:10px;"><button class="btn btn-mini" onclick="loadRankedChampionStats(' + summonerId +', ' + championId + ', \'SEASON3\')">Season 3</button></li>'+
+                    '<li style="display:inline; margin-right:10px;"><button class="btn btn-mini" onclick="loadRankedChampionStats(' + summonerId +', ' + championId + ', \'SEASON2014\')">Season 4</button></li>'+
+                    '<li style="display:inline;"><button class="btn btn-mini" onclick="loadRankedChampionStats(' + summonerId +', ' + championId + ', \'SEASON2015\')">Season 5</button></li>'+
+                '</ul>'+
+            '</div>'+
+            '<table id="championStatTable" class="championStatTable">'+
+                '<tr>'+
+                    '<th style="width:200px">Champion</th>'+
+                    '<th style="width:75px">Kills</th>'+
+                    '<th style="width:75px">Deaths</th>'+
+                    '<th style="width:75px">Assists</th>'+
+                    '<th style="width:75px">Win %</th>'+
+                    '<th style="width:100px">Minions</th>'+
+                '</tr> '+
+            '</table>');
+            
+            //Get the ranked champion stats data.
+            var championStatsJSON;
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "ajaxFunctions.php", //Relative or absolute path to response.php file
+                data:  { action: 'getStats()', sumID: summonerId, region: $('select#regionSelect').val(), seasonString: season},
+                success: function(json){
+                    championStatsJSON = JSON.parse(json);
+                }, async:false
+            });
+
+            var divClass = "";
+            var rowColor = "even";
+            for(var index = 0; index < championStatsJSON.champions.length; index++){
+                
+                if(championId === championStatsJSON.champions[index].id){
+                    rowColor="highlighted";
+                } else if(index % 2==0){
+                    rowColor = "even";
+                } else {
+                    rowColor = "odd";
+                }
+                var numberOfGames = championStatsJSON.champions[index].stats.totalSessionsPlayed;
+                $('#championStatTable').append(
+                    '<tr class="' + rowColor + '">' + 
+                        '<td style="text-align:left; width:15%"><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + championStatsJSON.champions[index].id).text()+ '.png" height="25" width="25">' + $('#' + championStatsJSON.champions[index].id).text() + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon/numberOfGames*100).toFixed(2) + '%</td>' +
+                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalMinionKills/numberOfGames).toFixed(2) + '</td>' +
+                    '</tr>' 
+                    );
+            }
+            return championStatsJSON;
+        }
+
 
         /*
         =====================SHOW METHODS======================

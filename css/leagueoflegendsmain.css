@@ -87,12 +87,14 @@
 
 /*all ranked statistics for that summoner style*/
  #allChampionStats{
-    margin-left: 20%;
-    margin-right: 20px;
+    margin:auto;
+    margin-left: 10px;
     background:#333333;
-    float:left;
     overflow:hidden;
     border-radius: 5px;
+    width:75%;
+    max-width: 700px;
+    float:left;
  }
 .championStat{
     width:80%;
