@@ -67,14 +67,15 @@
         <!-- Team 1 Summoners !-->
         <table id="Team1" class="teamTable">
             <tr class="headers">
-                <th style="width:25%">Name</th>
-                <th style="width:20%">Champion(games)</th>
+                <th style="width:20%">Name</th>
+                <th style="width:17%">Champion(games)</th>
+                <th style="width:8%">SS</th>
                 <th style="width:22%">KDA</th>
-                <th style="width:21%">Rank</th>
+                <th style="width:21%">Rank(Lp)</th>
                 <th style="width:12%">Rank W/L</th>
             </tr>
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     <div id="team1Banner" class="team1Banner"></div>
                 </td>
             </tr>
@@ -85,14 +86,15 @@
         <!-- Team 2 Summoners !-->
         <table id="Team2" class="teamTable">
             <tr class="headers">
-                <th style="width:25%">Name</th>
-                <th style="width:20%">Champion(games)</th>
+                <th style="width:20%">Name</th>
+                <th style="width:17%">Champion(games)</th>
+                <th style="width:8%">SS</th>
                 <th style="width:22%">KDA</th>
-                <th style="width:21%">Rank</th>
+                <th style="width:21%">Rank(Lp)</th>
                 <th style="width:12%">Rank W/L</th>
             </tr>
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     <div id="team2Banner" class="team2Banner"></div>
                 </td>
             </tr>
@@ -141,19 +143,24 @@
         function getStats(){
             $(document).ready(function(){
                 
+                //Hide the "summoner not in game" error div.
                 $('#summonerNotInGame').hide();
                 var summonerName = $('#summonerName').val();
 
+                //Get summoners basic information.
+                //Get name, id, level
                 var JSON = getSummonerInformation(summonerName);
                 var sumBasicInfo;
-                for (var first in JSON){
-                    sumBasicInfo = JSON[first];
+                if(JSON != false){
+                    for (var first in JSON){
+                        sumBasicInfo = JSON[first];
+                    }
+                    console.log(sumBasicInfo.name);
+                    console.log(sumBasicInfo.id);
                 }
-                console.log(sumBasicInfo.name);
-                console.log(sumBasicInfo.id);
-
-                //CurrentGame information and store it in json
                 
+
+                //Get current gameJSON for riot api.
                 var currentGameJSON = getCurrentGameJSON(sumBasicInfo);;
                 
                 console.log(currentGameJSON.gameId);
@@ -171,7 +178,7 @@
                     //Make csv of summoner names for league data.
                     //This prevents you from making several calls and combining them all at once.
                     var csvSummonerIds = "";
-                    csvSummonerIds = csvSummonerIds.concat(currentGameJSON.participants[0].summonerId);
+                    var csvSummonerIds = csvSummonerIds.concat(currentGameJSON.participants[0].summonerId);
                     for(var summoner = 1; summoner < 10; summoner++){
                         csvSummonerIds = csvSummonerIds.concat( "," + currentGameJSON.participants[summoner].summonerId);
                     }
@@ -205,7 +212,7 @@
                             }
                         }
 
-                        //Get league infor from the leagueJSON data for this summoner
+                        //Get league info from the leagueJSON data for this summoner
                         var tier;
                         var division;
                         var points;
@@ -226,10 +233,17 @@
                             evenOdd = "evenTeam";
                         }
                         var team = "Team1";
-                        if(currentGameJSON.participants[index].teamId ==200){
+                        if(currentGameJSON.participants[index].teamId == 200){
                             team ="Team2"
                         }
                         
+                        var spell1 = "spell" + currentGameJSON.participants[index].spell1Id + ".png";
+                        var spell2 = "spell" + currentGameJSON.participants[index].spell2Id + ".png";
+                        switch(spell1){
+                            case "spell4.png":
+                                spell1 = "SummonerFlash";
+                                break;
+                        }
                         //Build the row with the data. 
                         $('#'+team).append('<tr id="' + currentGameJSON.participants[index].summonerName + '" class="' + evenOdd + ' summonerRow">' + 
                                 '<td><a onclick=javascript:loadSummonersStats(' + currentGameJSON.participants[index].championId + ',' + currentGameJSON.participants[index].summonerId + ',' + index + ',' + championIndex + ')>' + currentGameJSON.participants[index].summonerName + '</a></td>' +
@@ -237,15 +251,17 @@
                                     '<div><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.participants[index].championId).text()+ '.png" height="25" width="25">' + $('#' + currentGameJSON.participants[index].championId).text() + '<b>('+ numberOfGames + ')</b></div>'+
                                 '</td>' +
                                 '<td>' +
+                                    '<div style="float:left; margin-left:4px;"><img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/' + spell1 + '.png" height="25" width="25"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + spell2 + '.png" height="25" width="25"></div>'+
+                                '</td>' +
+                                '<td>' +
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div>' + tier + ' ' + division + ' (' + points + ')</div>'+
+                                    '<div>' + tier + ' ' + division + ' <b>(' + points + ')</b></div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div>' + wins + '/' + losses + '</div>'+
+                                    '<div><span style="color:green">' + wins + '</span>/<span style="color:red">' + losses + '</span></div>'+
                                 '</td>' +
-
                             '</tr>'
                         );
                     }   
