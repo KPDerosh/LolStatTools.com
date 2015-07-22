@@ -237,13 +237,9 @@
                             team ="Team2"
                         }
                         
-                        var spell1 = "spell" + currentGameJSON.participants[index].spell1Id + ".png";
-                        var spell2 = "spell" + currentGameJSON.participants[index].spell2Id + ".png";
-                        switch(spell1){
-                            case "spell4.png":
-                                spell1 = "SummonerFlash";
-                                break;
-                        }
+                        var spell1 = currentGameJSON.participants[index].spell1Id;
+                        var spell2 = currentGameJSON.participants[index].spell2Id;
+                       
                         //Build the row with the data. 
                         $('#'+team).append('<tr id="' + currentGameJSON.participants[index].summonerName + '" class="' + evenOdd + ' summonerRow">' + 
                                 '<td><a onclick=javascript:loadSummonersStats(' + currentGameJSON.participants[index].championId + ',' + currentGameJSON.participants[index].summonerId + ',' + index + ',' + championIndex + ')>' + currentGameJSON.participants[index].summonerName + '</a></td>' +
@@ -251,7 +247,7 @@
                                     '<div><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.participants[index].championId).text()+ '.png" height="25" width="25">' + $('#' + currentGameJSON.participants[index].championId).text() + '<b>('+ numberOfGames + ')</b></div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div style="float:left; margin-left:4px;"><img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/' + spell1 + '.png" height="25" width="25"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + spell2 + '.png" height="25" width="25"></div>'+
+                                    '<div style="float:left; margin-left:4px;"><img src="/images/summonerSpells/' + spell1 + '.png" height="25" width="25"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="/images/summonerSpells/' + spell2 + '.png" height="25" width="25"></div>'+
                                 '</td>' +
                                 '<td>' +
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
