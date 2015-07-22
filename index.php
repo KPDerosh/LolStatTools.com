@@ -168,7 +168,6 @@
                     console.log(sumBasicInfo.id);
                 }
                 
-
                 //Get current gameJSON for riot api.
                 var currentGameJSON = getCurrentGameJSON(sumBasicInfo);;
                 
@@ -176,13 +175,16 @@
                 //If there is current game do things
                 if(currentGameJSON != false){
                     //Get banned champions
-                    for(var ban = 0; ban < 6; ban++){
-                        if(ban % 2 == 0){
-                            $('#team1Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
-                        } else {
-                            $('#team2Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
+                    if(currentGameJSON.bannedChampions[0] != null){
+                        for(var ban = 0; ban < 6; ban++){
+                            if(ban % 2 == 0){
+                                $('#team1Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
+                            } else {
+                                $('#team2Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
+                            }
                         }
                     }
+                   
 
                     //Make csv of summoner names for league data.
                     //This prevents you from making several calls and combining them all at once.
@@ -227,7 +229,7 @@
                         var points;
                         var wins;
                         var losses;
-                        if(sumLeagueData != false){
+                        if(sumLeagueData != false && sumLeagueData[summonerID] != null){
                                 tier = sumLeagueData[summonerID][0].tier;
                                 division = sumLeagueData[summonerID][0].entries[0].division;
                                 points = sumLeagueData[summonerID][0].entries[0].leaguePoints;
@@ -256,7 +258,7 @@
                                     '<div><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.participants[index].championId).text()+ '.png" height="25" width="25">' + $('#' + currentGameJSON.participants[index].championId).text() + '<b>('+ numberOfGames + ')</b></div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div style="float:left; margin-left:4px;"><img src="/images/summonerSpells/' + spell1 + '.png" height="25" width="25"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="/images/summonerSpells/' + spell2 + '.png" height="25" width="25"></div>'+
+                                    '<div style="float:left; margin-left:4px;"><img src="/images/summonerSpells/' + spell1 + '.png" height="25" width="25" style="margin-right:2px"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="/images/summonerSpells/' + spell2 + '.png" height="25" width="25" style="margin-right:2px"></div>'+
                                 '</td>' +
                                 '<td>' +
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
