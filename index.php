@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/leagueoflegendsmain.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="/js/stats.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
 </head>
 
@@ -115,7 +116,8 @@
     
     <!-- Last 15 ranked matches !-->
     <ul id="matches"><ul>
-    <script>        
+    <script>
+        var summonerInfoJSON;        
         //Start when the document loads
 		$(document).ready(function(){
             $.ajax({
@@ -133,7 +135,6 @@
             $('#championList').toggle();
         });
 
-
         /*
         Get stats button is clicked. This function loads the current game tables
         */
@@ -141,41 +142,21 @@
             $(document).ready(function(){
                 
                 $('#summonerNotInGame').hide();
-                var summonerInfoJSONString = "";
                 var summonerName = $('#summonerName').val();
-                var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
-                //Get this summoners information and turn it into a json variable
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                    data:  { action: 'getSummonerID()', sumName: urlEncodeSumName, region: $('select#regionSelect').val() },
-                    success: function(json){
-                        var jsonObj = JSON.parse(json);
-                        for(var summoner in jsonObj){
-                            summonerInfoJSONString = summonerInfoJSONString.concat('{ "summonerInfo": { "summonerName":"' + jsonObj[summoner].name + '",');
-                            summonerInfoJSONString = summonerInfoJSONString.concat('"summonerID":"' + jsonObj[summoner].id + '"}}');
-                        }
-                    },
-                    async:false
-                });
 
-                //Summmoners Name
-                var summonerInfoJSON = JSON.parse(summonerInfoJSONString);
+                var JSON = getSummonerInformation(summonerName);
+                var sumBasicInfo;
+                for (var first in JSON){
+                    sumBasicInfo = JSON[first];
+                }
+                console.log(sumBasicInfo.name);
+                console.log(sumBasicInfo.id);
 
                 //CurrentGame information and store it in json
-                var currentGameJSON;
-                $.ajax({
-                    type: "POST",
-                    dataType: "json", 
-                    url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                    data:  { action: 'getCurrentGame()', sumID: summonerInfoJSON.summonerInfo.summonerID, region: $('select#regionSelect').val()},
-                    success: function(json){
-                        currentGameJSON = JSON.parse(json);
-                    },
-                    async:false
-                });
-
+                
+                var currentGameJSON = getCurrentGameJSON(sumBasicInfo);;
+                
+                console.log(currentGameJSON.gameId);
                 //If there is current game do things
                 if(currentGameJSON != false){
                     //Get banned champions
@@ -195,33 +176,15 @@
                         csvSummonerIds = csvSummonerIds.concat( "," + currentGameJSON.participants[summoner].summonerId);
                     }
 
-                    //League Data
-                    var leagueJSON;
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                        data:  { action: 'getLeague()', sumID: csvSummonerIds, region: $('select#regionSelect').val()},
-                        success: function(json){
-                            leagueJSON = JSON.parse(json);
-                        }, async:false
-                    });
+                    //Get all summoners league data.
+                    var sumLeagueData = getSummonersLeagueData(csvSummonerIds);;
 
                     //For loop building the tr for each summoner
                     for(var index = 0; index < 10; index++){
 
                         //Getting this summoner id.
                         var summonerID = currentGameJSON.participants[index].summonerId;
-                        var championStatsJSON;
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                            data:  { action: 'getStats()', sumID: currentGameJSON.participants[index].summonerId, region: $('select#regionSelect').val(), seasonString: "SEASON2015"},
-                            success: function(json){
-                                championStatsJSON = JSON.parse(json);
-                            }, async:false
-                        });
+                        var currentSumsChampionStats = getChampionStats(currentGameJSON.participants[index].summonerId);
 
                         //Finding the stats for the current champion being played.
                         //TODO: try to find somethign that uses not a for loop.
@@ -230,14 +193,14 @@
                         var deaths = 0;
                         var assists = 0;
                         var championIndex = 0;
-                        if(championStatsJSON != false){
-                            for(var champion = 0; champion < championStatsJSON.champions.length; champion++){
-                                if(championStatsJSON.champions[champion].id == currentGameJSON.participants[index].championId){
+                        if(currentSumsChampionStats != false){
+                            for(var champion = 0; champion < currentSumsChampionStats.champions.length; champion++){
+                                if(currentSumsChampionStats.champions[champion].id == currentGameJSON.participants[index].championId){
                                     championIndex = champion;
-                                    numberOfGames = championStatsJSON.champions[champion].stats.totalSessionsPlayed;
-                                    kills = championStatsJSON.champions[champion].stats.totalChampionKills/numberOfGames;
-                                    deaths = championStatsJSON.champions[champion].stats.totalDeathsPerSession/numberOfGames;
-                                    assists = championStatsJSON.champions[champion].stats.totalAssists/numberOfGames;
+                                    numberOfGames = currentSumsChampionStats.champions[champion].stats.totalSessionsPlayed;
+                                    kills = currentSumsChampionStats.champions[champion].stats.totalChampionKills/numberOfGames;
+                                    deaths = currentSumsChampionStats.champions[champion].stats.totalDeathsPerSession/numberOfGames;
+                                    assists = currentSumsChampionStats.champions[champion].stats.totalAssists/numberOfGames;
                                 }
                             }
                         }
@@ -248,12 +211,12 @@
                         var points;
                         var wins;
                         var losses;
-                        if(leagueJSON != false){
-                                tier = leagueJSON[summonerID][0].tier;
-                                division = leagueJSON[summonerID][0].entries[0].division;
-                                points = leagueJSON[summonerID][0].entries[0].leaguePoints;
-                                wins = leagueJSON[summonerID][0].entries[0].wins;
-                                losses = leagueJSON[summonerID][0].entries[0].losses;
+                        if(sumLeagueData != false){
+                                tier = sumLeagueData[summonerID][0].tier;
+                                division = sumLeagueData[summonerID][0].entries[0].division;
+                                points = sumLeagueData[summonerID][0].entries[0].leaguePoints;
+                                wins = sumLeagueData[summonerID][0].entries[0].wins;
+                                losses = sumLeagueData[summonerID][0].entries[0].losses;
                         } else {
                             tier = "Unranked";
                         }
