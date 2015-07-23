@@ -243,72 +243,19 @@
                         
                         var spell1 = currentGameJSON.participants[index].spell1Id;
                         var spell2 = currentGameJSON.participants[index].spell2Id;
-                        var classString1 = "";
-                        var classString2 = ""; 
-                        switch(spell1){
-                            case 4:
-                                classString1 = "flash"
-                                break;
-                            case 3:
-                                classString1 = "exhaust";
-                                break;
-                            case 6:
-                                classString1 = "ghost";
-                                break;
-                            case 7:
-                                classString1 = "heal";
-                                break;
-                            case 11:
-                                classString1 = "smite";
-                                break;
-                            case 12:
-                                classString1 = "teleport";
-                                break;
-                            case 13:
-                                classString1 = "clari";
-                                break;
-                            case 14:
-                                classString1 = "ignite";
-                                break;
-                            case 21: 
-                                classString1 = "barrier";
-                                break;
-                            case 32: 
-                                classString1 = "poroThrow";
-                                break;
-                        }
-                        switch(spell2){
-                            case 4:
-                                classString2 = "flash"
-                                break;
-                            case 3:
-                                classString2 = "exhaust";
-                                break;
-                            case 6:
-                                classString2 = "ghost";
-                                break;
-                            case 7:
-                                classString2 = "heal";
-                                break;
-                            case 11:
-                                classString2 = "smite";
-                                break;
-                            case 12:
-                                classString2 = "teleport";
-                                break;
-                            case 13:
-                                classString2 = "clari";
-                                break;
-                            case 14:
-                                classString2 = "ignite";
-                                break;
-                            case 21: 
-                                classString2 = "barrier";
-                                break;
-                            case 32: 
-                                classString2 = "poroThrow";
-                                break;
-                        }
+                        //Create a json object of class strings
+                        var classStrings = {
+                                                "3": "exhaust",
+                                                "4": "flash", 
+                                                "6": "ghost",
+                                                "7": "heal",
+                                                "11": "smite",
+                                                "12": "teleport",
+                                                "13": "clari",
+                                                "14": "ignite",
+                                                "21": "barrier",
+                                                "32": "poroThrow",
+                                            };
                         //Build the row with the data. 
                         $('#'+team).append('<tr id="' + currentGameJSON.participants[index].summonerName + '" class="' + evenOdd + ' summonerRow">' + 
                                 '<td><a onclick=javascript:loadSummonersStats(' + currentGameJSON.participants[index].championId + ',' + currentGameJSON.participants[index].summonerId + ',' + index + ',' + championIndex + ')>' + currentGameJSON.participants[index].summonerName + '</a></td>' +
@@ -316,7 +263,7 @@
                                     '<div><img style="margin-right:5px" class="' + $('#' + currentGameJSON.participants[index].championId).text()+ '" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.participants[index].championId).text()+ '.png" height="25" width="25">' + $('#' + currentGameJSON.participants[index].championId).text() + '<b>('+ numberOfGames + ')</b></div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div style="float:left; margin-left:4px;"><img src="/images/summonerSpells/' + spell1 + '.png" class="' + classString1 + '" height="25" width="25" style="margin-right:2px"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="/images/summonerSpells/' + spell2 + '.png" height="25" width="25" style="margin-right:2px" class="' + classString2 + '"></div>'+
+                                    '<div style="float:left; margin-left:4px;"><img src="/images/summonerSpells/' + spell1 + '.png" class="' + classStrings[spell1.toString()] + '" height="25" width="25" style="margin-right:2px"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="/images/summonerSpells/' + spell2 + '.png" height="25" width="25" style="margin-right:2px" class="' + classStrings[spell1.toString()] + '"></div>'+
                                 '</td>' +
                                 '<td>' +
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+

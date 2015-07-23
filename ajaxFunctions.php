@@ -38,7 +38,7 @@
             case "RU": $region = "ru"; break;
             case "TR1": $region = "tr"; break;
         }
-        $currentGameStats = file_get_contents('https://' . $region . '.api.pvp.net/api/lol/na/v2.5/league/by-summoner/'.$sumID.'/entry?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
+        $currentGameStats = file_get_contents('https://' . $region . '.api.pvp.net/api/lol/'.$region.'/v2.5/league/by-summoner/'.$sumID.'/entry?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
         $data = json_encode($currentGameStats);
         echo $data;
     }
