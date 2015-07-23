@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="./css/leagueoflegendsmain.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script src="/js/stats.js"></script>
+    <script src="/js/tooltip.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/jquery.powertip.css">
+    <script src="./js/jquery.powertip.js"></script>
 </head>
 
 <body>
@@ -28,7 +31,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Summoner Stats</a></li>
+                    <li class="active"><a href="#">Current Game</a></li>
                 </ul>
             </div>
         </div>
@@ -136,16 +139,7 @@
             });
             $('#championList').toggle();
         });
-        function getOffset( el ) {
-            var _x = 0;
-            var _y = 0;
-            while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-                _x += el.offsetLeft - el.scrollLeft;
-                _y += el.offsetTop - el.scrollTop;
-                el = el.offsetParent;
-            }
-            return { top: _y, left: _x };
-        }
+
         /*
         Get stats button is clicked. This function loads the current game tables
         */
@@ -178,13 +172,12 @@
                     if(currentGameJSON.bannedChampions[0] != null){
                         for(var ban = 0; ban < 6; ban++){
                             if(ban % 2 == 0){
-                                $('#team1Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
+                                $('#team1Bans').append('<img style="margin-right:5px" class="' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '"src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
                             } else {
-                                $('#team2Bans').append('<img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
+                                $('#team2Bans').append('<img style="margin-right:5px" class="' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.bannedChampions[ban].championId).text() + '.png" height="50" width="50">');
                             }
                         }
                     }
-                   
 
                     //Make csv of summoner names for league data.
                     //This prevents you from making several calls and combining them all at once.
@@ -250,15 +243,80 @@
                         
                         var spell1 = currentGameJSON.participants[index].spell1Id;
                         var spell2 = currentGameJSON.participants[index].spell2Id;
-                       
+                        var classString1 = "";
+                        var classString2 = ""; 
+                        switch(spell1){
+                            case 4:
+                                classString1 = "flash"
+                                break;
+                            case 3:
+                                classString1 = "exhaust";
+                                break;
+                            case 6:
+                                classString1 = "ghost";
+                                break;
+                            case 7:
+                                classString1 = "heal";
+                                break;
+                            case 11:
+                                classString1 = "smite";
+                                break;
+                            case 12:
+                                classString1 = "teleport";
+                                break;
+                            case 13:
+                                classString1 = "clari";
+                                break;
+                            case 14:
+                                classString1 = "ignite";
+                                break;
+                            case 21: 
+                                classString1 = "barrier";
+                                break;
+                            case 32: 
+                                classString1 = "poroThrow";
+                                break;
+                        }
+                        switch(spell2){
+                            case 4:
+                                classString2 = "flash"
+                                break;
+                            case 3:
+                                classString2 = "exhaust";
+                                break;
+                            case 6:
+                                classString2 = "ghost";
+                                break;
+                            case 7:
+                                classString2 = "heal";
+                                break;
+                            case 11:
+                                classString2 = "smite";
+                                break;
+                            case 12:
+                                classString2 = "teleport";
+                                break;
+                            case 13:
+                                classString2 = "clari";
+                                break;
+                            case 14:
+                                classString2 = "ignite";
+                                break;
+                            case 21: 
+                                classString2 = "barrier";
+                                break;
+                            case 32: 
+                                classString2 = "poroThrow";
+                                break;
+                        }
                         //Build the row with the data. 
                         $('#'+team).append('<tr id="' + currentGameJSON.participants[index].summonerName + '" class="' + evenOdd + ' summonerRow">' + 
                                 '<td><a onclick=javascript:loadSummonersStats(' + currentGameJSON.participants[index].championId + ',' + currentGameJSON.participants[index].summonerId + ',' + index + ',' + championIndex + ')>' + currentGameJSON.participants[index].summonerName + '</a></td>' +
                                 '<td style="text-align:left">' +
-                                    '<div><img style="margin-right:5px" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.participants[index].championId).text()+ '.png" height="25" width="25">' + $('#' + currentGameJSON.participants[index].championId).text() + '<b>('+ numberOfGames + ')</b></div>'+
+                                    '<div><img style="margin-right:5px" class="' + $('#' + currentGameJSON.participants[index].championId).text()+ '" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/' + $('#' + currentGameJSON.participants[index].championId).text()+ '.png" height="25" width="25">' + $('#' + currentGameJSON.participants[index].championId).text() + '<b>('+ numberOfGames + ')</b></div>'+
                                 '</td>' +
                                 '<td>' +
-                                    '<div style="float:left; margin-left:4px;"><img src="/images/summonerSpells/' + spell1 + '.png" height="25" width="25" style="margin-right:2px"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="/images/summonerSpells/' + spell2 + '.png" height="25" width="25" style="margin-right:2px"></div>'+
+                                    '<div style="float:left; margin-left:4px;"><img src="/images/summonerSpells/' + spell1 + '.png" class="' + classString1 + '" height="25" width="25" style="margin-right:2px"></div><div style="float:left"><img style="margin-right:5px; float:right;" src="/images/summonerSpells/' + spell2 + '.png" height="25" width="25" style="margin-right:2px" class="' + classString2 + '"></div>'+
                                 '</td>' +
                                 '<td>' +
                                     '<div>' + parseFloat(kills).toFixed(1) + '/' + parseFloat(deaths).toFixed(1) + '/' + parseFloat(assists).toFixed(1) + ': ' + parseFloat((kills+assists)/deaths).toFixed(1) + '</div>'+
@@ -276,9 +334,56 @@
                 } else {    //Show div that displays summoners not in game
                     $('#summonerNotInGame').toggle();
                 }
+                setupTooltip();
+                setupChampionTooltips();
             });
         }
 
+        function setupTooltip(){
+            $(document).ready(function(){
+                $.ajax({
+                    dataType: "json",
+                    url: '/jsonData/summonerSpellData.json',
+                    success: function(JSONData) {
+                        var counter = 0;
+                        var classes = [".barrier", ".cleanse", ".clairvoyance", ".ignite", ".exhaust", ".flash", ".ghost", ".heal", ".clarity", ".garrison", ".poroRecall", ".poroThrow", ".revive", ".smite", ".teleport"];
+                        for(var key in JSONData.data){
+                            $(classes[counter]).powerTip({
+                                followMouse: 'true'
+                            }).data('powertip', '<div style="width:500px">Name: ' + JSONData.data[key].name + '</div>' + 
+                                    '<div style="width:500px; white-space: pre-wrap;">Description: ' + JSONData.data[key].description + '</div>' + 
+                                    '<div style="width:500px">Cooldown: ' + JSONData.data[key].cooldownBurn + '</div>');
+                            counter++;  
+                        }
+                    }
+                });
+            });
+        }
+
+        function setupChampionTooltips(){
+            $(document).ready(function(){
+                $.ajax({
+                    dataType: "json",
+                    url: '/jsonData/championData.json',
+                    success: function(JSONData) {
+                        var counter = 0;
+                        for(var key in JSONData.data){
+                            tooltipElement = '<div style="width:500px">Name: ' + JSONData.data[key].name + '</div>' + 
+                                             '<div style="width:500px; white-space: pre-wrap;">Description: ' + JSONData.data[key].blurb + '</div>' + 
+                                             '<div style="width:500px; white-space: pre-wrap;">Types: ';
+                            for(var tagKey in JSONData.data[key].tags){
+                                tooltipElement +=  JSONData.data[key].tags[tagKey] + " " ;
+                            }
+                            tooltipElement += '</div>';
+                            $('.' + key).powerTip({
+                                followMouse: 'true'
+                            }).data('powertip', tooltipElement.toString());
+                            counter++;  
+                        }
+                    }
+                });
+            });
+        }
         /*function to load most of the extra averages stats and gives a match history.*/
         function loadSummonersStats(championId, summonerId, partIndex, championIndex){
             //Empty all the divs (reloads them)
@@ -561,6 +666,7 @@
             return championStatsJSON;
         }
 
+        
 
         /*
         =====================SHOW METHODS======================
