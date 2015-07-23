@@ -1,0 +1,112 @@
+2015-07-23 14:41:18,608 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.apache.struts2.dispatcher.Dispatcher  - Dispatcher initialization failed
+java.lang.RuntimeException: java.lang.InterruptedException
+	at com.opensymphony.xwork2.inject.util.ReferenceCache.internalCreate(ReferenceCache.java:90)
+	at com.opensymphony.xwork2.inject.util.ReferenceCache.get(ReferenceCache.java:116)
+	at com.opensymphony.xwork2.inject.ContainerImpl$ConstructorInjector.<init>(ContainerImpl.java:356)
+	at com.opensymphony.xwork2.inject.ContainerImpl$5.create(ContainerImpl.java:311)
+	at com.opensymphony.xwork2.inject.ContainerImpl$5.create(ContainerImpl.java:307)
+	at com.opensymphony.xwork2.inject.util.ReferenceCache$CallableCreate.call(ReferenceCache.java:150)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at com.opensymphony.xwork2.inject.util.ReferenceCache.internalCreate(ReferenceCache.java:76)
+	at com.opensymphony.xwork2.inject.util.ReferenceCache.get(ReferenceCache.java:116)
+	at com.opensymphony.xwork2.inject.ContainerImpl.getConstructor(ContainerImpl.java:607)
+	at com.opensymphony.xwork2.inject.ContainerBuilder$5.create(ContainerBuilder.java:204)
+	at com.opensymphony.xwork2.inject.Scope$2$1.create(Scope.java:51)
+	at com.opensymphony.xwork2.inject.ContainerBuilder$3.create(ContainerBuilder.java:93)
+	at com.opensymphony.xwork2.inject.ContainerBuilder$7.call(ContainerBuilder.java:487)
+	at com.opensymphony.xwork2.inject.ContainerBuilder$7.call(ContainerBuilder.java:484)
+	at com.opensymphony.xwork2.inject.ContainerImpl.callInContext(ContainerImpl.java:584)
+	at com.opensymphony.xwork2.inject.ContainerBuilder.create(ContainerBuilder.java:484)
+	at com.opensymphony.xwork2.config.impl.DefaultConfiguration.createBootstrapContainer(DefaultConfiguration.java:340)
+	at com.opensymphony.xwork2.config.impl.DefaultConfiguration.reloadContainer(DefaultConfiguration.java:229)
+	at com.opensymphony.xwork2.config.ConfigurationManager.getConfiguration(ConfigurationManager.java:67)
+	at org.apache.struts2.dispatcher.Dispatcher.init_PreloadConfiguration(Dispatcher.java:445)
+	at org.apache.struts2.dispatcher.Dispatcher.init(Dispatcher.java:489)
+	at org.apache.struts2.dispatcher.ng.InitOperations.initDispatcher(InitOperations.java:74)
+	at org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.init(StrutsPrepareAndExecuteFilter.java:57)
+	at org.apache.catalina.core.ApplicationFilterConfig.initFilter(ApplicationFilterConfig.java:281)
+	at org.apache.catalina.core.ApplicationFilterConfig.getFilter(ApplicationFilterConfig.java:262)
+	at org.apache.catalina.core.ApplicationFilterConfig.<init>(ApplicationFilterConfig.java:107)
+	at org.apache.catalina.core.StandardContext.filterStart(StandardContext.java:4775)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5452)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.StandardContext.reload(StandardContext.java:3954)
+	at org.apache.catalina.loader.WebappLoader.backgroundProcess(WebappLoader.java:426)
+	at org.apache.catalina.core.ContainerBase.backgroundProcess(ContainerBase.java:1345)
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1530)
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1540)
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1540)
+	at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1519)
+	at java.lang.Thread.run(Thread.java:701)
+Caused by: java.lang.InterruptedException
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1302)
+	at java.util.concurrent.FutureTask$Sync.innerGet(FutureTask.java:248)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:111)
+	at com.opensymphony.xwork2.inject.util.ReferenceCache.internalCreate(ReferenceCache.java:77)
+	... 38 more
+2015-07-23 14:41:18,638 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceKani1'
+2015-07-23 14:41:19,312 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceMitsubishi'
+2015-07-23 14:41:19,312 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceGminternal'
+2015-07-23 14:41:19,312 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceToyotav2'
+2015-07-23 14:41:19,312 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceWave'
+2015-07-23 14:41:19,312 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceLatam'
+2015-07-23 14:41:19,312 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceMaserati'
+2015-07-23 14:41:19,312 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourcePolaris'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFiatv2'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceAllison'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceTte'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourcePsi'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceHatciaav2'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceDtna'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceNissanv2'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceHonda'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceMbrdna'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceMeritor'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceVw'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceCtecSales'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceCtechd'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceBosch'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFev'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFordJ1939'
+2015-07-23 14:41:19,313 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceCnh'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceNavistarv2'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceTennecogev2'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceTenneco'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceHmma'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFiskerv2'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFisker'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourcePaccarewp'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceCat'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceLitens'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFordKani1'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceCtecv2'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceChryslerv2'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceVia'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceWestportldv2'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFordcfma'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceGmv2'
+2015-07-23 14:41:19,314 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFordveme'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFordbev'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceGvdr'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourcePurepower'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceGm'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceIccc'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceToyota'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceTennecoge'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceCtec'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceHatciaa'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourcePaccar'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceChryslerev'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceMazda'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceHatci'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceSubaru'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceNissan'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceRicardo'
+2015-07-23 14:41:19,315 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceWestportld'
+2015-07-23 14:41:19,316 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceChrysler'
+2015-07-23 14:41:19,316 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceNavistar'
+2015-07-23 14:41:19,316 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFoe'
+2015-07-23 14:41:19,316 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceFord'
+2015-07-23 14:41:19,316 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceGmInternal'
+2015-07-23 14:41:19,316 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] ERROR org.springframework.beans.factory.support.DisposableBeanAdapter  - Couldn't find a destroy method named 'close' on bean with name 'dataSourceCtGraph'

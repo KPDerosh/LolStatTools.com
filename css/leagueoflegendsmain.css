@@ -46,12 +46,12 @@
 }
 .vs{
     width: 85%;
-    height: 75px;
+    height: 87px;
     background: #ebebeb;
     margin: auto;
     font-size: 40px;
     text-align: center;
-    padding-top: 12px
+    padding: 12px 10px 12px 10px;
 }
 .team1Bans{
     color:blue;
@@ -88,13 +88,11 @@
 /*all ranked statistics for that summoner style*/
  #allChampionStats{
     margin:auto;
-    margin-left: 10px;
+    margin-left:10px;
+    margin-right:10px;
     background:#333333;
     overflow:hidden;
     border-radius: 5px;
-    width:75%;
-    max-width: 700px;
-    float:left;
  }
 .championStat{
     width:80%;

@@ -1,9 +1,18 @@
-//Global variables
-var summonerInfo;
+//========================Dragon data variables=========================
+var dataDragonVersion = "5.14.1";
+var dataDragonChampionURL = 'http://ddragon.leagueoflegends.com/cdn/' + dataDragonVersion + '/img/champion/';
+var dataDragonItemURL = "http://ddragon.leagueoflegends.com/cdn/" + dataDragonVersion + "/img/item/";
+
+
+//Global information variables.=============================================
+var summonerBasicInfo;
 var currentGameJSON;
 var leagueData; 
 var championStats;
 
+function loadAllInformation(summonerName){
+	getSummonerInformation
+}
 function getSummonerInformation(summonerName){
 	var urlEncodeSumName = summonerName.toString().replace(/\s/g,"");
 	var JSONObj;
@@ -14,10 +23,15 @@ function getSummonerInformation(summonerName){
         data:  { action: 'getSummonerID()', sumName: urlEncodeSumName, region: $('select#regionSelect').val() },
         success: function(json){
            summonerInfo = JSON.parse(json);
+           if(summonerInfo != false){
+                for (var first in summonerInfo){
+                    summonerBasicInfo = summonerInfo[first];
+                }
+            }
         },
         async:false
     });
-    return summonerInfo;
+    return summonerBasicInfo;
 }
 
 function getCurrentGameJSON(sumBasicInfo){
