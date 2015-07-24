@@ -70,12 +70,12 @@
     margin-top: 10px;
     margin-bottom: 20px;
     text-align: center;
-    background:#34495E;
-    color:#DFE35B;
+    background:#9E9E9E;
+    color:#FFC107;
 }
 .championStats th{
-    background:black;
-    color:white;
+    background:#616161;
+    color:#212121;
     text-align: center;
 }
 /*============================================*/
@@ -86,7 +86,7 @@
     margin:auto;
     margin-left:10px;
     margin-right:10px;
-    background:#333333;
+    background:#616161;
     overflow:hidden;
     border-radius: 5px;
  }
@@ -99,21 +99,23 @@
     color:black;
 }
 .odd{
-    background:#222222;
+    background:#9E9E9E;
+    color:#212121;
 }
 .even{
-    background: #292929;
+    background: #F5F5F5;
+    color:#727272;
 }
 .championStatTable{
     margin:auto;
     text-align: center;
-    color:#337ab7;
+    color:#536DFE;
     overflow-x:scroll; 
     
 }
 .championStatTable th{
     background:black;
-    color:white;
+    color:#F5F5F5;
     text-align: center;
 }
 /*==========================================*/
@@ -183,8 +185,8 @@
 /*Championg average statistics table*/
 .averageTable{
     text-align: center;
-    background:#34495E;
-    color:#DFE35B;
+    background:black;
+    color:white;
 }
 .averageTable th{
     background:black;
@@ -196,7 +198,7 @@
     color:white;
     text-align: center;
     font-size: 20px;
-    border:2px solid gray;
+    border:2px solid #B6B6B6;
 }
 ul{
     list-style-type: none;

@@ -584,7 +584,7 @@
                 '<table id="championStatTable" class="championStatTable">'+
                    
                     '<tr>'+
-                        '<th style="min-width:130px">Champion</th>'+
+                        '<th style="min-width:140px">Champion</th>'+
                         '<th style="min-width:60px">Kills</th>'+
                         '<th style="min-width:60px">Deaths</th>'+
                         '<th style="min-width:60px">Assists</th>'+
@@ -620,7 +620,7 @@
                 
                 if(championId === championStatsJSON.champions[index].id){
                     rowColor="highlighted";
-                } else if(index % 2==0){
+                } else if((index + 1) % 2==0){
                     rowColor = "even";
                 } else {
                     rowColor = "odd";
@@ -629,7 +629,7 @@
                 var championName = $('#' + championStatsJSON.champions[index].id).text();
                 $('#championStatTable').append(
                     '<tr id="' + championName + 'Totals" class="' + rowColor + '">' + 
-                        '<td style="text-align:left; "><img style="margin-right:5px" src="' + dataDragonChampionURL + championName+ '.png" class="' + championName + '"height="25" width="25">' + championName + ' Totals</td>' +
+                        '<td style="text-align:left; "><img style="margin-right:5px" src="' + dataDragonChampionURL + championName+ '.png" class="' + championName + '"height="25" width="25">' + championName + '</td>' +
                         '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills).toFixed(2) + '</td>' +
                         '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession).toFixed(2) + '</td>' +
                         '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists).toFixed(2) + '</td>' +
@@ -647,7 +647,7 @@
                         '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.maxChampionsKilled).toFixed(2) + '</td>' +
                         '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.maxNumDeaths).toFixed(2) + '</td>' +
                     '</tr>' +
-                    '<tr id="' + championName + 'Totals" >' +
+                    '<tr id="' + championName + 'Totals" class=' + rowColor + '>' +
                         '<td style="text-align:left;">' + championName + ' Averages</td>' +
                         '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills/numberOfGames).toFixed(2) + '</td>' +
                         '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession/numberOfGames).toFixed(2) + '</td>' +
