@@ -105,16 +105,13 @@
     background: #292929;
 }
 .championStatTable{
-    width:97%;
     margin:auto;
-    margin-top:20px;
-    margin-bottom: 20px;
     text-align: center;
     color:#337ab7;
+    overflow-x:scroll; 
     
 }
 .championStatTable th{
-    width:15%;
     background:black;
     color:white;
     text-align: center;

@@ -580,17 +580,26 @@
                     '<li style="display:inline;"><button class="btn btn-mini" onclick="loadRankedChampionStats(' + summonerId +', ' + championId + ', \'SEASON2015\')">Season 5</button></li>'+
                 '</ul>'+
             '</div>'+
-            '<div style="border: 1px solid black; overflow-x:scroll">' + 
-            '<table id="championStatTable" class="championStatTable">'+
-                '<tr>'+
-                    '<th style="width:200px">Champion</th>'+
-                    '<th style="width:75px">Kills</th>'+
-                    '<th style="width:75px">Deaths</th>'+
-                    '<th style="width:75px">Assists</th>'+
-                    '<th style="width:75px">Win %</th>'+
-                    '<th style="width:100px">Minions</th>'+
-                '</tr> '+
-            '</table>' +
+            '<div style="margin:auto; border: 1px solid black; width:97%; overflow-x:scroll;">' + 
+                '<table id="championStatTable" class="championStatTable">'+
+                   
+                    '<tr>'+
+                        '<th style="min-width:130px">Champion</th>'+
+                        '<th style="min-width:60px">Kills</th>'+
+                        '<th style="min-width:60px">Deaths</th>'+
+                        '<th style="min-width:60px">Assists</th>'+
+                        '<th style="min-width:65px">Win %</th>'+
+                        '<th style="min-width:110px">Minions</th>'+
+                        '<th style="min-width:120px">Damage Dealt</th>'+
+                        '<th style="min-width:65px">Physical</th>'+
+                        '<th style="min-width:50px">Magic</th>'+
+                        '<th style="min-width:120px">Damage Taken</th>'+
+                        '<th style="min-width:120px">Gold Earned</th>'+
+                        '<th style="min-width:100px">Max Kills</th>'+
+                        '<th style="min-width:100px">Max Deaths</th>'+
+
+                    '</tr> '+
+                '</table>' +
             '</div>');
             
             //Get the ranked champion stats data.
@@ -619,29 +628,43 @@
                 var numberOfGames = championStatsJSON.champions[index].stats.totalSessionsPlayed;
                 var championName = $('#' + championStatsJSON.champions[index].id).text();
                 $('#championStatTable').append(
-                    '<tr id="' + championName + 'Averages" class="' + rowColor + '">' + 
-                        '<td style="text-align:left; width:15%"><img style="margin-right:5px" src="' + dataDragonChampionURL + championName+ '.png" class="' + championName + '"height="25" width="25">' + championName + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills/numberOfGames).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession/numberOfGames).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists/numberOfGames).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon/numberOfGames*100).toFixed(2) + '%</td>' +
-                        '<td style="text-align:center; width:15%">' +
-                            '<div style="margin:auto; width:50%">' +
-                                '<img src="/images/basicIcons/minion.png" height="25" width="25" style="float:left">' + parseFloat(championStatsJSON.champions[index].stats.totalMinionKills/numberOfGames).toFixed(2) + 
+                    '<tr id="' + championName + 'Totals" class="' + rowColor + '">' + 
+                        '<td style="text-align:left; "><img style="margin-right:5px" src="' + dataDragonChampionURL + championName+ '.png" class="' + championName + '"height="25" width="25">' + championName + ' Totals</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon).toFixed(2) + '%</td>' +
+                        '<td style="text-align:center;">' +
+                            '<div>' +
+                                '<img src="/images/basicIcons/minion.png" height="25" width="25" style="float:left">' + parseFloat(championStatsJSON.champions[index].stats.totalMinionKills).toFixed(2) + 
                             '</div>'+
                         '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDamageDealt).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalPhysicalDamageDealt).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalMagicDamageDealt).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDamageTaken).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalGoldEarned).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.maxChampionsKilled).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.maxNumDeaths).toFixed(2) + '</td>' +
                     '</tr>' +
                     '<tr id="' + championName + 'Totals" >' +
-                        '<td style="text-align:left; width:15%">' + championName + ' Totals</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists).toFixed(2) + '</td>' +
-                        '<td style="text-align:center; width:15%">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon).toFixed(2) + '%</td>' +
-                        '<td style="text-align:center; width:15%">' +
-                            '<div style="margin:auto; width:50%">' +
+                        '<td style="text-align:left;">' + championName + ' Averages</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalChampionKills/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDeathsPerSession/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalAssists/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalSessionsWon/numberOfGames*100).toFixed(2) + '%</td>' +
+                        '<td style="text-align:center;">' +
+                            '<div style="margin:auto;">' +
                                 '<img src="/images/basicIcons/minion.png" height="25" width="25" style="float:left">' + parseFloat(championStatsJSON.champions[index].stats.totalMinionKills/numberOfGames).toFixed(2) + 
                             '</div>'+
                         '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDamageDealt/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalPhysicalDamageDealt/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalMagicDamageDealt/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalDamageTaken/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.totalGoldEarned/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.maxChampionsKilled/numberOfGames).toFixed(2) + '</td>' +
+                        '<td style="text-align:center;">' + parseFloat(championStatsJSON.champions[index].stats.maxNumDeaths/numberOfGames).toFixed(2) + '</td>' +
                     '</tr>'
                     );
             }
