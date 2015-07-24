@@ -6,14 +6,10 @@
 .summonerInputBox{
     margin:auto;
     margin-top: 200px;
-    width:50%;
-    margin-top: 
+    width:250px;
 }
 .regionSelectContainer{
-    margin:auto;
-    margin-top: 10px;
-    width:50%;
-    margin-bottom: 20px
+    width:200px;
 }
 /*===========================================*/
 
@@ -21,24 +17,24 @@
 .teamTable{
     width:85%;
     margin:auto;
-    border:1px solid gray;
+    border:1px solid #B6B6B6;
 }
 .teamTable th{
     text-align: center;
 }
 .team1Banner{
     height:5px;
-    background: blue;
+    background: #1976D2;
 }
 .team2Banner{
     height:5px;
-    background: red;
+    background: #FF5252;
 }
 .evenTeam{
-    background:#c7c7c7;
+    background:white;
 }
 .oddTeam{
-    background: white;
+    background:#CFD8DC;
 }
 .summonerRow{
     height:30px;
@@ -54,16 +50,16 @@
     padding: 12px 10px 12px 10px;
 }
 .team1Bans{
-    color:blue;
+    color:#1976D2;
     float:left;
 }
 .team2Bans{
-    color:red;
+    color:#FF5252;
     float:right;
 }
 .headers{
-    background: black;
-    color: white;
+    background: #455A64;
+    color: whitesmoke;
 }
 /*=========================================*/
 
