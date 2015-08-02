@@ -35,36 +35,37 @@
             </div>
         </div>
     </nav>
-    
-    <!-- Have the user enter in summoner stats. !-->
-    <div id="userSelectContainer" style="margin:auto; margin-bottom: 20px; width:550px">
+    <form method="get" action="./currentGame.php">
+        <!-- Have the user enter in summoner stats. !-->
+        <div id="userSelectContainer" style="margin:auto; margin-bottom: 20px; width:550px">
             <!-- Summoner name input !-->
             <div id="summonerInput" style="display:inline-block" class="summonerInputBox">
-                <input type="text" id="summonerName" class="form-control" placeholder="Enter Summoner Name to find stats" name="name">
+                <input type="text" id="summonerName" name="sumName" class="form-control" placeholder="Enter Summoner Name to find stats">
             </div> 
 
             <!-- Select the region !--> 
             <div id="regionSelectContainer" style="display:inline-block" class="regionSelectContainer"> 
-        		<select id="regionSelect" class="form-control">
-        			<option value="-1">Please select a region</option>
-        			<option value="NA1">NA - North America</option>
-        			<option value="EUW1">EU - Europe</option>
-        			<option value="EUN1">EU - Europe Nordic & East</option>
+                <select id="regionSelect" name="region" class="form-control">
+                    <option value="-1">Please select a region</option>
+                    <option value="NA1">NA - North America</option>
+                    <option value="EUW1">EU - Europe</option>
+                    <option value="EUN1">EU - Europe Nordic & East</option>
                     <option value="BR1">BR - Brazil</option>
-        			<option value="KR">KR - Korea</option>
+                    <option value="KR">KR - Korea</option>
                     <option value="LA1">LAN - Latin America North</option>
-        			<option value="LA2">LAS - Latin America South</option>
+                    <option value="LA2">LAS - Latin America South</option>
                     <option value="OC1">OCE - Oceania</option>
-        			<option value="RU">RU - Russia</option>
+                    <option value="RU">RU - Russia</option>
                     <option value="TR1">TR - Turkey</option>
-        		</select>
-                <div id="championList" style="display:hidden"></div>
-                
+                </select>
             </div>
-            <div style="display:inline-block">
-                <button onClick="loadCurrentGame()" class="btn btn-default" style="margin:auto;">Get Game</button>
+            <div id="loadGame" style="display:inline-block">
+                <input type="submit" value="Get Game" class="btn btn-default" style="margin:auto;">
             </div>
-    </div>
+    </div>  
+    </form>
+    
+    <img id="loadingGIF" src="/images/loading.GIF" style="display:none; position:absolute; top:50%; left:50%; margin:auto; margin-left:-64px; margin-top:-19px; z-index:10;">
 
     <!-- Current game stats from summoners !-->
     <div id="summonersTable" style="display:none">
@@ -104,9 +105,6 @@
             </tr>
         </table>
     </div>
-
-    <div id="summonerNotInGame" class="errorDiv"> Summoner is not in game</div>
-
     <!-- button to show all average tables/average stats!-->
     <div id="showAverageStats" style="width:50%; margin:auto; margin-top:20px; display:none"><button class="btn btn-default" style="width:100%;" onclick="showAllAverageStats();">Show Overall Average Statistics</button></div>
 
@@ -122,7 +120,8 @@
     <!-- Last 15 ranked matches !-->
     <ul id="matches"><ul>
     <script>
-        //Start when the document loads
+        //Start when the document load
+        //Get all champions and their id's/names
 		$(document).ready(function(){
             $.ajax({
                 type: "POST",
@@ -145,7 +144,6 @@
         function loadCurrentGame(){
             $(document).ready(function(){
                 console.log("loading game");
-
                 //Hide the "summoner not in game" error div.
                 $('#summonerNotInGame').hide();
                 var summonerName = $('#summonerName').val();
@@ -156,7 +154,6 @@
                 //If there is current game do things
                 if(currentGameJSON != false){
                     loadSummonersIntoTable(currentGameJSON);
-                    
                 } else {    //Show div that displays summoners not in game
                     $('#summonerNotInGame').toggle();
                 }

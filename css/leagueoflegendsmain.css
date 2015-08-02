@@ -111,7 +111,7 @@
     text-align: center;
     color:#536DFE;
     overflow-x:scroll; 
-    
+    border:3px solid black;
 }
 .championStatTable th{
     background:black;
@@ -122,15 +122,16 @@
 
 /*If summoner is not in a game style=======*/
 .errorDiv{
-    width:50%;
     margin:auto;
     margin-top:25px;
     color:red;
-    display:none;
+    display:inline-block;
     font-size: 40px;
 }
 
-
+.currentGameDiv{
+    margin-top:20%;
+}
 /*Matches CSS*/
 /*match div styles*/
 .matchliStyle{
