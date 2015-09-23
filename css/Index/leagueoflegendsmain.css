@@ -1,0 +1,214 @@
+.summonersTable{
+    width:100%;
+    margin:0;
+}
+/*sumoner input styles=======================*/
+.summonerInputBox{
+    margin:auto;
+    margin-top: 200px;
+    width:250px;
+}
+.regionSelectContainer{
+    width:200px;
+}
+/*===========================================*/
+
+/*Team table input style====================*/
+.teamTable{
+    width:85%;
+    margin:auto;
+    border:1px solid #B6B6B6;
+}
+.teamTable th{
+    text-align: center;
+}
+.team1Banner{
+    height:5px;
+    background: #1976D2;
+}
+.team2Banner{
+    height:5px;
+    background: #FF5252;
+}
+.evenTeam{
+    background:white;
+}
+.oddTeam{
+    background:#CFD8DC;
+}
+.summonerRow{
+    height:30px;
+    text-align: center;
+}
+.vs{
+    width: 85%;
+    height: 87px;
+    background: #ebebeb;
+    margin: auto;
+    font-size: 40px;
+    text-align: center;
+    padding: 12px 10px 12px 10px;
+}
+.team1Bans{
+    color:#1976D2;
+    float:left;
+}
+.team2Bans{
+    color:#FF5252;
+    float:right;
+}
+.headers{
+    background: #455A64;
+    color: whitesmoke;
+}
+/*=========================================*/
+
+/*Currently champion being played statics style*/
+.championStats{
+    width:80%;
+    margin:auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    background:#9E9E9E;
+    color:#FFC107;
+}
+.championStats th{
+    background:#616161;
+    color:#212121;
+    text-align: center;
+}
+/*============================================*/
+
+
+/*all ranked statistics for that summoner style*/
+ #allChampionStats{
+    margin:auto;
+    margin-left:10px;
+    margin-right:10px;
+    background:#616161;
+    overflow:hidden;
+    border-radius: 5px;
+ }
+.championStat{
+    width:80%;
+    margin:auto;
+}
+.highlighted{
+    background: white;
+    color:black;
+}
+.odd{
+    background:#9E9E9E;
+    color:#212121;
+}
+.even{
+    background: #F5F5F5;
+    color:#727272;
+}
+.championStatTable{
+    margin:auto;
+    text-align: center;
+    color:#536DFE;
+    overflow-x:scroll; 
+    border:3px solid black;
+}
+.championStatTable th{
+    background:black;
+    color:#F5F5F5;
+    text-align: center;
+}
+/*==========================================*/
+
+/*If summoner is not in a game style=======*/
+.errorDiv{
+    margin:auto;
+    margin-top:25px;
+    color:red;
+    display:inline-block;
+    font-size: 40px;
+}
+
+.currentGameDiv{
+    margin-top:20%;
+}
+/*Matches CSS*/
+/*match div styles*/
+.matchliStyle{
+    width:50%;
+    background: #EFEFEF;
+    margin:auto;
+    margin-top: 10px;
+    float:right;
+}
+.match{
+    width:80%;
+    background: #EFEFEF;
+    border:2px solid black;
+    margin:auto;
+    margin-top: 10px;
+    overflow:hidden;
+    padding-bottom: 25px;
+}
+.matchHeader{
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+.matchDuration{
+    float:right;
+}
+.win{
+    background: #6ed56e;
+}
+.loss{
+    background: #a63935;
+    color:white;
+}
+.championData{
+    margin-left: 15px;
+}
+.championImage{
+    float:left;
+    padding: 3px;
+}
+.kdaInfo{
+    float:left;
+    color:black;
+    margin-top: 24px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.itemBuild{
+    padding: 3px;
+}
+
+/*Championg average statistics table*/
+.averageTable{
+    text-align: center;
+    background:black;
+    color:white;
+}
+.averageTable th{
+    background:black;
+    color:white;
+    text-align: center;
+}
+.averageTableTitle{
+    background:black;
+    color:white;
+    text-align: center;
+    font-size: 20px;
+    border:2px solid #B6B6B6;
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+th{
+    text-align: center;
+}
+
+
+    

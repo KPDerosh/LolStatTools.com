@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="currentGame">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Cuddly Assassin</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/leagueoflegendsmain.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script src="/js/stats.js"></script>
+    <script type="text/javascript" src="./js/angular.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/jquery.powertip.css">
-    <script src="./js/jquery.powertip.js"></script>
+
+   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Cuddly Assassin</title>
+
+    <link rel="stylesheet" href="./css/CurrentGame/leagueoflegendsmain.css">
+    <link rel="stylesheet" href="./css/Bootstrap/bootstrap.min.css">
+
+    <script src="/js/CurrentGame/stats.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/PowerTip/jquery.powertip.css">
+    <script src="./js/PowerTip/jquery.powertip.js"></script>
+    <script type="text/javascript" src="./js/CurrentGame/CurrentGame.js"></script>
 </head>
 
 <!--Create a Summoner Class and load all the information into a summoner !-->
@@ -129,27 +130,25 @@
 
 <body>
     <!--Navigation bar !-->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">LOL Statistics Made Ez(real)</a>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container" ng-app="navbar" ng-controller="NavController as nav">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">{{nav.nav.title}}</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li ng-repeat="pages in nav.pages"><a href={{pages.link}}>{{pages.name}}</a></li>
+                    </ul>
+                </div>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Current Game</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
     
-    <img id="loadingGIF" src="/images/loading.GIF" style="position:absolute; top:50%; left:50%; margin:auto; margin-left:-64px; margin-top:-19px; z-index:10;">
-
     <!-- Current game stats from summoners !-->
     <div id="summonersTable" class="currentGameDiv">
         <!--php script to get the html for the table!-->
