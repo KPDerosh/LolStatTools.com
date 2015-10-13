@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="index">
+    <head>
+        <title>Home - Enter Info</title>
+
+        <!-- other scripts !-->
+        <script type="text/javascript" src="./js/angular.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
+        <link rel="stylesheet" href="./css/Bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/PowerTip/jquery.powertip.css">
+        <script src="./js/PowerTip/jquery.powertip.js"></script>
+        
+        <!-- custom stuff!-->
+        <link rel="stylesheet" href="./css/Index/index.css">
+        <link rel="stylesheet" href="./Navbar/navbar.css">
+        <script type="text/javascript" src="./js/Index/index.js"></script>
+    </head>
+
+    <body class="body">
+        <navbar></navbar>
+        
+        <form method="get" action="./analysis.html" ng-controller="FormController as form">
+            <!-- Have the user enter in summoner stats. !-->
+            <div id="userSelectContainer" style="margin:auto; margin-bottom: 20px; width:606px" >
+                <!-- Summoner name input !-->
+                <div id="summonerInput" style="display:inline-block" class="summonerInputBox input">
+                    <input type="text" id="summonerName" name="sumName" class="form-control" placeholder={{form.formInfo.namePlaceholder}}>
+                </div> 
+
+                <!-- Select the region !--> 
+                <div id="regionSelectContainer" style="display:inline-block" class="regionSelectContainer"> 
+                    <select id="regionSelect" name="region" class="form-control input">
+                        <option  ng-repeat="region in form.regions" value={{region.value}}>{{region.name}}</option>
+                    </select>
+                </div>
+                <div id="loadGame" style="display:inline-block">
+                    <input type="submit" value={{form.formInfo.buttonName}} class="btn btn-default input" style="margin:auto;">
+                </div>
+            </div>  
+        </form>
+        
+        <script src="./js/Bootstrap/bootstrap.min.js"></script>
+    </body>
+</html>

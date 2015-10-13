@@ -1,0 +1,16 @@
+.body{
+	background-color:#C5CAE9;
+	width:100%;
+}
+.input{
+	border:1px solid #448AFF;
+}
+/*sumoner input styles=======================*/
+.summonerInputBox{
+    margin:auto;
+    margin-top: 200px;
+    width:250px;
+}
+.regionSelectContainer{
+    width:200px;
+}

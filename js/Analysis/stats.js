@@ -46,7 +46,7 @@ function getSummonerInformation(summonerName){
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "../ajaxFunctions.php", //Relative or absolute path to response.php file
+        url: "./ajaxFunctions.php", //Relative or absolute path to response.php file
         data:  { action: 'getSummonerID()', sumName: urlEncodeSumName, region: $('select#regionSelect').val() },
         success: function(json){
            summonerInfo = JSON.parse(json);

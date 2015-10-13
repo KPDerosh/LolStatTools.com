@@ -1,457 +1,95 @@
 <!DOCTYPE html>
-<html ng-app="currentGame">
+<html ng-app="analyzer">
 <head>
+
     <script type="text/javascript" src="./js/angular.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.2.min.js"></script>
 
    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Cuddly Assassin</title>
+    <title>Summoner Analysi</title>
 
-    <link rel="stylesheet" href="./css/CurrentGame/leagueoflegendsmain.css">
+    <!--css page!-->
+    <link rel="stylesheet" type="text/css" href="./css/Analysis/analysis.css">
+    
+    <!-- javascript page!-->
+    <script src="./js/Analysis/stats.js"></script>
+    <script type="text/javascript" src="./js/Analysis/analysis.js"></script>
+    
+
+    <!--different stuff!-->
     <link rel="stylesheet" href="./css/Bootstrap/bootstrap.min.css">
-
-    <script src="/js/CurrentGame/stats.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/PowerTip/jquery.powertip.css">
     <script src="./js/PowerTip/jquery.powertip.js"></script>
-    <script type="text/javascript" src="./js/CurrentGame/CurrentGame.js"></script>
+    <script src="//code.angularjs.org/1.4.7/angular-resource.min.js"></script>
+    <!-- include navbar css to style the navbar!-->
+    <link rel="stylesheet" type="test/css" href="./Navbar/navbar.css">
 </head>
-
-<!--Create a Summoner Class and load all the information into a summoner !-->
-<?php
-    include "classes.inc";
-    //SUPER DUPER GLOBAL DATA DRAGON VARS
-    //Data dragon urls
-    $dataDragonVersion = "5.14.1";
-    $dataDragonChampionURL = 'http://ddragon.leagueoflegends.com/cdn/'.$dataDragonVersion.'/img/champion/';
-    $dataDragonItemURL = "http://ddragon.leagueoflegends.com/cdn/".$dataDragonVersion."/img/item/";
-
-    $summoners = array(
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        new Summoner(),
-        );
-
-    //Get current Game things.
-    //Need to get the current game and stuff from the summoners name
-    $sumName = $_GET['sumName'];
-    $urlEncodedSumName = rawurlencode($sumName);
-    $region = $_GET["region"];
-    switch($region) { //Switch case for value of action
-        case "NA1": $region2 = "na"; break;
-        case "BR1": $region2 = "br"; break;
-        case "EUW1": $region2 = "euw"; break;
-        case "EUN1": $region2 = "eune"; break;
-        case "KR": $region2 = "kr"; break;
-        case "LA1": $region2 = "lan"; break;
-        case "LA2": $region2 = "las"; break;
-        case "OC1": $region2 = "oce"; break;
-        case "RU": $region2 = "ru"; break;
-        case "TR1": $region2 = "tr"; break;
-    }
-    $summonerInfo = file_get_contents('https://'.$region2.'.api.pvp.net/api/lol/'. $region2 .'/v1.4/summoner/by-name/'. $urlEncodedSumName .'?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
-    $summonerInfoJSON = json_decode($summonerInfo, true);
-    $urlEncodedSumNameKey = strtolower($urlEncodedSumName);
-    $urlEncodedSumNameKey = str_replace('%20', '', $urlEncodedSumNameKey);
-    $sumID = $summonerInfoJSON[$urlEncodedSumNameKey]['id'];
-    $sumName = $summonerInfoJSON[$urlEncodedSumNameKey]['name'];
-    $sumLevel = $summonerInfoJSON[$urlEncodedSumNameKey]['summonerLevel'];
-
-    //Get current game
-    $currentGameStats = file_get_contents('https://'.$region2.'.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/NA1/'.$sumID.'?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
-    $CGJSON = json_decode($currentGameStats);
-
-    //Get a Fuck ton of champion data.
-    //Get all champion data needed for webpage
-    $championData = file_get_contents('https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=all&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');
-    $championData = json_decode($championData, true);
-
-
-    if($CGJSON != false){
-        //Get league data from all summmoners.
-        for($index=0; $index<10; $index++){
-            $csvSumNames = $csvSumNames.$CGJSON->participants[$index]->summonerId.",";
-        }
-        $league = file_get_contents('https://' . $region2 . '.api.pvp.net/api/lol/'.$region2.'/v2.5/league/by-summoner/'.$csvSumNames.'/entry?api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
-        $league = json_decode($league, true);
-        for($index = 0; $index < 10; $index++){
-
-            $summoners[$index]->setSumName($CGJSON->participants[$index]->summonerName);
-            $summoners[$index]->setSumID($CGJSON->participants[$index]->summonerId);
-            //Set Champion Stuff.
-            $summoners[$index]->setChampionID($CGJSON->participants[$index]->championId);
-            $summoners[$index]->setChampionName($championData["keys"][$summoners[$index]->getChampionID()]);
-            $seasonString = "SEASON2015";
-            $sumChampStats = file_get_contents('https://'.$region2.'.api.pvp.net/api/lol/'.$region2.'/v1.3/stats/by-summoner/'.$summoners[$index]->getSumID().'/ranked?season='.$seasonString.'&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
-            $sumChampStats = json_decode($sumChampStats, true);
-            $champions = $sumChampStats["champions"];
-            
-            $summoners[$index]->setSummonerRankedChampionStatsJSON($sumChampStats);
-            
-            foreach($champions as $item){
-                if($item["id"] == $championID){
-                    sleep(1);
-                    $summoners[$index]->setChampionGames($item["stats"]["totalSessionsPlayed"]);
-                    $summoners[$index]->setChampionKills($item["stats"]["totalChampionKills"]);
-                    $summoners[$index]->setChampionDeaths($item["stats"]["totalDeathsPerSession"]);
-                    $summoners[$index]->setChampionAssists($item["stats"]["totalAssists"]);
-                    $summoners[$index]->setChampionWins($item["stats"]["totalSessionsWon"]);
-                    $summoners[$index]->setChampionLosses($item["stats"]["totalSessionsLost"]);
-                    break;
-                }else{
-                    $numberOfGames = 0;
-                }
-            }
-            //Set Sum Spells
-            $summoners[$index]->setSpell1($CGJSON->participants[$index]->spell1Id);
-            $summoners[$index]->setspell2($CGJSON->participants[$index]->spell2Id);
-
-            //Set Ranked stuff
-            $tier = $league[$summonerID][0]["tier"];
-            $division = $league[$summonerID][0]["entries"][0]["division"];
-            $points = $league[$summonerID][0]["entries"][0]["leaguePoints"];
-            $wins = $league[$summonerID][0]["entries"][0]["wins"];
-            $losses = $league[$summonerID][0]["entries"][0]["losses"];
-                    
-            $summoners[$index]->setTier($tier);
-            $summoners[$index]->setDivision($division);
-            $summoners[$index]->setPoints($points);
-            $summoners[$index]->setRankedWins($wins);
-            $summoners[$index]->setRankedLosses($losses);
-        }
-    }
-?>
 
 <body>
     <!--Navigation bar !-->
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container" ng-app="navbar" ng-controller="NavController as nav">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">{{nav.nav.title}}</a>
+    <navbar></navbar>
+    <section ng-controller="CurrentGameController as curGame" href="#currentGame">
+        <div ng-show="isInGame != false" class="currentGameSection">
+            <div id="team1"  class="team team1">
+                <div id="team1Header" class="team1Header">
+                {{"Team 1 - Blue Side"}}
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li ng-repeat="pages in nav.pages"><a href={{pages.link}}>{{pages.name}}</a></li>
-                    </ul>
+                <div ng-repeat="player in currentGame.participants" ng-show="$index < 5" class="player">
+                    <center class="championIcon">
+                        <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{championData.keys[player.championId]}}_0.jpg" height="250" width="200">
+                    </center>
+                    <center class="summonerName">
+                        <b><u>{{player.summonerName}}</u></b>
+                    </center>
+                    <center id="summoner{{$index}}Rank" class="summonerRank">
+                        {{leagues[player.summonerId][0].name}}</br>
+                        <img src="./images/rankedIcons/{{leagues[player.summonerId][0].tier | lowercase}}.png" height="48" width="48">
+                        {{leagues[player.summonerId][0].tier + " " + leagues[player.summonerId][0].entries[0].division + " (" + leagues[player.summonerId][0].entries[0].leaguePoints + ")"}}
+                    </center>
+                </div>
+                <!-- do an ng-repeat for each participant and throw in a directive.!-->
+            </div>
+            <div id="bans" class="bans">
+
+                <div id="team1Bans" class="team1Bans">
+                    {{"Team 1 Bans"}}
+                    <img src="http://ddragon.leagueoflegends.com/cdn/5.20.1/img/champion/{{ championData.data[championData.keys[currentGame.bannedChampions[0].championId]].image.full }}" height="48" width="48">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/5.20.1/img/champion/{{ championData.data[championData.keys[currentGame.bannedChampions[2].championId]].image.full }}" height="48" width="48">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/5.20.1/img/champion/{{ championData.data[championData.keys[currentGame.bannedChampions[4].championId]].image.full }}" height="48" width="48">
+                </div>
+               {{"Current Game"}}
+                <div id="team2Bans" class="team2Bans">
+                    {{"Team 2 Bans"}}
+                    <img src="http://ddragon.leagueoflegends.com/cdn/5.20.1/img/champion/{{ championData.data[championData.keys[currentGame.bannedChampions[1].championId]].image.full }}" height="48" width="48">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/5.20.1/img/champion/{{ championData.data[championData.keys[currentGame.bannedChampions[3].championId]].image.full }}" height="48" width="48">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/5.20.1/img/champion/{{ championData.data[championData.keys[currentGame.bannedChampions[5].championId]].image.full }}" height="48" width="48">
                 </div>
             </div>
-        </nav>
-    
-    <!-- Current game stats from summoners !-->
-    <div id="summonersTable" class="currentGameDiv">
-        <!--php script to get the html for the table!-->
-        <?php
-            //var_dump($CGJSON);
-            if($CGJSON === NULL){
-                echo('<div id="summonerNotInGame" class="errorDiv"> Summoner is not in game</div>');
-            } else{
-                echo('<table id="Team1" class="teamTable">');
-                echo('  <tr class="headers">');
-                echo(       '<th style="width:20%">Name</th>');
-                echo(       '<th style="width:17%">Champion(games)</th>');
-                echo(       '<th style="width:8%">SS</th>');
-                echo(       '<th style="width:22%">KDA</th>');
-                echo(       '<th style="width:25%">Rank(Lp)</th>');
-                echo(       '<th style="width:8%">Rank W/L</th>');
-                echo(   '</tr>');
-                echo(   '<tr>');
-                echo(       '<td colspan="6">');
-                echo(           '<div id="team1Banner" class="team1Banner"></div>');
-                echo(       '</td>');
-                echo(   '</tr>');
-                for($index = 0; $index<5; $index++){
-                    $evenOdd = "oddTeam";
-                    if($index % 2 == 0){
-                        $evenOdd = "evenTeam";
-                    }
-                    $championName = $summoners[$index]->getChampionName();
-
-                    $spell1 = $CGJSON->participants[$index]->spell1Id;
-                    $spell2 = $CGJSON->participants[$index]->spell2Id;
-                    $numberOfGames = 0;
-                    $kills = 0;
-                    $deaths = 0;
-                    $assists = 0;
-
-                    $seasonString = "SEASON2015";
-                    $sumChampStats = $summoners[$index]->getSummonerRankedChampionStatsJSON();
-                    $champions = $sumChampStats["champions"];
-
-                    echo('<tr id="'.$summoners[$index]->getSumName().'" class="'.$evenOdd.' summonerRow">');
-                    echo('  <td><a onclick=javascript:loadSummonersStats('.$summoners[$index]->getChampionID().','.$sumID.','.$index.')>'.$summoners[$index]->getSumName().'</a></td>');
-                    echo('  <td style="text-align:left">');
-
-                    //Get the champion name and how many games have been played.
-                    echo('      <div><img style="margin-right:5px" class="'.$summoners[$index]->getChampionName().'" src="'.$dataDragonChampionURL.$summoners[$index]->getChampionName().'.png" height="25" width="25">'.$summoners[$index]->getChampionName().'<b>('.$summoners[$index]->getChampionGames().')</b></div>');
-                    echo('  </td>');
-                   
-                    //Summoner Spells
-                    echo('  <td>');
-                    echo('      <div style="margin:auto;">');
-                    echo('          <div style="display:inline-block;">'); 
-                    echo('              <img src="/images/summonerSpells/'.$spell1.'.png" class="'.$spell1.'" height="25" width="25" >');
-                    echo('          </div>');
-                    echo('          <div style="display:inline-block">');
-                    echo('              <img src="/images/summonerSpells/'.$spell2.'.png" height="25" width="25" class="'.$spell2.'">');
-                    echo('          </div>');
-                    echo('      </div>');
-                    echo('  </td>');
-
-                    //KDA
-                    echo('  <td>');
-                    echo('      <div>'.round(($kills/$numberOfGames),2).'/'.round(($deaths/$numberOfGames),2).'/'.round(($assists/$numberOfGames),2).': '.round(((($kills + $assists)/$deaths)/$numberOfGames),2).'</div>');
-                    echo('  </td>');
-
-                    //rank
-                    echo('  <td>');
-                    echo('      <div style="margin:auto; ">');
-                    $tier = $league[$summoners[$index]->getSumID()][0]["tier"];
-                    $division = $league[$summoners[$index]->getSumID()][0]["entries"][0]["division"];
-                    $points = $league[$summoners[$index]->getSumID()][0]["entries"][0]["leaguePoints"];
-                    $wins = $league[$summoners[$index]->getSumID()][0]["entries"][0]["wins"];
-                    $losses = $league[$summoners[$index]->getSumID()][0]["entries"][0]["losses"];
-                    echo('      <div style="display:inline-block; width:25px; height:25px; margin-right:2px;"><img src="/images/rankedIcons/'.strtolower($tier).'.png" class="'.$tier.'" height="25" width="25"></div>'); 
-                    echo('          <div style="display:inline-block;">'.$tier.' '.$division.' <b>('.$points.')</b></div>');
-                    echo('      </div>');
-                    echo('  </td>');
-
-                    //Ranked win loss
-                    echo('  <td>');
-                    echo('      <div><span style="color:#4CAF50">'.$wins.'</span>/<span style="color:#D32F2F">'.$losses.'</span></div>');
-                    echo('  </td>');
-                    echo('</tr>');
-                }
-                echo('</table>');
-
-                //Bans
-                echo('<div id="vs" class="vs">');
-                echo('  <div id="team1Bans" class="team1Bans">Bans:');
-                for($index=0; $index < 6; $index = $index+2){
-                    $bannedChampion = $championData["keys"][$CGJSON->bannedChampions[$index]->championId];
-                    echo('<img style="margin-right:5px" class="'.$bannedChampion.'"src="'.$dataDragonChampionURL.$bannedChampion.'.png" height="50" width="50">');
-                }
-                echo('</div>VS.<div id="team2Bans" class="team2Bans">Bans:');
-                for($index=1; $index < 6; $index = $index+2){
-                    $bannedChampion = $championData["keys"][$CGJSON->bannedChampions[$index]->championId];
-                    echo('<img style="margin-right:5px" class="'.$bannedChampion.'"src="'.$dataDragonChampionURL.$bannedChampion.'.png" height="50" width="50">');
-                }
-                echo('</div></div>');
-                echo('<table id="Team2" class="teamTable">');
-                echo('  <tr class="headers">');
-                echo(       '<th style="width:20%">Name</th>');
-                echo(       '<th style="width:17%">Champion(games)</th>');
-                echo(       '<th style="width:8%">SS</th>');
-                echo(       '<th style="width:22%">KDA</th>');
-                echo(       '<th style="width:25%">Rank(Lp)</th>');
-                echo(       '<th style="width:8%">Rank W/L</th>');
-                echo(   '</tr>');
-                echo(   '<tr>');
-                echo(       '<td colspan="6">');
-                echo(           '<div id="team2Banner" class="team2Banner"></div>');
-                echo(       '</td>');
-                echo(   '</tr>');
-                for($index = 5; $index<10; $index++){
-                    $evenOdd = "oddTeam";
-                    if($index % 2 == 0){
-                        $evenOdd = "evenTeam";
-                    }
-                    $summoner = $CGJSON->participants[$index]->summonerName;
-                    $summonerID = $CGJSON->participants[$index]->summonerId;
-                    $championID = $CGJSON->participants[$index]->championId;
-                    $championName = $championData["keys"][$championID];
-
-                    $spell1 = $CGJSON->participants[$index]->spell1Id;
-                    $spell2 = $CGJSON->participants[$index]->spell2Id;
-                    $numberOfGames = 0;
-                    $kills = 0;
-                    $deaths = 0;
-                    $assists = 0;
-
-                    $seasonString = "SEASON2015";
-                    $sumChampStats = file_get_contents('https://'.$region2.'.api.pvp.net/api/lol/'.$region2.'/v1.3/stats/by-summoner/'.$sumID.'/ranked?season='.$seasonString.'&api_key=6955669d-0d51-41b0-8b09-c05f4a0468e9');  
-                    $sumChampStats = json_decode($sumChampStats, true);
-                    $champions = $sumChampStats["champions"];
-
-                    echo('<tr id="'.$summoner.'" class="'.$evenOdd.' summonerRow">');
-                    echo('  <td><a onclick=javascript:loadSummonersStats('.$championID.','.$sumID.','.$index.')>'.$summoner.'</a></td>');
-                    echo('  <td style="text-align:left">');
-
-                    //Get the champion name and how many games have been played.
-                    echo('      <div><img style="margin-right:5px" class="'.$championName.'" src="'.$dataDragonChampionURL.$championName.'.png" height="25" width="25">'.$championName.'<b>(');
-                    
-
-                    foreach($champions as $item){
-                        if($item["id"] == $championID){
-                            $numberOfGames = $item["stats"]["totalSessionsPlayed"];
-                            $kills = $item["stats"]["totalChampionKills"];
-                            $deaths = $item["stats"]["totalDeathsPerSession"];
-                            $assists = $item["stats"]["totalAssists"];
-                            break;
-                        }else{
-                            $numberOfGames = 0;
-                        }
-                    }
-
-                    echo(       $numberOfGames.')</b></div>');
-                    echo('  </td>');
-                   
-                    //Summoner Spells
-                    echo('  <td>');
-                    echo('      <div style="margin:auto;">');
-                    echo('          <div style="display:inline-block;">'); 
-                    echo('              <img src="/images/summonerSpells/'.$spell1.'.png" class="'.$spell1.'" height="25" width="25" >');
-                    echo('          </div>');
-                    echo('          <div style="display:inline-block">');
-                    echo('              <img src="/images/summonerSpells/'.$spell2.'.png" height="25" width="25" class="'.$spell2.'">');
-                    echo('          </div>');
-                    echo('      </div>');
-                    echo('  </td>');
-
-                    //KDA
-                    echo('  <td>');
-                    echo('      <div>'.round(($kills/$numberOfGames),2).'/'.round(($deaths/$numberOfGames),2).'/'.round(($assists/$numberOfGames),2).': '.round(((($kills + $assists)/$deaths)/$numberOfGames),2).'</div>');
-                    echo('  </td>');
-
-                    //rank
-                    echo('  <td>');
-                    echo('      <div style="margin:auto; ">');
-                    $tier = $league[$summonerID][0]["tier"];
-                    $division = $league[$summonerID][0]["entries"][0]["division"];
-                    $points = $league[$summonerID][0]["entries"][0]["leaguePoints"];
-                    $wins = $league[$summonerID][0]["entries"][0]["wins"];
-                    $losses = $league[$summonerID][0]["entries"][0]["losses"];
-                    echo('      <div style="display:inline-block; width:25px; height:25px; margin-right:2px;"><img src="/images/rankedIcons/'.strtolower($tier).'.png" class="'.$tier.'" height="25" width="25"></div>'); 
-                    echo('          <div style="display:inline-block;">'.$tier.' '.$division.' <b>('.$points.')</b></div>');
-                    echo('      </div>');
-                    echo('  </td>');
-
-                    //Ranked win loss
-                    echo('  <td>');
-                    echo('      <div><span style="color:#4CAF50">'.$wins.'</span>/<span style="color:#D32F2F">'.$losses.'</span></div>');
-                    echo('  </td>');
-                    echo('</tr>');
-                }
-                echo('</table>');
-            }
-        ?>
-    </div>
-
-    <!-- button to show all average tables/average stats!-->
-    <div id="showAverageStats" style="width:50%; margin:auto; margin-top:20px; display:none"><button class="btn btn-default" style="width:100%;" onclick="showAllAverageStats();">Show Overall Average Statistics</button></div>
-
-    <!-- Div for summoner stats like average tables and stuffs!-->
-    <div id="summonerStats" style="display:none">
-        <div id="summonerStatsDiv"></div>
-        <!--Div for all the summoners ranked champions !-->
-        <div id="allChampionStats">
-            
+            <div id="team2" class="team team2">
+                <div class="team2Header">
+                    {{"Team 2 - Red side"}}
+                </div>
+                <div ng-repeat="player in currentGame.participants" ng-show="$index >= 5" class="player">
+                    <center class="championIcon">
+                        <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{championData.keys[player.championId]}}_0.jpg" height="250" width="200">
+                    </center>
+                    <center class="summonerName">
+                        <b><u>{{player.summonerName}}</u></b>
+                    </center>
+                    <center id="summoner{{$index}}Rank" class="summonerRank">
+                        {{leagues[player.summonerId][0].name}}</br>
+                        <img src="./images/rankedIcons/{{leagues[player.summonerId][0].tier | lowercase}}.png" height="48" width="48">
+                        {{leagues[player.summonerId][0].tier + " " + leagues[player.summonerId][0].entries[0].division + " (" + leagues[player.summonerId][0].entries[0].leaguePoints + ")"}}
+                    </center>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <!-- Last 15 ranked matches !-->
-    <ul id="matches"><ul>
+        <div ng-show="isInGame == false" class="alert alert-danger">
+            Loading Game...
+        </div>
+    </section>
+    <!--
     <script>
-        //Start when the document load
-        //Get all champions and their id's/names
-		$(document).ready(function(){
-            $('#loadingGIF').hide();
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "ajaxFunctions.php", //Relative or absolute path to response.php file
-                data:  { action: 'getChampionID()' },
-                success: function(data) {
-                    var jsonObj = JSON.parse(data);
-                    for(var champion in jsonObj.data){
-                        $( '<div style="display:hidden" id="' + jsonObj.data[champion].id + '">'+ champion +'</div>' ).appendTo("#championList");
-                    }
-                }
-            });
-            $('#championList').toggle();
-            setupTooltip();
-            setupChampionTooltips();
-        });
-
-        function setupTooltip(){
-            $(document).ready(function(){
-                $.ajax({
-                    dataType: "json",
-                    url: '/jsonData/summonerSpellData.json',
-                    success: function(JSONData) {
-                        var counter = 0;
-                        var classes = [".barrier", ".cleanse", ".clairvoyance", ".ignite", ".exhaust", ".flash", ".ghost", ".heal", ".clarity", ".garrison", ".poroRecall", ".poroThrow", ".revive", ".smite", ".teleport"];
-                        for(var key in JSONData.data){
-                            $(classes[counter]).powerTip({
-                                followMouse: 'true'
-                            }).data('powertip', '<div style="width:500px">Name: ' + JSONData.data[key].name + '</div>' + 
-                                    '<div style="width:500px; white-space: pre-wrap;">Description: ' + JSONData.data[key].description + '</div>' + 
-                                    '<div style="width:500px">Cooldown: ' + JSONData.data[key].cooldownBurn + '</div>');
-                            counter++;  
-                        }
-                    }
-                });
-            });
-        }
-
-        function setupChampionTooltips(){
-            $(document).ready(function(){
-                $.ajax({
-                    dataType: "json",
-                    url: '/jsonData/championData.json',
-                    success: function(JSONData) {
-                        var counter = 0;
-                        for(var key in JSONData.data){
-                            tooltipElement = '<div style="width:500px">Name: ' + JSONData.data[key].name + '</div>' + 
-                                             '<div style="width:500px; white-space: pre-wrap;">Description: ' + JSONData.data[key].blurb + '</div>' + 
-                                             '<div style="width:500px; white-space: pre-wrap;">Types: ';
-                            for(var tagKey in JSONData.data[key].tags){
-                                tooltipElement +=  JSONData.data[key].tags[tagKey] + " " ;
-                            }
-                            tooltipElement += '</div>';
-                            $('.' + key).powerTip({
-                                followMouse: 'true'
-                            }).data('powertip', tooltipElement.toString());
-                            counter++;  
-                        }
-                    }
-                });
-            });
-        }
-
-        function setupItemTooltips(){
-            $(document).ready(function(){
-                $.ajax({
-                    dataType: "json",
-                    url: '/jsonData/itemData.json',
-                    success: function(JSONData) {
-                        var counter = 0;
-                        for(var key in JSONData.data){
-                            tooltipElement = '<div style="width:300px">Name: ' + JSONData.data[key].name + '</div>' + 
-                                             '<div style="width:300px; white-space: pre-wrap;">' + JSONData.data[key].description + '</div>' + 
-                                             '<div style="width:300px; white-space: pre-wrap;"></br>'+ JSONData.data[key].plaintext + '</div>' + 
-                                             '<div style="width:300px; white-space: pre-wrap;">Buy For: ' + JSONData.data[key].gold.total + '<img src="/images/basicIcons/gold.png" height="25" width="25"></div>';
-
-                            $('.' + key).powerTip({
-                                followMouse: 'true'
-                            }).data('powertip', tooltipElement.toString());
-                            counter++;  
-                        }
-                    }
-                });
-            });
-        }
         
         /*function to load most of the extra averages stats and gives a match history.*/
         function loadSummonersStats(championId, summonerId, partIndex, championIndex){
@@ -800,6 +438,7 @@
             $('#summonerStats').toggle();
         }
     </script>
-    <script src="./js/bootstrap.min.js"></script>
+    !-->
+    <script src="./js/Bootstrap/bootstrap.min.js"></script>
 </body>
 </html>
