@@ -1,0 +1,105 @@
+<!-- if loading is true display a loading gif!-->
+<section id="loading" class="loadingOverlay" ng-show="loading == true">
+    <center style="display:table; width:100%; height:calc(100vh)">
+        <div style="display:table-cell; vertical-align:middle;">
+            <img src="images/loading.gif">
+        </div>
+    </center>
+</section>
+
+<!-- create a section with the summoners profile.!-->
+<section id="summonersProfile" class="summonerProfileSection" ng-show="loading == false">
+    <div style="display:table; width:0%;">
+        <div style="display:table-cell; margin-right:10px;">
+            <h1 style="margin:0;">{{simpleSumInfo.name}}&nbsp&nbsp</h1>
+        </div>
+        <div style="display:table-cell; vertical-align:middle;">
+            <button class="btn btn-default" ng-show="isInGame == true" ng-click="bringUpGameOverlay();">
+            See current game
+            </button>
+        </div>
+    </div>
+    
+    <hr/>
+    <div id="summonerRankIcon" class="summonersRankContainer">
+         <center>
+            Level: {{simpleSumInfo.summonerLevel}}
+            <img src="./images/rankedIcons/{{summonerLeague[simpleSumInfo.id][0].tier | lowercase}}.png" height="150" width="150">
+        </center>
+        <center id="summonersRank" class="summonersRank">
+            {{summonerLeague[simpleSumInfo.id][0].name}}
+            <br/>
+            {{summonerLeague[simpleSumInfo.id][0].tier}}
+            {{summonerLeague[simpleSumInfo.id][0].entries[0].division}}
+            
+            {{"(" + summonerLeague[simpleSumInfo.id][0].entries[0].leaguePoints + "lp)"}}
+            <br/>
+            <span style="color:green">{{summonerLeague[simpleSumInfo.id][0].entries[0].wins}}W</span>/<span style="color:red">{{summonerLeague[simpleSumInfo.id][0].entries[0].losses}}L</span>
+        </center>
+    </div>
+</section>
+<section id="gameOverlay" class="gameOverlay" ng-show="loading == false">
+    <div ng-show="isInGame != false" class="currentGameSection">
+        <div id="team1"  class="team team1">
+            <button class="btn btn-default" 
+                    style="float:right; height:22px; font-size:.75em;" 
+                    ng-click="closeGameOverlay()">
+                X Close
+            </button>
+            <div id="team1Header" class="team1Header">
+            {{"Team 1 - Blue Side"}}
+            </div>
+            <div ng-repeat="player in currentGame.participants" ng-show="$index < 5" class="player">
+                <center class="championIcon">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{championData.keys[player.championId]}}_0.jpg" height="250" width="200">
+                </center>
+                <center class="summonerName">
+                    <b><u>{{player.summonerName}}</u></b>
+                </center>
+                <center id="summoner{{$index}}Rank" class="summonerRank">
+                    {{leagues[player.summonerId][0].name}}</br>
+                    <img src="./images/rankedIcons/{{leagues[player.summonerId][0].tier | lowercase}}.png" height="48" width="48">
+                    {{leagues[player.summonerId][0].tier + " " + leagues[player.summonerId][0].entries[0].division + " (" + leagues[player.summonerId][0].entries[0].leaguePoints + ")"}}
+                </center>
+            </div>
+            <!-- do an ng-repeat for each participant and throw in a directive.!-->
+        </div>
+        <div id="bans" class="bans">
+            <div id="team1Bans" class="team1Bans">
+                {{"Team 1 Bans"}}
+                <img src="http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/{{championData.keys[currentGame.bannedChampions[0].championId]}}.png" height="48" width="48">
+                <img src="http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/{{championData.keys[currentGame.bannedChampions[2].championId]}}.png" height="48" width="48">
+                <img src="http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/{{championData.keys[currentGame.bannedChampions[4].championId]}}.png" height="48" width="48">
+            </div>
+            <div id="team2Bans" class="team2Bans">
+                {{"Team 2 Bans"}}
+                <img src="http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/{{championData.keys[currentGame.bannedChampions[1].championId]}}.png" height="48" width="48">
+                <img src="http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/{{championData.keys[currentGame.bannedChampions[3].championId]}}.png" height="48" width="48">
+                <img src="http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/{{championData.keys[currentGame.bannedChampions[5].championId]}}.png" height="48" width="48">
+            </div>
+        </div>
+        <div id="team2" class="team team2">
+            <div class="team2Header">
+                {{"Team 2 - Red side"}}
+            </div>
+            <div ng-repeat="player in currentGame.participants" ng-show="$index >= 5" class="player">
+                <center class="championIcon">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{championData.keys[player.championId]}}_0.jpg" height="250" width="200">
+                </center>
+                <center class="summonerName">
+                    <b><u>{{player.summonerName}}</u></b>
+                </center>
+                <center id="summoner{{$index}}Rank" class="summonerRank">
+                    {{leagues[player.summonerId][0].name}}</br>
+                    <img src="./images/rankedIcons/{{leagues[player.summonerId][0].tier | lowercase}}.png" height="48" width="48">
+                    {{leagues[player.summonerId][0].tier + " " + leagues[player.summonerId][0].entries[0].division + " (" + leagues[player.summonerId][0].entries[0].leaguePoints + ")"}}
+                </center>
+            </div>
+        </div>
+    </div>
+    <div ng-show="isInGame == false" class="alert alert-danger">
+        Loading Game...
+    </div>
+</section>
+<section id="matchHistory">
+</section>

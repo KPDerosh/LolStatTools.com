@@ -1,6 +1,6 @@
 <?php
     header("Content-type: application/json");
-    $sumName = urlencode($_GET["sumName"]);
+    $sumName = rawurlencode($_GET["sumName"]);
     $region = $_GET["region"];
     switch($region) { //Switch case for value of action
         case "NA1": $region2 = "na"; break;

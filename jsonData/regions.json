@@ -1,0 +1,48 @@
+{
+    "regions" : [ 
+        {
+            "name" : "Please select a region",
+            "value" : "-1"
+        }, 
+        {
+            "name" : "NA - North America",
+            "value" : "NA1"
+        }, 
+        {
+            "name" : "EU - Europe",
+            "value" : "EUW1"
+        }, 
+        {
+            "name" : "EU - Europe Nordic & East",
+            "value" : "EUN1"
+        }, 
+        {
+            "name" : "BR - Brazil",
+            "value" : "BR1"
+        }, 
+        {
+            "name" : "KR - Korea",
+            "value" : "KR"
+        }, 
+        {
+            "name" : "LAN - Latin America North",
+            "value" : "LA1"
+        }, 
+        {
+            "name" : "LAS - Latin America South",
+            "value" : "LA2"
+        }, 
+        {
+            "name" : "OCE - Oceania",
+            "value" : "OC1"
+        }, 
+        {
+            "name" : "RU - Russia",
+            "value" : "RU"
+        }, 
+        {
+            "name" : "TR - Turkey",
+            "value" : "TR"
+        }
+    ]
+}

@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="./css/Analysis/analysis.css">
     
     <!-- javascript page!-->
-    <script src="./js/Analysis/stats.js"></script>
     <script type="text/javascript" src="./js/Analysis/analysis.js"></script>
     
 
@@ -20,12 +19,15 @@
     <link rel="stylesheet" href="./css/Bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/PowerTip/jquery.powertip.css">
     <script src="./js/PowerTip/jquery.powertip.js"></script>
-    <script src="//code.angularjs.org/1.4.7/angular-resource.min.js"></script>
+    <!--<script src="//code.angularjs.org/1.4.7/angular-resource.min.js"></script>-->
     <!-- include navbar css to style the navbar!-->
     <link rel="stylesheet" type="test/css" href="./Navbar/navbar.css">
 </head>
 
 <body>
+    <div id="error" class="errorDiv">
+    Error
+    </div>
     <!--Navigation bar !-->
     <navbar></navbar>
     <section ng-controller="CurrentGameController as curGame" href="#currentGame">
@@ -87,6 +89,8 @@
         <div ng-show="isInGame == false" class="alert alert-danger">
             Loading Game...
         </div>
+    </section>
+    <section id="matchHistory">
     </section>
     <!--
     <script>

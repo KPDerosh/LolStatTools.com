@@ -3,19 +3,19 @@
     <div id="navBody" class="navBody">
         <!--Div to hold the logo. Add pictures or other things!-->
         <div id="logo" class="logo">
-            League Statistics
+            League Analysis
         </div>
-
-        <!--Navigation Links!
-            - We initialize and angular controller to help switching between active tabs.
-            - panel.isSelected is a function condition that if true will apply the linkActive class to the div.
-            - panel.selectTab() sets the value of tab in the controller.
-        !-->
-        <div id="pageLinks" class="navLinks">
-            <div class="page-link" ng-class="{ linkActive: panel.isSelected($index) } " ng-repeat="section in panel.sections">
-                <a href="#{{section.linkedTo}}" id="{{section.linkedTo}}" ng-click="panel.selectTab($index)">{{section.name}}</a>
-            </div>
-        </div>
+        <div style="display:table-cell; vertical-align:middle;">
+        	<div id="linkTable" class="linkTable">
+		    	<div class="link" ng-click="changeLocation('/')">
+					Choose Summoner
+		    	</div>
+		    	<div class="link" ng-click="changeLocation('/analysis/')">
+		    		Summoner Information
+		    	</div>
+		    </div>
+	    </div>
     </div>
-    <hr style="border: 2px solid #B6B6B6;margin:0"/>
+    <hr style="border: 1px solid #B6B6B6; margin:0"/>
+
 </section>

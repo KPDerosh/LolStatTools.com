@@ -1,0 +1,130 @@
+.errorDiv{
+	position:absolute;
+	top:50px;
+	margin:auto;
+	z-index: 10;
+}
+
+/*SUMMONER PROFILE CSS*/
+.summonerProfileSection{
+	padding:2% 5% 2% 5%;
+	height: calc(100vh - 50px);
+}
+.summonersRankContainer{
+	width:200px;
+	border-radius: 10px;
+}
+.summonersRank{
+	text-align: center;
+	font-size: 1.5em;
+}
+
+/*Loading overlay CSS*/
+.loadingOverlay{
+	position: fixed;
+    color:black;
+    padding:10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin:50px 0px 0px 0px;
+    height: calc(100vh);
+    background-color: white;
+    z-index: 10000;
+}
+
+/*CURRENT GAME CSS*/
+.gameOverlay{
+    position: fixed;
+    display:none;
+    padding:10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin:50px 0px 0px 0px;
+    height: calc(100vh);
+    background-color: #000;
+    z-index: 10000;
+}
+
+
+.currentGameSection{
+	padding:10px;
+}
+
+.team{
+	display:inline-block;
+	width:100%;
+	padding:10px;
+}
+.team1Header{
+	background-color:#448AFF;
+	color:white;
+	border-bottom:2px solid #B6B6B6;
+}
+.team1{
+	background-color: white;
+}
+.team2{
+	background-color:white;
+}
+.team2Header{
+	background-color:#F44336;
+	color:white;
+	margin-top:10px;
+	border-bottom:2px solid #B6B6B6;
+}
+.player{
+	display:inline-block;
+	width:20%;
+}
+.playerRow{
+	background-color: white;
+	width:100%;
+	padding:3px;
+	margin-bottom:3px;
+}
+.playerRowHeader{
+	background-color: #B6B6B6;
+}
+.championIcon{
+	margin:auto;
+	padding:5px;
+}
+.summonerInfo{
+}
+.summonerName{
+	font-size: 1.25em;
+}
+
+.currentGameLogo{
+	display:inline-block;
+	margin:auto;
+	text-align: center;
+	font-size: 3em;
+}
+.bans{
+	display:table;
+	text-align: center;
+	width:100%;
+	font-size: 3em;
+	background-color: white;
+}
+.team1Bans{
+	display:table-cell;
+	color:white;
+	width:50%;
+	text-align: center;
+	background-color: #448AFF;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+.team2Bans{
+	display:table-cell;
+	color:white;
+	width:50%;
+	text-align: center;
+	background-color: #F44336;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
